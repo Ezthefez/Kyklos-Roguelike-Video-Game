@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://dehyreb75kk6t"]
+
+[ext_resource type="PackedScene" uid="uid://ce5k3me1ru4ka" path="res://scripts/cluster.tscn" id="2_0wfyh"]
+[ext_resource type="Script" uid="uid://ccifvlkyyoivs" path="res://scenes/orbit_controller_kyklos.gd" id="3_sugp2"]
+
+[sub_resource type="Environment" id="Environment_sgp6g"]
+background_mode = 1
+background_color = Color(0, 0, 0.078431375, 1)
+
+[node name="Main" type="Node3D" unique_id=1456028897]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=172611702]
+environment = SubResource("Environment_sgp6g")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=814318143]
+transform = Transform3D(0.84861475, 0.44953278, -0.27887854, -0.12785093, 0.6858215, 0.7164517, 0.5133294, -0.5723367, 0.6394714, -2.8665447, 8.7428055, 4.350736)
+
+[node name="cluster" parent="." unique_id=608683125 instance=ExtResource("2_0wfyh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.07976532, 0, 0)
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="." unique_id=1088956754]
+transform = Transform3D(0.89414734, -0.4449469, -0.050228544, -0.4333396, -0.8316131, -0.34732762, 0.11277163, 0.33232805, -0.93639773, -0.40033197, -0.92784667, -13.254122)
+light_energy = 0.043
+
+[node name="OrbitCenter" type="Node3D" parent="." unique_id=1587045669]
+transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+
+[node name="OrbitRoot" type="Node3D" parent="." unique_id=1936857070]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 20.024359)
+script = ExtResource("3_sugp2")
+
+[node name="CameraYaw" type="Node3D" parent="OrbitRoot" unique_id=789754412]
+
+[node name="CameraPitch" type="Node3D" parent="OrbitRoot/CameraYaw" unique_id=2135555877]
+
+[node name="Camera" type="Camera3D" parent="OrbitRoot/CameraYaw/CameraPitch" unique_id=520473422]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.01722145)
+current = true
+
+[node name="Muzzle" type="Marker3D" parent="OrbitRoot/CameraYaw/CameraPitch/Camera" unique_id=1329245360]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
