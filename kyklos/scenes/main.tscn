@@ -1,10 +1,12 @@
 [gd_scene format=3 uid="uid://bg7qxyxb17fds"]
 
-[ext_resource type="Script" uid="uid://c8eavrc6kn6y0" path="res://orbit_controller.gd" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://ch6ne0mkl6eed" path="res://scripts/orbit_controller.gd" id="1_o5qli"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ig7tw"]
-sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+sky_top_color = Color(0.07058824, 0.07450981, 0.078431375, 1)
+sky_horizon_color = Color(0.0705641, 0.072985984, 0.07783573, 1)
+ground_bottom_color = Color(0.07058824, 0.07450981, 0.078431375, 1)
+ground_horizon_color = Color(0.07058824, 0.07450981, 0.078431375, 1)
 
 [sub_resource type="Sky" id="Sky_0xm2m"]
 sky_material = SubResource("ProceduralSkyMaterial_ig7tw")
@@ -23,7 +25,7 @@ glow_enabled = true
 environment = SubResource("Environment_h2yge")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=324262621]
-transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+transform = Transform3D(0.114035636, -0.8603761, 0.49673828, 2.7805946e-08, 0.49999994, 0.8660255, -0.9934767, -0.09875775, 0.057017833, 29.678364, 0, 0)
 shadow_enabled = true
 
 [node name="OrbitCenter" type="Node3D" parent="." unique_id=912842539]
@@ -33,12 +35,15 @@ mesh = SubResource("SphereMesh_7dm0k")
 
 [node name="OrbitRoot" type="Node3D" parent="." unique_id=1022576685 node_paths=PackedStringArray("orbit_center", "camera_yaw", "camera_pitch")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 20)
-script = ExtResource("1_ig7tw")
+script = ExtResource("1_o5qli")
 orbit_center = NodePath("../OrbitCenter")
 camera_yaw = NodePath("CameraYaw")
 camera_pitch = NodePath("CameraYaw/CameraPitch")
 
 [node name="Ship" type="MeshInstance3D" parent="OrbitRoot" unique_id=615940399]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="OrbitRoot" unique_id=31001137]
+light_energy = 0.111
 
 [node name="CameraYaw" type="Node3D" parent="OrbitRoot" unique_id=575925839]
 
