@@ -1,0 +1,123 @@
+[gd_scene format=3 uid="uid://ce5k3me1ru4ka"]
+
+[ext_resource type="Script" uid="uid://b8ctghx57q0s7" path="res://scripts/cluster.gd" id="1_gvl38"]
+[ext_resource type="PackedScene" uid="uid://dkhhfhrnlh70j" path="res://scripts/TargetSphere.tscn" id="2_ynrju"]
+
+[node name="cluster" type="Node3D" unique_id=608683125]
+script = ExtResource("1_gvl38")
+
+[node name="TargetSphere" parent="." unique_id=1742064879 instance=ExtResource("2_ynrju")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4267354, 0.3771783, -0.071195364)
+cluster_root_path = NodePath("..")
+
+[node name="TargetSphere2" parent="." unique_id=1634063900 instance=ExtResource("2_ynrju")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.14826727, 0.78439146, -0.071195364)
+cluster_root_path = NodePath("..")
+
+[node name="TargetSphere3" parent="." unique_id=1134317355 instance=ExtResource("2_ynrju")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9575925, 0, -0.071195364)
+cluster_root_path = NodePath("..")
+
+[node name="TargetSphere4" parent="." unique_id=1299568 instance=ExtResource("2_ynrju")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.14826727, 0, 0.5261704)
+cluster_root_path = NodePath("..")
+
+[node name="TargetSphere5" parent="." unique_id=1487329519 instance=ExtResource("2_ynrju")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8203025, 0, -0.071195364)
+cluster_root_path = NodePath("..")
+
+[node name="TargetSphere6" parent="." unique_id=797773353 instance=ExtResource("2_ynrju")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7168393, 0.77482736, -0.071195364)
+cluster_root_path = NodePath("..")
+
+[node name="TargetSphere7" parent="." unique_id=1356408954 instance=ExtResource("2_ynrju")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.031124592, 1.442757, 0.16750932)
+cluster_root_path = NodePath("..")
+
+[node name="TargetSphere8" parent="." unique_id=681937507 instance=ExtResource("2_ynrju")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2847629, 1.4327358, -0.071195364)
+cluster_root_path = NodePath("..")
+
+[node name="TargetSphere9" parent="." unique_id=1480254762 instance=ExtResource("2_ynrju")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5540433, 1.6439909, 0.27384794)
+cluster_root_path = NodePath("..")
+
+[node name="TargetSphere10" parent="." unique_id=1256173932 instance=ExtResource("2_ynrju")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2561488, 0.6643058, -0.071195364)
+cluster_root_path = NodePath("..")
+
+[node name="TargetSphere11" parent="." unique_id=1516739930 instance=ExtResource("2_ynrju")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4267354, 1.1378618, -0.071195364)
+cluster_root_path = NodePath("..")
+
+[node name="TargetSphere12" parent="." unique_id=1696529678 instance=ExtResource("2_ynrju")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4267354, 0.88855886, 0.37565994)
+cluster_root_path = NodePath("..")
+
+[node name="TargetSphere13" parent="." unique_id=1750257655 instance=ExtResource("2_ynrju")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4267354, 1.9080058, -0.071195364)
+cluster_root_path = NodePath("..")
+
+[node name="TargetSphere14" parent="." unique_id=390323413 instance=ExtResource("2_ynrju")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1176915, 0.8503735, -0.071195364)
+cluster_root_path = NodePath("..")
+
+[node name="TargetSphere15" parent="." unique_id=1676660191 instance=ExtResource("2_ynrju")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4165969, 0.84689856, 0.644824)
+cluster_root_path = NodePath("..")
+
+[node name="TargetSphere16" parent="." unique_id=180463541 instance=ExtResource("2_ynrju")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6547322, 1.6401893, 0.20174503)
+cluster_root_path = NodePath("..")
+
+[node name="TargetSphere17" parent="." unique_id=1463473084 instance=ExtResource("2_ynrju")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.93344367, 1.4437032, -0.5257797)
+cluster_root_path = NodePath("..")
+
+[node name="TargetSphere18" parent="." unique_id=209254441 instance=ExtResource("2_ynrju")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4252504, 0.43950307, -0.691998)
+cluster_root_path = NodePath("..")
+
+[node name="TargetSphere19" parent="." unique_id=1096388496 instance=ExtResource("2_ynrju")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.31747466, 1.1453028, -0.6535311)
+cluster_root_path = NodePath("..")
+
+[node name="TargetSphere20" parent="." unique_id=81722390 instance=ExtResource("2_ynrju")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.19928002, 1.2955304, -0.4415536)
+cluster_root_path = NodePath("..")
+
+[node name="TargetSphere21" parent="." unique_id=139340948 instance=ExtResource("2_ynrju")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.24769676, 0.27572668, -0.88558865)
+cluster_root_path = NodePath("..")
+
+[node name="TargetSphere22" parent="." unique_id=15772648 instance=ExtResource("2_ynrju")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.61342096, 1.8071967, -0.57188445)
+cluster_root_path = NodePath("..")
+
+[node name="TargetSphere23" parent="." unique_id=582286176 instance=ExtResource("2_ynrju")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1080289, 1.4226528, -0.7389159)
+cluster_root_path = NodePath("..")
+
+[node name="TargetSphere24" parent="." unique_id=598874319 instance=ExtResource("2_ynrju")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0816501, 0.09531081, -0.74222136)
+cluster_root_path = NodePath("..")
+
+[node name="TargetSphere25" parent="." unique_id=2135095448 instance=ExtResource("2_ynrju")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15993011, 2.2800121, -0.04987359)
+cluster_root_path = NodePath("..")
+
+[node name="TargetSphere26" parent="." unique_id=27157274 instance=ExtResource("2_ynrju")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6547322, 0.8406552, -1.1705317)
+cluster_root_path = NodePath("..")
+
+[node name="TargetSphere27" parent="." unique_id=1747182533 instance=ExtResource("2_ynrju")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.565521, 1.0394404, -1.2817957)
+cluster_root_path = NodePath("..")
+
+[node name="TargetSphere28" parent="." unique_id=1135189012 instance=ExtResource("2_ynrju")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1681161, 0.7151451, -0.97578907)
+cluster_root_path = NodePath("..")
+
+[node name="TargetSphere29" parent="." unique_id=1215562319 instance=ExtResource("2_ynrju")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5553373, -0.17956752, 0.38985932)
+cluster_root_path = NodePath("..")

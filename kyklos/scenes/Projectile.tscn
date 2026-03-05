@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://eio0xsavupt2"]
+
+[ext_resource type="Texture2D" uid="uid://bj5d5wit82nd" path="res://assets/textures/cosmic.jpg" id="1_dprbf"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_6ku62"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vihyi"]
+albedo_texture = ExtResource("1_dprbf")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_dprbf"]
+
+[node name="Projectile" type="RigidBody3D" unique_id=662892976 groups=["projectiles"]]
+collision_mask = 2
+continuous_cd = true
+
+[node name="Mesh" type="MeshInstance3D" parent="." unique_id=1020596865]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+mesh = SubResource("SphereMesh_6ku62")
+surface_material_override/0 = SubResource("StandardMaterial3D_vihyi")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1885122246]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+shape = SubResource("SphereShape3D_dprbf")
