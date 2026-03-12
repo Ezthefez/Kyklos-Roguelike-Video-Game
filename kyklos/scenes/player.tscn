@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://2517e738hdg7"]
+
+[ext_resource type="Script" uid="uid://ccifvlkyyoivs" path="res://scripts/orbit_controller_kyklos.gd" id="1_g2els"]
+[ext_resource type="PackedScene" uid="uid://eio0xsavupt2" path="res://scenes/Projectile.tscn" id="2_qhqgy"]
+
+[node name="OrbitRoot" type="Node3D" unique_id=1720029618 node_paths=PackedStringArray("camera_yaw", "camera_pitch", "camera", "muzzle")]
+script = ExtResource("1_g2els")
+camera_yaw = NodePath("CameraYaw")
+camera_pitch = NodePath("CameraYaw/CameraPitch")
+camera = NodePath("CameraYaw/CameraPitch/Camera3D")
+muzzle = NodePath("CameraYaw/CameraPitch/Camera3D/Muzzle")
+projectile_scene = ExtResource("2_qhqgy")
+
+[node name="CameraYaw" type="Node3D" parent="." unique_id=1564312777]
+
+[node name="CameraPitch" type="Node3D" parent="CameraYaw" unique_id=1118660453]
+
+[node name="Camera3D" type="Camera3D" parent="CameraYaw/CameraPitch" unique_id=1970323127]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.3112335)
+current = true
+
+[node name="Muzzle" type="Marker3D" parent="CameraYaw/CameraPitch/Camera3D" unique_id=29880328]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1344043, -0.029741287)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CameraYaw/CameraPitch/Camera3D" unique_id=1191163660]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.44700742)
+size = Vector3(1.25, 0.75, 0.001)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="CameraYaw/CameraPitch/Camera3D/CSGBox3D" unique_id=62755326]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -0.00062128156, -0.008323088, 0.00975275)
+operation = 2
+radius = 0.386
+height = 0.232
+sides = 6
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="CameraYaw/CameraPitch/Camera3D/CSGBox3D" unique_id=955200828]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -0.13757938, -0.008323088, 0.00975275)
+operation = 2
+radius = 0.386
+height = 0.232
+sides = 6
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="CameraYaw/CameraPitch/Camera3D/CSGBox3D" unique_id=401065359]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0.1604585, -0.008323088, 0.00975275)
+operation = 2
+radius = 0.386
+height = 0.232
+sides = 6
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="CameraYaw/CameraPitch/Camera3D" unique_id=627132390]
+light_energy = 0.05
