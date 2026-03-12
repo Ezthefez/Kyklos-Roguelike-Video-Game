@@ -53,7 +53,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func handle_movement(delta: float) -> void:
 	# WASD orbit using ui_left/ui_right/ui_up/ui_down
-	var input_x: float = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
+	var input_x: float = Input.get_action_strength("ui_left") - Input.get_action_strength("ui_right")
 	var input_y: float = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
 
 	if orbit_center == null:

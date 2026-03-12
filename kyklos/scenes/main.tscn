@@ -1,8 +1,7 @@
 [gd_scene format=3 uid="uid://dehyreb75kk6t"]
 
-[ext_resource type="PackedScene" uid="uid://ce5k3me1ru4ka" path="res://scripts/cluster.tscn" id="2_0wfyh"]
-[ext_resource type="PackedScene" uid="uid://eio0xsavupt2" path="res://scenes/Projectile.tscn" id="3_jyhfs"]
-[ext_resource type="Script" uid="uid://ccifvlkyyoivs" path="res://scenes/orbit_controller_kyklos.gd" id="3_sugp2"]
+[ext_resource type="PackedScene" uid="uid://ce5k3me1ru4ka" path="res://scenes/cluster.tscn" id="2_0wfyh"]
+[ext_resource type="PackedScene" uid="uid://2517e738hdg7" path="res://scenes/player.tscn" id="2_sugp2"]
 [ext_resource type="Shader" uid="uid://csge1bcrbmyma" path="res://assets/StarSky.gdshader" id="4_jyhfs"]
 
 [sub_resource type="Environment" id="Environment_sgp6g"]
@@ -38,33 +37,12 @@ transform = Transform3D(0.84861475, 0.44953278, -0.27887854, -0.12785093, 0.6858
 [node name="cluster" parent="." unique_id=608683125 instance=ExtResource("2_0wfyh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.07976532, 0, 0)
 
-[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="." unique_id=1088956754]
-transform = Transform3D(0.89414734, -0.4449469, -0.050228544, -0.4333396, -0.8316131, -0.34732762, 0.11277163, 0.33232805, -0.93639773, -0.40033197, -0.92784667, -13.254122)
-light_energy = 0.043
-
-[node name="OrbitCenter" type="Node3D" parent="." unique_id=1587045669]
-transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-
-[node name="OrbitRoot" type="Node3D" parent="." unique_id=1936857070 node_paths=PackedStringArray("orbit_center", "camera_yaw", "camera_pitch", "camera", "muzzle")]
+[node name="player" parent="." unique_id=1720029618 node_paths=PackedStringArray("orbit_center") instance=ExtResource("2_sugp2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 20.024359)
-script = ExtResource("3_sugp2")
-orbit_center = NodePath("../OrbitCenter")
-camera_yaw = NodePath("CameraYaw")
-camera_pitch = NodePath("CameraYaw/CameraPitch")
-camera = NodePath("CameraYaw/CameraPitch/Camera3D")
-muzzle = NodePath("CameraYaw/CameraPitch/Camera3D/Muzzle")
-projectile_scene = ExtResource("3_jyhfs")
+orbit_center = NodePath("OrbitCenter")
 
-[node name="CameraYaw" type="Node3D" parent="OrbitRoot" unique_id=789754412]
-
-[node name="CameraPitch" type="Node3D" parent="OrbitRoot/CameraYaw" unique_id=2135555877]
-
-[node name="Camera3D" type="Camera3D" parent="OrbitRoot/CameraYaw/CameraPitch" unique_id=520473422]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.3112335)
-current = true
-
-[node name="Muzzle" type="Marker3D" parent="OrbitRoot/CameraYaw/CameraPitch/Camera3D" unique_id=1329245360]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1344043, -0.029741287)
+[node name="OrbitCenter" type="Node3D" parent="player" unique_id=1587045669]
+transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -20.024359)
 
 [node name="SkySphere" type="MeshInstance3D" parent="." unique_id=1597559833]
 transform = Transform3D(5000, 0, 0, 0, 5000, 0, 0, 0, 5000, 0, 0, 0)
