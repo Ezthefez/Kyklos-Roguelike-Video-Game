@@ -28,26 +28,39 @@ var yaw: float = 0.0
 var pitch: float = 0.0
 var can_fire: bool = true
 
+# Captures mouse for FPS camera control
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
+# Main loop
 func _process(delta: float) -> void:
-	handle_movement(delta)
-	update_camera(delta)
+	handle_movement(delta) #Orbit movement (WASD)
+	update_camera(delta) # Camera Rotation & Recenter
 
+#Input Handling
 func _unhandled_input(event: InputEvent) -> void:
+	# Mouse input => move camera
 	if event is InputEventMouseMotion:
 		yaw -= event.relative.x * look_speed
 		pitch -= event.relative.y * look_speed
 
-		yaw = clamp(yaw, -max_yaw, max_yaw)
-		pitch = clamp(pitch, -max_pitch, max_pitch)
+		# circular clamp
+		var max_radius: float = max_yaw  # look radius
+
+		var length: float = sqrt(yaw * yaw + pitch * pitch)
+
+		if length > max_radius:
+			var scale: float = max_radius / length
+			yaw *= scale
+			pitch *= scale
 
 		time_since_mouse = 0.0
-
+	
+	# Fire input
 	if event.is_action_pressed("shoot"):
 		fire()
-
+	
+	#Release mouse from being captured (pseudo pause button)
 	if event.is_action_pressed("ui_cancel"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
@@ -55,15 +68,18 @@ func handle_movement(delta: float) -> void:
 	# WASD orbit using ui_left/ui_right/ui_up/ui_down
 	var input_x: float = Input.get_action_strength("ui_left") - Input.get_action_strength("ui_right")
 	var input_y: float = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
-
+	
 	if orbit_center == null:
 		return
 
 	var center: Vector3 = orbit_center.global_position
+	
+	#Direction from center to player
 	var to_center: Vector3 = (global_position - center).normalized()
-
+	
 	var right_axis: Vector3 = Vector3.UP.cross(to_center).normalized()
-
+	
+	#Rotate camera around center
 	rotate_around(center, right_axis, input_y * orbit_speed * delta)
 	rotate_around(center, Vector3.UP, -input_x * orbit_speed * delta)
 
@@ -95,12 +111,19 @@ func rotate_around(center: Vector3, axis: Vector3, angle: float) -> void:
 	global_position = center + offset
 
 func update_camera(delta: float) -> void:
-	time_since_mouse += delta
-
-	if time_since_mouse > recenter_delay:
+	#Recalculate movement input
+	var input_x: float = Input.get_action_strength("ui_left") - Input.get_action_strength("ui_right")
+	var input_y: float = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
+	
+	#Determine if player is actively moving
+	var is_moving: bool = abs(input_x) > 0.01 or abs(input_y) > 0.01
+	
+	#Recenter camer when moving (WASD pressed)
+	if is_moving:
 		yaw = lerp(yaw, 0.0, recenter_speed * delta)
 		pitch = lerp(pitch, 0.0, recenter_speed * delta)
-
+	
+	#Smooth application of camera movements
 	if camera_yaw != null:
 		camera_yaw.rotation_degrees.y = lerp(camera_yaw.rotation_degrees.y, yaw, 10.0 * delta)
 	if camera_pitch != null:
