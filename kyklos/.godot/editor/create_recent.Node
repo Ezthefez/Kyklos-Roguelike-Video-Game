@@ -1,3 +1,5 @@
+TextureRect
+CanvasLayer
 DirectionalLight3D
 CSGCylinder3D
 CSGPolygon3D
