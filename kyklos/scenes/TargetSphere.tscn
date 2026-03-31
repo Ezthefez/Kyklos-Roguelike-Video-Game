@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dkhhfhrnlh70j"]
 
 [ext_resource type="Script" uid="uid://ch4a8k4rwcqmu" path="res://scripts/targetsphere.gd" id="1_3ag2u"]
-[ext_resource type="Texture2D" uid="uid://esp4wt8ecgpb" path="res://assets/textures/BlueRockTexture-1.jpg" id="2_47k3f"]
+[ext_resource type="Texture2D" uid="uid://esp4wt8ecgpb" path="res://assets/kyklonTextures/BlueRockTexture-1.jpg" id="2_47k3f"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_47k3f"]
 
