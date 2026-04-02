@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dsxeeylotlhgy"]
 
-[ext_resource type="Script" uid="uid://by6it8xfiuidx" path="res://scripts/main_menu.gd" id="1_06t4h"]
+[ext_resource type="Script" uid="uid://dwkqou2m8t7v8" path="res://scripts/main_menu.gd" id="1_06t4h"]
 [ext_resource type="Texture2D" uid="uid://qe4dwtvk0bqd" path="res://assets/bc7e713d-57ab-4707-8631-9503b2445675.png" id="2_7vrkn"]
 
 [sub_resource type="Animation" id="Animation_7vrkn"]

@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://8ip8klr3e1nq"]
+
+[ext_resource type="Texture2D" uid="uid://c8vxtax11mmkd" path="res://assets/Crosshair.png" id="1_tdwok"]
+[ext_resource type="Texture2D" uid="uid://ur1txf8kwdju" path="res://assets/CircularProgressBar.png" id="2_x4jx1"]
+
+[node name="UI" type="Control" unique_id=143402949]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=343343647]
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer" unique_id=1504576580]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CrosshairRoot" type="Control" parent="CanvasLayer/CenterContainer" unique_id=187113141]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="Crosshair" type="TextureRect" parent="CanvasLayer/CenterContainer/CrosshairRoot" unique_id=233951611]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 2016.0
+offset_bottom = 2016.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.016, 0.016)
+texture = ExtResource("1_tdwok")
+stretch_mode = 5
+
+[node name="ChargeCircle" type="TextureProgressBar" parent="CanvasLayer/CenterContainer/CrosshairRoot" unique_id=955001530]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+max_value = 1.0
+step = 0.01
+fill_mode = 4
+texture_progress = ExtResource("2_x4jx1")

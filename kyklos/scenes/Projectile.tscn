@@ -1,6 +1,11 @@
 [gd_scene format=3 uid="uid://eio0xsavupt2"]
 
 [ext_resource type="Texture2D" uid="uid://bj5d5wit82nd" path="res://assets/kyklonTextures/cosmic.jpg" id="1_dprbf"]
+[ext_resource type="Script" uid="uid://nvbs7r1qgeg5" path="res://scripts/projectile_physics.gd" id="1_vihyi"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_dprbf"]
+friction = 0.05
+bounce = 0.85
 
 [sub_resource type="SphereMesh" id="SphereMesh_6ku62"]
 
@@ -10,8 +15,10 @@ albedo_texture = ExtResource("1_dprbf")
 [sub_resource type="SphereShape3D" id="SphereShape3D_dprbf"]
 
 [node name="Projectile" type="RigidBody3D" unique_id=662892976 groups=["projectiles"]]
-collision_mask = 2
+physics_material_override = SubResource("PhysicsMaterial_dprbf")
+gravity_scale = 0.0
 continuous_cd = true
+script = ExtResource("1_vihyi")
 
 [node name="Mesh" type="MeshInstance3D" parent="." unique_id=1020596865]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)

@@ -1,3 +1,5 @@
+#targetsphere.gd script
+
 extends Area3D
 
 @export var cluster_root_path: NodePath

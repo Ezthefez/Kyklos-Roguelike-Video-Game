@@ -22,11 +22,15 @@ extends Node3D
 @export var shoot_impulse: float = 25.0
 @export var fire_cooldown: float = 0.12
 @export var projectile_scene: PackedScene
+@export var charge_time: float = 0.6
 
 var time_since_mouse: float = 0.0
 var yaw: float = 0.0
 var pitch: float = 0.0
 var can_fire: bool = true
+var is_charging: bool = false
+var charge_timer: float = 0.0
+var charge_ui: TextureProgressBar
 
 # Captures mouse for FPS camera control
 func _ready() -> void:
@@ -36,9 +40,23 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	handle_movement(delta) #Orbit movement (WASD)
 	update_camera(delta) # Camera Rotation & Recenter
+	
+	if is_charging:
+		charge_timer += delta
+
+		if charge_timer >= charge_time:
+			fire()
+			is_charging = false
+			charge_timer = 0.0
+
+	if charge_ui != null:
+		if is_charging:
+			charge_ui.value = clamp(charge_timer / charge_time, 0.0, 1.0)
+		else:
+			charge_ui.value = 0.0
 
 #Input Handling
-func _unhandled_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	# Mouse input => move camera
 	if event is InputEventMouseMotion:
 		yaw -= event.relative.x * look_speed
@@ -58,7 +76,12 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 	# Fire input
 	if event.is_action_pressed("shoot"):
-		fire()
+		is_charging = true
+		charge_timer = 0.0
+
+	if event.is_action_released("shoot"):
+		is_charging = false
+		charge_timer = 0.0
 	
 	#Release mouse from being captured (pseudo pause button)
 	if event.is_action_pressed("ui_cancel"):

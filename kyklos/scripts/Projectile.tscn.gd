@@ -1,3 +1,5 @@
+#Projectile.tscn.gd
+
 extends CharacterBody3D
 
 @export var mouse_sensitivity: float = 0.002

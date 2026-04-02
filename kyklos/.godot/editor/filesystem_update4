@@ -1,4 +1,6 @@
+res://scenes/main_menu.tscn
+res://scripts/main_menu.gd
 res://scenes/main.tscn
-res://scripts/StarGenerator.gd
-res://scenes/Stars.tscn
 res://scenes/player.tscn
+res://scripts/orbit_controller_kyklos.gd
+res://scenes/ui.tscn
