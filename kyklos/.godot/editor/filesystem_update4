@@ -1,0 +1,5 @@
+res://scripts/pause_menu.gd
+res://scenes/pause_menu.tscn
+res://scenes/main.tscn
+res://scripts/orbit_controller_kyklos.gd
+res://scenes/ui.tscn

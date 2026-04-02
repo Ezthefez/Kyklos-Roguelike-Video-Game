@@ -57,6 +57,8 @@ func _process(delta: float) -> void:
 
 #Input Handling
 func _input(event: InputEvent) -> void:
+	if get_tree().paused:
+		return
 	# Mouse input => move camera
 	if event is InputEventMouseMotion:
 		yaw -= event.relative.x * look_speed
@@ -85,7 +87,7 @@ func _input(event: InputEvent) -> void:
 	
 	#Release mouse from being captured (pseudo pause button)
 	if event.is_action_pressed("ui_cancel"):
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		toggle_pause()
 
 func handle_movement(delta: float) -> void:
 	# WASD orbit using ui_left/ui_right/ui_up/ui_down
@@ -173,3 +175,21 @@ func fire() -> void:
 
 	await get_tree().create_timer(fire_cooldown).timeout
 	can_fire = true
+
+func toggle_pause():
+	var pause_menu = get_tree().current_scene.get_node("UI/CanvasLayer/PauseMenu")
+	
+	if pause_menu == null:
+		print("PauseMenu NOT FOUND")
+		return
+
+	if get_tree().paused:
+		# Resume
+		get_tree().paused = false
+		pause_menu.visible = false
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	else:
+		# Pause
+		get_tree().paused = true
+		pause_menu.visible = true
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)

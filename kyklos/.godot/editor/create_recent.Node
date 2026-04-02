@@ -1,7 +1,9 @@
+Button
+VBoxContainer
+CenterContainer
 TextureProgressBar
 TextureRect
 Control
-CenterContainer
 CanvasLayer
 DirectionalLight3D
 CSGCylinder3D
