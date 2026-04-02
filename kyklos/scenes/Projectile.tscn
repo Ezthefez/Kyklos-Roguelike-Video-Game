@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://eio0xsavupt2"]
 
-[ext_resource type="Texture2D" uid="uid://bj5d5wit82nd" path="res://assets/textures/cosmic.jpg" id="1_dprbf"]
+[ext_resource type="Texture2D" uid="uid://bj5d5wit82nd" path="res://assets/kyklonTextures/cosmic.jpg" id="1_dprbf"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_6ku62"]
 

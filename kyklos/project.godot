@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Kyklos3D"
-run/main_scene="uid://dehyreb75kk6t"
+run/main_scene="uid://dsxeeylotlhgy"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 

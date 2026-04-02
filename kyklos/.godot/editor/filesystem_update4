@@ -1,0 +1,4 @@
+res://scenes/main.tscn
+res://scripts/StarGenerator.gd
+res://scenes/Stars.tscn
+res://scenes/player.tscn
