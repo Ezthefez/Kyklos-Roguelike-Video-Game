@@ -4,8 +4,7 @@ extends Control
 @onready var settings_panel = $SettingsPanel
 
 func _on_start_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/main.tscn")
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	get_tree().change_scene_to_file("res://scenes/maintenance_bay.tscn")
 
 func _on_settings_pressed() -> void:
 	settings_panel.visible = true

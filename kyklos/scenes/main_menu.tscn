@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dsxeeylotlhgy"]
 
 [ext_resource type="Script" uid="uid://dwkqou2m8t7v8" path="res://scripts/main_menu.gd" id="1_06t4h"]
-[ext_resource type="Texture2D" uid="uid://qe4dwtvk0bqd" path="res://assets/bc7e713d-57ab-4707-8631-9503b2445675.png" id="2_7vrkn"]
+[ext_resource type="Texture2D" uid="uid://qe4dwtvk0bqd" path="res://assets/mainMenu.png" id="2_ekxnf"]
 
 [sub_resource type="Animation" id="Animation_7vrkn"]
 length = 0.001
@@ -56,7 +56,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_7vrkn")
+texture = ExtResource("2_ekxnf")
 
 [node name="MainMenuButtons" type="CenterContainer" parent="." unique_id=1598826892]
 layout_mode = 1
@@ -72,7 +72,7 @@ theme_override_constants/separation = 30
 
 [node name="KYKLOS" type="Label" parent="MainMenuButtons/VBoxContainer" unique_id=2144058926]
 layout_mode = 2
-theme_override_font_sizes/font_size = 67
+theme_override_font_sizes/font_size = 178
 text = "KYKLOS
 "
 horizontal_alignment = 1
@@ -80,17 +80,20 @@ horizontal_alignment = 1
 [node name="Start" type="Button" parent="MainMenuButtons/VBoxContainer" unique_id=361039482]
 custom_minimum_size = Vector2(300, 80)
 layout_mode = 2
+theme_override_font_sizes/font_size = 30
 text = "Start
 "
 
 [node name="Settings" type="Button" parent="MainMenuButtons/VBoxContainer" unique_id=2085298225]
 custom_minimum_size = Vector2(300, 80)
 layout_mode = 2
+theme_override_font_sizes/font_size = 30
 text = "Settings"
 
 [node name="Quit" type="Button" parent="MainMenuButtons/VBoxContainer" unique_id=190796488]
 custom_minimum_size = Vector2(300, 80)
 layout_mode = 2
+theme_override_font_sizes/font_size = 30
 text = "Quit"
 
 [node name="SettingsPanel" type="Panel" parent="." unique_id=1707013921]
@@ -124,15 +127,17 @@ theme_override_font_sizes/font_size = 35
 text = "Settings"
 horizontal_alignment = 1
 
-[node name="Label" type="Label" parent="SettingsPanel/VBoxContainer" unique_id=768134323]
+[node name="Music Volume" type="Label" parent="SettingsPanel/VBoxContainer" unique_id=768134323]
 layout_mode = 2
+theme_override_font_sizes/font_size = 25
 text = "Music Volume"
 
 [node name="HSlider" type="HSlider" parent="SettingsPanel/VBoxContainer" unique_id=65515172]
 layout_mode = 2
 
-[node name="Label2" type="Label" parent="SettingsPanel/VBoxContainer" unique_id=1859950346]
+[node name="SFX Volume" type="Label" parent="SettingsPanel/VBoxContainer" unique_id=1859950346]
 layout_mode = 2
+theme_override_font_sizes/font_size = 25
 text = "SFX Volume"
 
 [node name="HSlider2" type="HSlider" parent="SettingsPanel/VBoxContainer" unique_id=909767541]
