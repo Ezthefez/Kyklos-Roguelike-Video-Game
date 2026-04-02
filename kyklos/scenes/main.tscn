@@ -70,3 +70,79 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1344043, -0.029741287)
 transform = Transform3D(5000, 0, 0, 0, 5000, 0, 0, 0, 5000, 0, 0, 0)
 mesh = SubResource("SphereMesh_tbgi4")
 surface_material_override/0 = SubResource("ShaderMaterial_tefeu")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1694541810]
+
+[node name="PauseButton" type="Button" parent="CanvasLayer" unique_id=1081942627]
+custom_minimum_size = Vector2(40, 40)
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -101.0
+offset_top = 27.0
+offset_right = -20.0
+offset_bottom = 74.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 30
+text = "Pause"
+
+[node name="PausePanel" type="Panel" parent="CanvasLayer" unique_id=179561226]
+visible = false
+custom_minimum_size = Vector2(300, 250)
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -319.0
+offset_top = 25.0
+offset_right = -19.0
+offset_bottom = 415.0
+grow_horizontal = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PausePanel" unique_id=2102072458]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -145.0
+offset_right = 145.0
+offset_bottom = 390.0
+grow_horizontal = 2
+
+[node name="Pause" type="Label" parent="CanvasLayer/PausePanel/VBoxContainer" unique_id=436785798]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "PAUSE"
+
+[node name="ResumeButton" type="Button" parent="CanvasLayer/PausePanel/VBoxContainer" unique_id=298713698]
+custom_minimum_size = Vector2(290, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Resume"
+alignment = 0
+
+[node name="MaintenanceBayButton" type="Button" parent="CanvasLayer/PausePanel/VBoxContainer" unique_id=259672880]
+custom_minimum_size = Vector2(290, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Maintenance Bay"
+alignment = 0
+vertical_icon_alignment = 0
+
+[node name="SettingsButton" type="Button" parent="CanvasLayer/PausePanel/VBoxContainer" unique_id=230458001]
+custom_minimum_size = Vector2(290, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Settings"
+alignment = 0
+
+[node name="MainMenuButton" type="Button" parent="CanvasLayer/PausePanel/VBoxContainer" unique_id=780663161]
+custom_minimum_size = Vector2(290, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Main Menu"
+alignment = 0
+
+[connection signal="pressed" from="CanvasLayer/PauseButton" to="OrbitRoot" method="_on_pause_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/PausePanel/VBoxContainer/ResumeButton" to="OrbitRoot" method="_on_resume_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/PausePanel/VBoxContainer/MaintenanceBayButton" to="OrbitRoot" method="_on_maintenance_bay_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/PausePanel/VBoxContainer/MainMenuButton" to="OrbitRoot" method="_on_main_menu_button_pressed"]

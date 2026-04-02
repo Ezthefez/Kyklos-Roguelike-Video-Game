@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://bawd5ieaq31gm"]
+
+[ext_resource type="Texture2D" uid="uid://bunc0g4b5k1tc" path="res://assets/textures/shopbackground.png" id="1_fa72y"]
+[ext_resource type="Script" uid="uid://bqw2g2jk1qytw" path="res://scenes/maintenance_bay.gd" id="1_hfgmh"]
+
+[node name="MaintenanceBay" type="Control" unique_id=1840613796]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hfgmh")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1764758374]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_fa72y")
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=913436333]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -466.0
+offset_top = -345.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=717928855]
+custom_minimum_size = Vector2(400, 300)
+layout_mode = 2
+
+[node name="Play" type="Button" parent="CenterContainer/VBoxContainer" unique_id=598891108]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Play"
+
+[node name="MainMenu" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1731176452]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Main Menu"
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]

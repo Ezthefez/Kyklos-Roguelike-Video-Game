@@ -1,4 +1,8 @@
 extends Node3D
+
+@onready var pause_button = $"../CanvasLayer/PauseButton"
+@onready var pause_panel = $"../CanvasLayer/PausePanel"
+
 # Kyklos Orbit Camera + Constrained Look + Shooting (Godot 4.x)
 
 @export var orbit_center: Node3D
@@ -49,7 +53,17 @@ func _unhandled_input(event: InputEvent) -> void:
 		fire()
 
 	if event.is_action_pressed("ui_cancel"):
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		if pause_panel.visible:
+			# CLOSE pause menu
+			pause_panel.visible = false
+			pause_button.visible = true
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		else:
+			# OPEN pause menu
+			pause_panel.visible = true
+			pause_button.visible = false
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+			
 
 func handle_movement(delta: float) -> void:
 	# WASD orbit using ui_left/ui_right/ui_up/ui_down
@@ -127,3 +141,19 @@ func fire() -> void:
 
 	await get_tree().create_timer(fire_cooldown).timeout
 	can_fire = true
+
+
+func _on_pause_button_pressed() -> void:
+	pause_panel.visible = true
+	pause_button.visible = false
+
+func _on_resume_button_pressed() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	pause_panel.visible = false
+	pause_button.visible = true
+
+func _on_main_menu_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+	
+func _on_maintenance_bay_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/maintenance_bay.tscn")
