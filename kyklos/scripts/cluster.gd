@@ -4,6 +4,10 @@ extends Node3D
 @export var target_radius: float = 0.5
 @export var projectile_radius: float = 0.25
 @export var extra_hit_margin: float = 0.05
+@export var gravity_strength: float = 80.0
+@export var damping: float = 0.995
+@export var min_distance: float = 0.5
+@export var max_force: float = 100.0
 
 # 1.0 = perfectly elastic, lower = less bouncy
 @export var restitution: float = 0.9
@@ -17,8 +21,8 @@ func _ready() -> void:
 			var body := child as RigidBody3D
 			tracked_targets.append(body)
 			released_targets[body] = false
-			body.freeze = true
-			body.sleeping = true
+			body.freeze = false
+			body.sleeping = false
 
 func _process(delta: float) -> void:
 	var angle := deg_to_rad(rotation_speed_degrees_per_sec) * delta
@@ -68,6 +72,15 @@ func _physics_process(_delta: float) -> void:
 			if d2 <= (target_radius * 2.0 + extra_hit_margin):
 				release_single_target(source, target, target_radius * 2.0)
 				return
+	
+	# Apply gravity to released targets
+	for body in tracked_targets:
+		if body == null:
+			continue
+		if not released_targets.get(body, false):
+			continue
+
+		apply_center_gravity(body)
 
 func release_single_target(other_body: RigidBody3D, hit_target: RigidBody3D, desired_distance: float) -> void:
 	if hit_target == null or other_body == null:
@@ -126,3 +139,26 @@ func release_single_target(other_body: RigidBody3D, hit_target: RigidBody3D, des
 
 	other_body.linear_velocity = v1t + normal * new_a1
 	hit_target.linear_velocity = v2t + normal * new_a2
+
+func apply_center_gravity(body: RigidBody3D) -> void:
+	var dir = global_position - body.global_position
+	var dist = max(dir.length(), min_distance)
+
+	# Pull toward center
+	var force = dir.normalized() * (gravity_strength / dist)
+
+	# Clamp to prevent instability
+	if force.length() > max_force:
+		force = force.normalized() * max_force
+
+	body.linear_velocity += force
+
+	# Damping so things don’t drift forever
+	body.linear_velocity *= damping
+	
+	if body.linear_velocity.length() < 0.05:
+		body.linear_velocity = Vector3.ZERO
+	
+	if dist < 1.0:
+		body.linear_velocity *= 0.9
+	
