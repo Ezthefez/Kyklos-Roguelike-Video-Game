@@ -1,0 +1,927 @@
+[gd_scene format=3 uid="uid://bawd5ieaq31gm"]
+
+[ext_resource type="Texture2D" uid="uid://bvlnx5ko4g0t5" path="res://assets/shopbackground.png" id="1_fa72y"]
+[ext_resource type="Script" uid="uid://bqw2g2jk1qytw" path="res://scripts/maintenance_bay.gd" id="1_hfgmh"]
+[ext_resource type="Shader" uid="uid://dkjlig3g22qrx" path="res://assets/maintenance_bay.gdshader" id="3_q11gt"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l2ygw"]
+shader = ExtResource("3_q11gt")
+shader_parameter/blur_amount = 12.00000057
+shader_parameter/tint_color = Color(0.76862746, 0.76862746, 0.76862746, 0.49019608)
+
+[node name="MaintenanceBay" type="Control" unique_id=1840613796]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hfgmh")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1764758374]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_fa72y")
+
+[node name="Play_MainMenuButtons" type="CenterContainer" parent="." unique_id=913436333]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -466.0
+offset_top = -345.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Play_MainMenuButtons" unique_id=717928855]
+custom_minimum_size = Vector2(400, 300)
+layout_mode = 2
+
+[node name="Play" type="Button" parent="Play_MainMenuButtons/VBoxContainer" unique_id=598891108]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Play"
+
+[node name="MainMenu" type="Button" parent="Play_MainMenuButtons/VBoxContainer" unique_id=1731176452]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Main Menu"
+
+[node name="Store_GearUpButtons" type="VBoxContainer" parent="." unique_id=351273627]
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -400.0
+offset_right = 400.0
+grow_vertical = 0
+
+[node name="Store" type="Button" parent="Store_GearUpButtons" unique_id=579086807]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Store"
+
+[node name="GearUp" type="Button" parent="Store_GearUpButtons" unique_id=1863577516]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Gear Up"
+
+[node name="BlurOverlay" type="ColorRect" parent="." unique_id=619405483]
+visible = false
+material = SubResource("ShaderMaterial_l2ygw")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.22490498, 0.2249048, 0.22490484, 0.92941177)
+
+[node name="StorePanel" type="Control" parent="." unique_id=1348542565]
+visible = false
+custom_minimum_size = Vector2(700, 700)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="StorePanel" unique_id=619648430]
+custom_minimum_size = Vector2(3000, 1400)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="StorePanel/Panel" unique_id=1237963268]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -250.0
+offset_right = 250.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="StorePanel/Panel/MarginContainer" unique_id=1893695734]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="StorePanel/Panel/MarginContainer/HBoxContainer" unique_id=236238266]
+custom_minimum_size = Vector2(2850, 1250)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer" unique_id=611473493]
+layout_mode = 2
+theme_override_constants/separation = 100
+
+[node name="Row1" type="HBoxContainer" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=1476601943]
+layout_mode = 2
+theme_override_constants/separation = 100
+
+[node name="Modifier1" type="PanelContainer" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1" unique_id=1336154292]
+custom_minimum_size = Vector2(1000, 550)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier1" unique_id=1483875391]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier1/VBoxContainer" unique_id=75049740]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Barrel Stabilization"
+
+[node name="Label2" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier1/VBoxContainer" unique_id=385377593]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Reduces weapon sway"
+
+[node name="Label3" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier1/VBoxContainer" unique_id=998257087]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "$50"
+
+[node name="BuyButton" type="Button" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier1/VBoxContainer" unique_id=1170659085]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Buy"
+
+[node name="Modifier2" type="PanelContainer" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1" unique_id=1529609692]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier2" unique_id=1641925254]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier2/VBoxContainer" unique_id=1354883597]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Barrel Stabilization"
+
+[node name="Label2" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier2/VBoxContainer" unique_id=272043831]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Reduces weapon sway"
+
+[node name="Label3" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier2/VBoxContainer" unique_id=30610684]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "$50"
+
+[node name="Button" type="Button" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier2/VBoxContainer" unique_id=279682825]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Buy"
+
+[node name="Modifier3" type="PanelContainer" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1" unique_id=1195372303]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier3" unique_id=1874656200]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier3/VBoxContainer" unique_id=1702930666]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Barrel Stabilization"
+
+[node name="Label2" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier3/VBoxContainer" unique_id=1572041630]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Reduces weapon sway"
+
+[node name="Label3" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier3/VBoxContainer" unique_id=296364347]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "$50"
+
+[node name="Button" type="Button" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier3/VBoxContainer" unique_id=1570098327]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Buy"
+
+[node name="Modifier4" type="PanelContainer" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1" unique_id=774937486]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier4" unique_id=1716117178]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier4/VBoxContainer" unique_id=521959297]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Barrel Stabilization"
+
+[node name="Label2" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier4/VBoxContainer" unique_id=554772569]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Reduces weapon sway"
+
+[node name="Label3" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier4/VBoxContainer" unique_id=1428277669]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "$50"
+
+[node name="Button" type="Button" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier4/VBoxContainer" unique_id=1573251283]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Buy"
+
+[node name="Modifier5" type="PanelContainer" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1" unique_id=1097635766]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier5" unique_id=799975853]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier5/VBoxContainer" unique_id=561773721]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Barrel Stabilization"
+
+[node name="Label2" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier5/VBoxContainer" unique_id=1516430094]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Reduces weapon sway"
+
+[node name="Label3" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier5/VBoxContainer" unique_id=331337625]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "$50"
+
+[node name="Button" type="Button" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier5/VBoxContainer" unique_id=2122628096]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Buy"
+
+[node name="Modifier6" type="PanelContainer" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1" unique_id=411597702]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier6" unique_id=1700264906]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier6/VBoxContainer" unique_id=1558470866]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Barrel Stabilization"
+
+[node name="Label2" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier6/VBoxContainer" unique_id=611541909]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Reduces weapon sway"
+
+[node name="Label3" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier6/VBoxContainer" unique_id=2057929723]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "$50"
+
+[node name="Button" type="Button" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier6/VBoxContainer" unique_id=1808643343]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Buy"
+
+[node name="Modifier7" type="PanelContainer" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1" unique_id=1195189218]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier7" unique_id=1716601600]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier7/VBoxContainer" unique_id=1416797344]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Barrel Stabilization"
+
+[node name="Label2" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier7/VBoxContainer" unique_id=781737510]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Reduces weapon sway"
+
+[node name="Label3" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier7/VBoxContainer" unique_id=429811817]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "$50"
+
+[node name="Button" type="Button" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier7/VBoxContainer" unique_id=1405323072]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Buy"
+
+[node name="Modifier8" type="PanelContainer" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1" unique_id=1589814404]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier8" unique_id=254189271]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier8/VBoxContainer" unique_id=660843518]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Barrel Stabilization"
+
+[node name="Label2" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier8/VBoxContainer" unique_id=1055319740]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Reduces weapon sway"
+
+[node name="Label3" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier8/VBoxContainer" unique_id=2068398672]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "$50"
+
+[node name="Button" type="Button" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier8/VBoxContainer" unique_id=2009308286]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Buy"
+
+[node name="Modifier9" type="PanelContainer" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1" unique_id=254238666]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier9" unique_id=2029104988]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier9/VBoxContainer" unique_id=189610895]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Barrel Stabilization"
+
+[node name="Label2" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier9/VBoxContainer" unique_id=1882830812]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Reduces weapon sway"
+
+[node name="Label3" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier9/VBoxContainer" unique_id=814663036]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "$50"
+
+[node name="Button" type="Button" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier9/VBoxContainer" unique_id=1271803579]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Buy"
+
+[node name="Modifier10" type="PanelContainer" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1" unique_id=2003781938]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier10" unique_id=29519881]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier10/VBoxContainer" unique_id=1276851427]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Barrel Stabilization"
+
+[node name="Label2" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier10/VBoxContainer" unique_id=1706154911]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Reduces weapon sway"
+
+[node name="Label3" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier10/VBoxContainer" unique_id=1425113077]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "$50"
+
+[node name="Button" type="Button" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier10/VBoxContainer" unique_id=1242318224]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Buy"
+
+[node name="Row2" type="HBoxContainer" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=1000841245]
+layout_mode = 2
+theme_override_constants/separation = 100
+
+[node name="Modifier1" type="PanelContainer" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2" unique_id=577651196]
+custom_minimum_size = Vector2(1000, 550)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier1" unique_id=30285047]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier1/VBoxContainer" unique_id=1126343591]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Barrel Stabilization"
+
+[node name="Label2" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier1/VBoxContainer" unique_id=242703243]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Reduces weapon sway"
+
+[node name="Label3" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier1/VBoxContainer" unique_id=1975407990]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "$50"
+
+[node name="Button" type="Button" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier1/VBoxContainer" unique_id=985625165]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Buy"
+
+[node name="Modifier2" type="PanelContainer" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2" unique_id=438318908]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier2" unique_id=670277711]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier2/VBoxContainer" unique_id=1975418964]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Barrel Stabilization"
+
+[node name="Label2" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier2/VBoxContainer" unique_id=373464543]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Reduces weapon sway"
+
+[node name="Label3" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier2/VBoxContainer" unique_id=463140332]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "$50"
+
+[node name="Button" type="Button" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier2/VBoxContainer" unique_id=972843062]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Buy"
+
+[node name="Modifier3" type="PanelContainer" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2" unique_id=518317372]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier3" unique_id=1308544664]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier3/VBoxContainer" unique_id=2145020020]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Barrel Stabilization"
+
+[node name="Label2" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier3/VBoxContainer" unique_id=114773762]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Reduces weapon sway"
+
+[node name="Label3" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier3/VBoxContainer" unique_id=535984981]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "$50"
+
+[node name="Button" type="Button" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier3/VBoxContainer" unique_id=1105200762]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Buy"
+
+[node name="Modifier4" type="PanelContainer" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2" unique_id=616670849]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier4" unique_id=1791689063]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier4/VBoxContainer" unique_id=1269708238]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Barrel Stabilization"
+
+[node name="Label2" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier4/VBoxContainer" unique_id=1278854098]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Reduces weapon sway"
+
+[node name="Label3" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier4/VBoxContainer" unique_id=1510414899]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "$50"
+
+[node name="Button" type="Button" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier4/VBoxContainer" unique_id=1059009627]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Buy"
+
+[node name="Modifier5" type="PanelContainer" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2" unique_id=484228990]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier5" unique_id=1843082839]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier5/VBoxContainer" unique_id=1961668940]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Barrel Stabilization"
+
+[node name="Label2" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier5/VBoxContainer" unique_id=1282709874]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Reduces weapon sway"
+
+[node name="Label3" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier5/VBoxContainer" unique_id=426675392]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "$50"
+
+[node name="Button" type="Button" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier5/VBoxContainer" unique_id=1017260044]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Buy"
+
+[node name="Modifier6" type="PanelContainer" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2" unique_id=1749872897]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier6" unique_id=261339491]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier6/VBoxContainer" unique_id=1347978900]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Barrel Stabilization"
+
+[node name="Label2" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier6/VBoxContainer" unique_id=191286400]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Reduces weapon sway"
+
+[node name="Label3" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier6/VBoxContainer" unique_id=1776958984]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "$50"
+
+[node name="Button" type="Button" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier6/VBoxContainer" unique_id=327015858]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Buy"
+
+[node name="Modifier7" type="PanelContainer" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2" unique_id=184933822]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier7" unique_id=1048873706]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier7/VBoxContainer" unique_id=680334143]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Barrel Stabilization"
+
+[node name="Label2" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier7/VBoxContainer" unique_id=340101692]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Reduces weapon sway"
+
+[node name="Label3" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier7/VBoxContainer" unique_id=1637314820]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "$50"
+
+[node name="Button" type="Button" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier7/VBoxContainer" unique_id=398285688]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Buy"
+
+[node name="Modifier8" type="PanelContainer" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2" unique_id=692554228]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier8" unique_id=810675806]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier8/VBoxContainer" unique_id=1275385659]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Barrel Stabilization"
+
+[node name="Label2" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier8/VBoxContainer" unique_id=83784523]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Reduces weapon sway"
+
+[node name="Label3" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier8/VBoxContainer" unique_id=1401248895]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "$50"
+
+[node name="Button" type="Button" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier8/VBoxContainer" unique_id=1862369132]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Buy"
+
+[node name="Modifier9" type="PanelContainer" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2" unique_id=1903335615]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier9" unique_id=435134455]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier9/VBoxContainer" unique_id=502740021]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Barrel Stabilization"
+
+[node name="Label2" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier9/VBoxContainer" unique_id=275150851]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Reduces weapon sway"
+
+[node name="Label3" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier9/VBoxContainer" unique_id=787900639]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "$50"
+
+[node name="Button" type="Button" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier9/VBoxContainer" unique_id=383171902]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Buy"
+
+[node name="Modifier10" type="PanelContainer" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2" unique_id=1491998686]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier10" unique_id=422329269]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier10/VBoxContainer" unique_id=1716681883]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Barrel Stabilization"
+
+[node name="Label2" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier10/VBoxContainer" unique_id=1244450006]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Reduces weapon sway"
+
+[node name="Label3" type="Label" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier10/VBoxContainer" unique_id=876919075]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "$50"
+
+[node name="Button" type="Button" parent="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row2/Modifier10/VBoxContainer" unique_id=203993400]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Buy"
+
+[node name="BackButton" type="Button" parent="." unique_id=1599156237]
+visible = false
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 1
+offset_right = 200.0
+offset_bottom = 120.0
+theme_override_font_sizes/font_size = 35
+text = "Back"
+
+[node name="GearUpPanel" type="Control" parent="." unique_id=1346627808]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -334.0
+offset_top = -550.0
+offset_right = -149.0
+offset_bottom = -363.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="GearUpPanel" unique_id=29579781]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="GearUpPanel/Panel" unique_id=153908174]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1100.0
+offset_right = 1100.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GearUpPanel/Panel/MarginContainer" unique_id=80676079]
+layout_mode = 2
+theme_override_constants/separation = 1150
+
+[node name="LeftPanel" type="Panel" parent="GearUpPanel/Panel/MarginContainer/HBoxContainer" unique_id=1941467070]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GearUpPanel/Panel/MarginContainer/HBoxContainer/LeftPanel" unique_id=2000013790]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="GearUpPanel/Panel/MarginContainer/HBoxContainer/LeftPanel/VBoxContainer" unique_id=1944622117]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Color Way"
+
+[node name="Button" type="Button" parent="GearUpPanel/Panel/MarginContainer/HBoxContainer/LeftPanel/VBoxContainer" unique_id=76715806]
+custom_minimum_size = Vector2(500, 300)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Industrial"
+
+[node name="Button2" type="Button" parent="GearUpPanel/Panel/MarginContainer/HBoxContainer/LeftPanel/VBoxContainer" unique_id=1530300190]
+custom_minimum_size = Vector2(500, 300)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Hazard"
+
+[node name="Button3" type="Button" parent="GearUpPanel/Panel/MarginContainer/HBoxContainer/LeftPanel/VBoxContainer" unique_id=1924607113]
+custom_minimum_size = Vector2(500, 300)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Rust"
+
+[node name="CenterPanel" type="Panel" parent="GearUpPanel/Panel/MarginContainer/HBoxContainer" unique_id=215198655]
+layout_mode = 2
+
+[node name="RightPanel" type="Panel" parent="GearUpPanel/Panel/MarginContainer/HBoxContainer" unique_id=1885493611]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GearUpPanel/Panel/MarginContainer/HBoxContainer/RightPanel" unique_id=1267265781]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="GearUpPanel/Panel/MarginContainer/HBoxContainer/RightPanel/VBoxContainer" unique_id=1314481195]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Ship Modifiers"
+
+[node name="PanelContainer" type="PanelContainer" parent="GearUpPanel/Panel/MarginContainer/HBoxContainer/RightPanel/VBoxContainer" unique_id=400271463]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GearUpPanel/Panel/MarginContainer/HBoxContainer/RightPanel/VBoxContainer/PanelContainer" unique_id=450029734]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GearUpPanel/Panel/MarginContainer/HBoxContainer/RightPanel/VBoxContainer/PanelContainer/VBoxContainer" unique_id=1515491149]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Equipped"
+
+[node name="Button" type="Button" parent="GearUpPanel/Panel/MarginContainer/HBoxContainer/RightPanel/VBoxContainer/PanelContainer/VBoxContainer" unique_id=1157688335]
+custom_minimum_size = Vector2(500, 300)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Modifier Type"
+
+[node name="Button2" type="Button" parent="GearUpPanel/Panel/MarginContainer/HBoxContainer/RightPanel/VBoxContainer/PanelContainer/VBoxContainer" unique_id=1399035130]
+custom_minimum_size = Vector2(500, 300)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Modifier Type"
+
+[node name="Button3" type="Button" parent="GearUpPanel/Panel/MarginContainer/HBoxContainer/RightPanel/VBoxContainer/PanelContainer/VBoxContainer" unique_id=1886884950]
+custom_minimum_size = Vector2(500, 300)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Modifier Type"
+
+[node name="GearUpBackButton" type="Button" parent="." unique_id=284092810]
+visible = false
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 1
+offset_right = 200.0
+offset_bottom = 120.0
+theme_override_font_sizes/font_size = 35
+text = "Back"
+
+[node name="KyklonLabel" type="Label" parent="." unique_id=143218187]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -790.0
+offset_top = 14.0
+offset_right = -550.0
+offset_bottom = 134.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 35
+text = "Kyklons : 1000"
+
+[connection signal="pressed" from="Play_MainMenuButtons/VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Play_MainMenuButtons/VBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]
+[connection signal="pressed" from="Store_GearUpButtons/Store" to="." method="_on_store_pressed"]
+[connection signal="pressed" from="Store_GearUpButtons/GearUp" to="." method="_on_gear_up_pressed"]
+[connection signal="pressed" from="StorePanel/Panel/MarginContainer/HBoxContainer/ScrollContainer/VBoxContainer/Row1/Modifier1/VBoxContainer/BuyButton" to="." method="_on_buy_button_pressed"]
+[connection signal="pressed" from="BackButton" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="GearUpBackButton" to="." method="_on_gear_up_back_button_pressed"]

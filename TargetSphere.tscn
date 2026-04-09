@@ -1,0 +1,166 @@
+[gd_scene format=3 uid="uid://dsxeeylotlhgy"]
+
+[ext_resource type="Script" uid="uid://dwkqou2m8t7v8" path="res://scripts/main_menu.gd" id="1_06t4h"]
+[ext_resource type="Texture2D" uid="uid://qe4dwtvk0bqd" path="res://assets/mainMenu.png" id="2_ekxnf"]
+
+[sub_resource type="Animation" id="Animation_7vrkn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FadeRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_fu7sn"]
+resource_name = "fade_out"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FadeRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 0.003921569)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jix8l"]
+_data = {
+&"RESET": SubResource("Animation_7vrkn"),
+&"fade_out": SubResource("Animation_fu7sn")
+}
+
+[node name="MainMenu" type="Control" unique_id=594166282]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_06t4h")
+
+[node name="Background" type="TextureRect" parent="." unique_id=966906442]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_ekxnf")
+
+[node name="MainMenuButtons" type="CenterContainer" parent="." unique_id=1598826892]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenuButtons" unique_id=2116762560]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="KYKLOS" type="Label" parent="MainMenuButtons/VBoxContainer" unique_id=2144058926]
+layout_mode = 2
+theme_override_font_sizes/font_size = 178
+text = "KYKLOS
+"
+horizontal_alignment = 1
+
+[node name="Start" type="Button" parent="MainMenuButtons/VBoxContainer" unique_id=361039482]
+custom_minimum_size = Vector2(300, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Start
+"
+
+[node name="Settings" type="Button" parent="MainMenuButtons/VBoxContainer" unique_id=2085298225]
+custom_minimum_size = Vector2(300, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Settings"
+
+[node name="Quit" type="Button" parent="MainMenuButtons/VBoxContainer" unique_id=190796488]
+custom_minimum_size = Vector2(300, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Quit"
+
+[node name="SettingsPanel" type="Panel" parent="." unique_id=1707013921]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsPanel" unique_id=1834329988]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -54.5
+offset_top = -62.5
+offset_right = 54.5
+offset_bottom = 62.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Settings" type="Label" parent="SettingsPanel/VBoxContainer" unique_id=707076731]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Settings"
+horizontal_alignment = 1
+
+[node name="Music Volume" type="Label" parent="SettingsPanel/VBoxContainer" unique_id=768134323]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Music Volume"
+
+[node name="HSlider" type="HSlider" parent="SettingsPanel/VBoxContainer" unique_id=65515172]
+layout_mode = 2
+
+[node name="SFX Volume" type="Label" parent="SettingsPanel/VBoxContainer" unique_id=1859950346]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "SFX Volume"
+
+[node name="HSlider2" type="HSlider" parent="SettingsPanel/VBoxContainer" unique_id=909767541]
+layout_mode = 2
+
+[node name="Back" type="Button" parent="SettingsPanel/VBoxContainer" unique_id=514815564]
+layout_mode = 2
+text = "Back"
+
+[node name="FadeRect" type="ColorRect" parent="." unique_id=2009090729]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[node name="Animation" type="AnimationPlayer" parent="." unique_id=62686984]
+libraries/ = SubResource("AnimationLibrary_jix8l")
+
+[connection signal="pressed" from="MainMenuButtons/VBoxContainer/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="MainMenuButtons/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="MainMenuButtons/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="SettingsPanel/VBoxContainer/Back" to="." method="_on_back_pressed"]
