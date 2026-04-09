@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://de4mlhorhwsyp"]
+
+[ext_resource type="Script" uid="uid://dcrdj7c4l5hh1" path="res://scripts/boundary_sphere.gd" id="1_vax0j"]
+[ext_resource type="Shader" uid="uid://dcx756r6qseye" path="res://assets/boundary_wire_sphere.gdshader" id="2_1fv2w"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_3ea2n"]
+radius = 1.0
+height = 2.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bc6j2"]
+render_priority = 0
+shader = ExtResource("2_1fv2w")
+shader_parameter/line_color = Color(0.55, 0.85, 1, 0.85)
+shader_parameter/fill_color = Color(0.1, 0.2, 0.35, 0.06)
+shader_parameter/meridians = 16.0
+shader_parameter/parallels = 10.0
+shader_parameter/line_width = 0.015
+shader_parameter/pulse_speed = 1.2
+shader_parameter/pulse_amount = 0.1
+
+[node name="BoundarySphere" type="Node3D" unique_id=1641793602]
+script = ExtResource("1_vax0j")
+
+[node name="VisualSphere" type="MeshInstance3D" parent="." unique_id=2045235506]
+mesh = SubResource("SphereMesh_3ea2n")
+surface_material_override/0 = SubResource("ShaderMaterial_bc6j2")

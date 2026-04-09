@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://8ip8klr3e1nq" path="res://scenes/ui.tscn" id="5_tbgi4"]
 [ext_resource type="Script" uid="uid://d3a2tscxy35qr" path="res://scripts/StarGenerator.gd" id="5_tefeu"]
 [ext_resource type="PackedScene" uid="uid://cgyfa2f5jjphr" path="res://scenes/pause_menu.tscn" id="7_o6xl0"]
+[ext_resource type="PackedScene" uid="uid://de4mlhorhwsyp" path="res://scenes/BoundarySphere.tscn" id="8_tipki"]
 
 [sub_resource type="Environment" id="Environment_sgp6g"]
 background_mode = 1
@@ -39,3 +40,5 @@ generate_at_origin = false
 
 [node name="PauseMenu" parent="UI" unique_id=1210719568 instance=ExtResource("7_o6xl0")]
 layout_mode = 1
+
+[node name="BoundarySphere" parent="." unique_id=1641793602 instance=ExtResource("8_tipki")]
