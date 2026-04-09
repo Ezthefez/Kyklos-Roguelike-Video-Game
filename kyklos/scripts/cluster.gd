@@ -4,13 +4,16 @@ extends Node3D
 @export var target_radius: float = 0.5
 @export var projectile_radius: float = 0.25
 @export var extra_hit_margin: float = 0.05
-@export var gravity_strength: float = 80.0
-@export var damping: float = 0.995
-@export var min_distance: float = 0.5
-@export var max_force: float = 100.0
 
 # 1.0 = perfectly elastic, lower = less bouncy
 @export var restitution: float = 0.9
+
+# Optional center gravity after release
+@export var gravity_enabled: bool = false
+@export var gravity_strength: float = 12.0
+@export var gravity_damping: float = 0.995
+@export var min_distance: float = 0.75
+@export var max_force: float = 20.0
 
 var tracked_targets: Array[RigidBody3D] = []
 var released_targets: Dictionary = {}
@@ -21,8 +24,11 @@ func _ready() -> void:
 			var body := child as RigidBody3D
 			tracked_targets.append(body)
 			released_targets[body] = false
-			body.freeze = false
-			body.sleeping = false
+
+			# IMPORTANT:
+			# Untouched targets must stay frozen so manual rotation does not fight physics.
+			body.freeze = true
+			body.sleeping = true
 
 func _process(delta: float) -> void:
 	var angle := deg_to_rad(rotation_speed_degrees_per_sec) * delta
@@ -38,7 +44,7 @@ func _process(delta: float) -> void:
 		body.global_position = global_position + offset
 		body.rotate_y(angle)
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	# Projectile vs still-frozen targets
 	for node in get_tree().get_nodes_in_group("projectiles"):
 		if node is RigidBody3D:
@@ -72,15 +78,16 @@ func _physics_process(_delta: float) -> void:
 			if d2 <= (target_radius * 2.0 + extra_hit_margin):
 				release_single_target(source, target, target_radius * 2.0)
 				return
-	
-	# Apply gravity to released targets
-	for body in tracked_targets:
-		if body == null:
-			continue
-		if not released_targets.get(body, false):
-			continue
 
-		apply_center_gravity(body)
+	# Optional gravity, only for already released targets
+	if gravity_enabled:
+		for body in tracked_targets:
+			if body == null:
+				continue
+			if not released_targets.get(body, false):
+				continue
+
+			apply_center_gravity(body, delta)
 
 func release_single_target(other_body: RigidBody3D, hit_target: RigidBody3D, desired_distance: float) -> void:
 	if hit_target == null or other_body == null:
@@ -88,31 +95,25 @@ func release_single_target(other_body: RigidBody3D, hit_target: RigidBody3D, des
 	if released_targets.get(hit_target, false):
 		return
 
-	# Stop controlling this target manually from now on.
 	released_targets[hit_target] = true
 	hit_target.freeze = false
 	hit_target.sleeping = false
 
-	# Compute collision normal from hitter -> target
 	var normal := hit_target.global_position - other_body.global_position
 	if normal.length_squared() < 0.000001:
 		normal = Vector3.RIGHT
 	normal = normal.normalized()
 
-	# Push the target just outside overlap so it doesn't keep intersecting.
 	var current_distance := hit_target.global_position.distance_to(other_body.global_position)
 	var penetration := desired_distance - current_distance
 	if penetration > 0.0:
 		hit_target.global_position += normal * (penetration + 0.01)
 
-	# Keep the released target's orbital tangential motion from the spinning cluster.
 	var angular_speed := deg_to_rad(rotation_speed_degrees_per_sec)
 	var radial := hit_target.global_position - global_position
 	var tangential := Vector3.UP.cross(radial) * angular_speed
 	hit_target.linear_velocity = tangential
 
-	# Solve 1D collision along the contact normal.
-	# Tangential components stay as they are; only normal components change.
 	var v1 := other_body.linear_velocity
 	var v2 := hit_target.linear_velocity
 	var m1 := other_body.mass
@@ -127,38 +128,28 @@ func release_single_target(other_body: RigidBody3D, hit_target: RigidBody3D, des
 	var a1 := v1.dot(normal)
 	var a2 := v2.dot(normal)
 
-	# If they are not moving toward each other along the normal, still nudge the target,
-	# but don't overwrite the projectile with a bad bounce.
 	if a1 - a2 <= 0.0:
 		hit_target.linear_velocity += normal * max(0.5, other_body.linear_velocity.length() * 0.35)
 		return
 
-	# Elastic / semi-elastic collision equations
 	var new_a1 := (a1 * (m1 - e * m2) + a2 * (1.0 + e) * m2) / (m1 + m2)
 	var new_a2 := (a2 * (m2 - e * m1) + a1 * (1.0 + e) * m1) / (m1 + m2)
 
 	other_body.linear_velocity = v1t + normal * new_a1
 	hit_target.linear_velocity = v2t + normal * new_a2
 
-func apply_center_gravity(body: RigidBody3D) -> void:
-	var dir = global_position - body.global_position
-	var dist = max(dir.length(), min_distance)
+func apply_center_gravity(body: RigidBody3D, delta: float) -> void:
+	var dir: Vector3 = global_position - body.global_position
+	var dist: float = max(dir.length(), min_distance)
 
-	# Pull toward center
-	var force = dir.normalized() * (gravity_strength / dist)
+	var force: Vector3 = dir.normalized() * (gravity_strength / dist)
 
-	# Clamp to prevent instability
 	if force.length() > max_force:
 		force = force.normalized() * max_force
 
-	body.linear_velocity += force
+	# IMPORTANT: scale by delta so it does not explode
+	body.linear_velocity += force * delta
+	body.linear_velocity *= gravity_damping
 
-	# Damping so things don’t drift forever
-	body.linear_velocity *= damping
-	
 	if body.linear_velocity.length() < 0.05:
 		body.linear_velocity = Vector3.ZERO
-	
-	if dist < 1.0:
-		body.linear_velocity *= 0.9
-	

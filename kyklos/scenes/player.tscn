@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://2517e738hdg7"]
 
-[ext_resource type="Script" uid="uid://ccifvlkyyoivs" path="res://scripts/orbit_controller_kyklos.gd" id="1_g2els"]
+[ext_resource type="Script" uid="uid://dj8vq48u38cw7" path="res://scripts/orbit_controller_charge_shot.gd" id="1_g2els"]
 [ext_resource type="PackedScene" uid="uid://eio0xsavupt2" path="res://scenes/Projectile.tscn" id="2_qhqgy"]
 
 [node name="OrbitRoot" type="Node3D" unique_id=1720029618 node_paths=PackedStringArray("camera_yaw", "camera_pitch", "camera", "muzzle")]

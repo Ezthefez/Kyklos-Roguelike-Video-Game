@@ -22,9 +22,11 @@ environment = SubResource("Environment_sgp6g")
 [node name="cluster" parent="." unique_id=608683125 instance=ExtResource("2_0wfyh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.07976532, 0, 0)
 
-[node name="player" parent="." unique_id=1720029618 node_paths=PackedStringArray("orbit_center") instance=ExtResource("2_sugp2")]
+[node name="player" parent="." unique_id=1720029618 node_paths=PackedStringArray("orbit_center", "ammo_label", "no_ammo_label") instance=ExtResource("2_sugp2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 20.024359)
 orbit_center = NodePath("OrbitCenter")
+ammo_label = NodePath("")
+no_ammo_label = NodePath("")
 
 [node name="OrbitCenter" type="Node3D" parent="player" unique_id=1587045669]
 transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -20.024359)
@@ -38,7 +40,7 @@ generate_at_origin = false
 
 [node name="UI" parent="." unique_id=143402949 instance=ExtResource("5_tbgi4")]
 
-[node name="PauseMenu" parent="UI" unique_id=1210719568 instance=ExtResource("7_o6xl0")]
+[node name="PauseMenu" parent="UI" unique_id=1068453948 instance=ExtResource("7_o6xl0")]
 layout_mode = 1
 
 [node name="BoundarySphere" parent="." unique_id=1641793602 instance=ExtResource("8_tipki")]
