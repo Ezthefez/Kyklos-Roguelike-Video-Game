@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dkhhfhrnlh70j"]
 
-[ext_resource type="Script" uid="uid://cpvr7gluhggoh" path="res://scripts/targetsphere_boundary_harvest.gd" id="1_xr8e2"]
+[ext_resource type="Script" path="res://scripts/targetsphere_boundary_harvest.gd" id="1_xr8e2"]
 [ext_resource type="Texture2D" uid="uid://esp4wt8ecgpb" path="res://assets/kyklonTextures/BlueRockTexture-1.jpg" id="2_47k3f"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_kf1o2"]
