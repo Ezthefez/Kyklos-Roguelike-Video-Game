@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://bnn6l1t55skiv"]
+
+[ext_resource type="Script" uid="uid://22rnnr14ied4" path="res://scripts/kyklon_preview.gd" id="1_5d261"]
+[ext_resource type="PackedScene" uid="uid://eio0xsavupt2" path="res://scenes/Projectile.tscn" id="2_bxhbu"]
+
+[node name="KyklonPreview" type="Node3D" unique_id=1529538052]
+script = ExtResource("1_5d261")
+
+[node name="Pivot" type="Node3D" parent="." unique_id=1778703450]
+
+[node name="Projectile" parent="Pivot" unique_id=662892976 instance=ExtResource("2_bxhbu")]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=2144049206]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.46612)
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=166175287]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.23181319)
