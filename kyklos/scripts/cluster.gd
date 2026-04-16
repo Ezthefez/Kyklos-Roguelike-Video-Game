@@ -4,13 +4,13 @@ extends Node3D
 @export var target_radius: float = 0.5
 @export var projectile_radius: float = 0.25
 @export var extra_hit_margin: float = 0.05
-@export var gravity_strength: float = 80.0
-@export var damping: float = 0.995
+@export var gravity_strength: float = 5.0
+@export var damping: float = 0.97
 @export var min_distance: float = 0.5
 @export var max_force: float = 100.0
 
 # 1.0 = perfectly elastic, lower = less bouncy
-@export var restitution: float = 0.9
+@export var restitution: float = 0.2
 
 var tracked_targets: Array[RigidBody3D] = []
 var released_targets: Dictionary = {}
@@ -23,20 +23,11 @@ func _ready() -> void:
 			released_targets[body] = false
 			body.freeze = false
 			body.sleeping = false
-
-func _process(delta: float) -> void:
-	var angle := deg_to_rad(rotation_speed_degrees_per_sec) * delta
-
-	for body in tracked_targets:
-		if body == null:
-			continue
-		if released_targets.get(body, false):
-			continue
-
-		var offset: Vector3 = body.global_position - global_position
-		offset = offset.rotated(Vector3.UP, angle)
-		body.global_position = global_position + offset
-		body.rotate_y(angle)
+			body.linear_velocity = Vector3(
+				randf_range(-0.5, 0.5),
+				randf_range(-0.5, 0.5),
+				randf_range(-0.5, 0.5)
+		)
 
 func _physics_process(_delta: float) -> void:
 	# Projectile vs still-frozen targets
@@ -73,14 +64,12 @@ func _physics_process(_delta: float) -> void:
 				release_single_target(source, target, target_radius * 2.0)
 				return
 	
-	# Apply gravity to released targets
-	for body in tracked_targets:
-		if body == null:
-			continue
-		if not released_targets.get(body, false):
-			continue
-
-		apply_center_gravity(body)
+	# Apply gravity
+		for body in tracked_targets:
+			if body == null:
+				continue
+			
+			apply_center_gravity(body)
 
 func release_single_target(other_body: RigidBody3D, hit_target: RigidBody3D, desired_distance: float) -> void:
 	if hit_target == null or other_body == null:
@@ -143,22 +132,79 @@ func release_single_target(other_body: RigidBody3D, hit_target: RigidBody3D, des
 func apply_center_gravity(body: RigidBody3D) -> void:
 	var dir = global_position - body.global_position
 	var dist = max(dir.length(), min_distance)
+	var normal = dir.normalized()
 
-	# Pull toward center
-	var force = dir.normalized() * (gravity_strength / dist)
+	# Strong pull when far, weaker when close
+	var falloff = clamp(dist / 3.0, 0.2, 1.0)
 
-	# Clamp to prevent instability
+	var force = normal * gravity_strength * falloff
+
+	#allow escape if moving outward fast
+	var outward_speed = body.linear_velocity.dot(-normal)
+	#if outward_speed > 0.5:
+	#	return
+
+	# Clamp force
 	if force.length() > max_force:
 		force = force.normalized() * max_force
 
 	body.linear_velocity += force
 
-	# Damping so things don’t drift forever
+	# Damping
 	body.linear_velocity *= damping
-	
+
 	if body.linear_velocity.length() < 0.05:
 		body.linear_velocity = Vector3.ZERO
 	
-	if dist < 1.0:
-		body.linear_velocity *= 0.9
+	var max_speed = 5.0
+	if body.linear_velocity.length() > max_speed:
+		body.linear_velocity = body.linear_velocity.normalized() * max_speed
+
+func apply_mutual_gravity() -> void:
+	for i in range(tracked_targets.size()):
+		var a = tracked_targets[i]
+		if a == null:
+			continue
+
+		for j in range(i + 1, tracked_targets.size()):
+			var b = tracked_targets[j]
+			if b == null:
+				continue
+
+			var dir = b.global_position - a.global_position
+			var dist = max(dir.length(), min_distance)
+			var normal = dir.normalized()
+			
+			var relative_velocity = a.linear_velocity - b.linear_velocity
+
+			# If moving apart fast enough, weaken gravity
+			if relative_velocity.dot(normal) > 0.5:
+				continue
+
+			#---Gravity---
+			var softened_dist = sqrt(dist * dist + 1.0) # tweak 1.0
+			var close_falloff = clamp(dist / 2.0, 0.2, 1.0)
+			var force_mag = (gravity_strength * a.mass * b.mass) / (softened_dist * softened_dist)
+			force_mag *= close_falloff
+			var force = normal * force_mag
+
+			# Clamp force (prevents explosions)
+			if force.length() > max_force:
+				force = force.normalized() * max_force
+
+			a.linear_velocity += force / a.mass
+			b.linear_velocity -= force / b.mass
+			
+			if dist < 0.001:
+				var avg_vel = (a.linear_velocity + b.linear_velocity) * 0.5
+				a.linear_velocity = a.linear_velocity.lerp(avg_vel, 0.02)
+				b.linear_velocity = b.linear_velocity.lerp(avg_vel, 0.02)
 	
+	for body in tracked_targets:
+		if body == null:
+			continue
+
+		body.linear_velocity *= damping
+
+		if body.linear_velocity.length() < 0.05:
+			body.linear_velocity = Vector3.ZERO

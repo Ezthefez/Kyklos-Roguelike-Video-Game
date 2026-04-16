@@ -1,34 +1,11 @@
 [gd_scene format=3 uid="uid://ce5k3me1ru4ka"]
 
-[ext_resource type="Script" uid="uid://b8ctghx57q0s7" path="res://scripts/cluster.gd" id="1_gvl38"]
+[ext_resource type="Script" uid="uid://crcgvrxxolom4" path="res://scripts/clusterRework.gd" id="1_q0jbs"]
 [ext_resource type="PackedScene" uid="uid://dkhhfhrnlh70j" path="res://scenes/TargetSphere.tscn" id="2_ynrju"]
 
 [node name="cluster" type="Node3D" unique_id=608683125]
-script = ExtResource("1_gvl38")
+script = ExtResource("1_q0jbs")
+target_scene = ExtResource("2_ynrju")
 
 [node name="TargetSphere" parent="." unique_id=1742064879 instance=ExtResource("2_ynrju")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4267354, 0.3771783, -0.071195364)
-
-[node name="TargetSphere2" parent="." unique_id=1634063900 instance=ExtResource("2_ynrju")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.14826727, 0.78439146, -0.071195364)
-
-[node name="TargetSphere3" parent="." unique_id=749058389 instance=ExtResource("2_ynrju")]
-transform = Transform3D(0.9999985, 0.0016322029, 0.0004557275, -0.0016320092, 0.99999857, -0.00041798755, -0.000456421, 0.00041723016, 0.9999998, 0.5141635, 1.9692318, 2.5898495)
-
-[node name="TargetSphere4" parent="." unique_id=1145429601 instance=ExtResource("2_ynrju")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0863398, 3.123455, 0.84615374)
-
-[node name="TargetSphere5" parent="." unique_id=1269921814 instance=ExtResource("2_ynrju")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.62054515, 1.3404317, -3.5559525)
-
-[node name="TargetSphere6" parent="." unique_id=696753897 instance=ExtResource("2_ynrju")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.43222, 2.096809, -2.4403107)
-
-[node name="TargetSphere7" parent="." unique_id=1179499984 instance=ExtResource("2_ynrju")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.68226886, 3.4619555, -1.534136)
-
-[node name="TargetSphere8" parent="." unique_id=571671679 instance=ExtResource("2_ynrju")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0071828, 2.1607506, 0.8375499)
-
-[node name="TargetSphere9" parent="." unique_id=390030848 instance=ExtResource("2_ynrju")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0138292, 2.2940717, -0.071195364)
