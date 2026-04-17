@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://cesdusnacd20p"]
+
+[ext_resource type="PackedScene" uid="uid://og8422r6wec1" path="res://assets/cockpit/vattalusassets_scifi_cockpit_7_fbx.glb" id="1_ygba6"]
+[ext_resource type="Texture2D" uid="uid://158hkf7t4wrg" path="res://assets/cockpit/Textures/Screen/PlaceholderScreenTexture.jpg" id="2_eqbwn"]
+[ext_resource type="PackedScene" uid="uid://ce83ivfg2s8rs" path="res://scenes/cockpit_laptop.tscn" id="2_ruw74"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_snf4n"]
+albedo_texture = ExtResource("2_eqbwn")
+emission_enabled = true
+emission_energy_multiplier = 2.0
+emission_texture = ExtResource("2_eqbwn")
+
+[node name="Cockpit_Scene" unique_id=1962816754 instance=ExtResource("1_ygba6")]
+
+[node name="CanopyFrame" parent="Sketchfab_model/VA_Scifi_Cockpit_7_FBX/Object_2/RootNode/CockpitBody" parent_id_path=PackedInt32Array(1191399931) index="4" unique_id=1847016941]
+transform = Transform3D(1, 0, 0, 0, 0.9999619, 0.008726486, 0, -0.008726486, 0.9999619, 0, -147.40472, 51.18754)
+
+[node name="MainDisplay_Displays_0" parent="Sketchfab_model/VA_Scifi_Cockpit_7_FBX/Object_2/RootNode/CockpitBody/CentralConsole/MainDisplay/Object_23" parent_id_path=PackedInt32Array(568222931) index="0" unique_id=562075340]
+surface_material_override/0 = SubResource("StandardMaterial3D_snf4n")
+
+[node name="Cockpit_Laptop" parent="Sketchfab_model/VA_Scifi_Cockpit_7_FBX/Object_2/RootNode/CockpitBody/CentralConsole/Laptop_Position" parent_id_path=PackedInt32Array(1254180230) index="0" unique_id=1906991387 instance=ExtResource("2_ruw74")]
+transform = Transform3D(100, 0, -1.7484555e-05, -1.7484555e-05, 2.220446e-14, -100, 3.8823512e-21, 100, 2.220446e-14, 0, 2.8232346, 0.5355606)

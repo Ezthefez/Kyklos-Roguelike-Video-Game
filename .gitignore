@@ -9,6 +9,10 @@
 # Godot 4
 # =========================
 .godot/
+*.psd
+kyklos/.godot/
+*.uid
+
 
 # Godot import cache (auto-generated)
 .import/

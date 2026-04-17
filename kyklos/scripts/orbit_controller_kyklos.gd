@@ -1,6 +1,12 @@
 extends Node3D
 # Kyklos Orbit Camera + Constrained Look + Shooting (Godot 4.x)
 
+@onready var canopy_anim = get_node_or_null("CameraYaw/CameraPitch/Cockpit_Scene/AnimationPlayer")
+@onready var laptop_anim = get_node_or_null("CameraYaw/CameraPitch/Cockpit_Scene/Sketchfab_model/VA_Scifi_Cockpit_7_FBX/Object_2/RootNode/CockpitBody/CentralConsole/Laptop_Position/Cockpit_Laptop/AnimationPlayer")
+
+var canopy_open := false
+var laptop_open := false
+
 @export var orbit_center: Node3D
 @export var orbit_speed: float = 2.0
 
@@ -35,6 +41,15 @@ var charge_ui: TextureProgressBar
 # Captures mouse for FPS camera control
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	if canopy_anim:
+		canopy_anim.play("Take 001")
+		canopy_anim.seek(0.0, true)
+		canopy_anim.stop()
+
+	if laptop_anim:
+		laptop_anim.play("Take 001")
+		laptop_anim.seek(0.0, true)
+		laptop_anim.stop()
 
 # Main loop
 func _process(delta: float) -> void:
@@ -54,8 +69,38 @@ func _process(delta: float) -> void:
 			charge_ui.value = clamp(charge_timer / charge_time, 0.0, 1.0)
 		else:
 			charge_ui.value = 0.0
+			
+	# --- Canopy and Laptop input for Animations ---
+	if Input.is_action_just_pressed("open_canopy") and canopy_anim:
+		if not canopy_anim.is_playing():
+			if canopy_open:
+				canopy_anim.play_backwards("Take 001")
+			else:
+				canopy_anim.play("Take 001")
+			canopy_open = !canopy_open
 
-#Input Handling
+	if Input.is_action_just_pressed("open_laptop") and laptop_anim:
+		if not laptop_anim.is_playing():
+			var anim_name := "Take 001"
+			var length: float = laptop_anim.get_animation(anim_name).length
+			var pos: float = laptop_anim.current_animation_position
+
+			if pos >= length - 0.01:
+				# fully open → close
+				laptop_anim.play_backwards(anim_name)
+			elif pos <= 0.01:
+				# fully closed → open
+				laptop_anim.play(anim_name)
+			else:
+				# mid state → decide based on direction
+				if pos > length * 0.5:
+					laptop_anim.play_backwards(anim_name)
+				else:
+					laptop_anim.play(anim_name)
+
+
+
+	#Input Handling
 func _input(event: InputEvent) -> void:
 	if get_tree().paused:
 		return
