@@ -1,3 +1,5 @@
+#orbit_controller_kyklos.gd
+
 extends Node3D
 # Kyklos Orbit Camera + Charge Shot using screen-space crosshair aim + smooth 360 sway
 
@@ -20,17 +22,17 @@ extends Node3D
 @export var shoot_impulse: float = 25.0
 @export var fire_cooldown: float = 0.12
 @export var projectile_scene: PackedScene
-@export var charge_time: float = 0.6
+@export var charge_time: float = 1.0
 
 # Charge aim settings
 @export var charge_aim_pixels_per_mouse_unit: float = 2.0
 @export var charge_aim_smooth_speed: float = 14.0
 
 # Smooth 360 sway settings
-@export var sway_push_strength: float = 90.0
-@export var sway_max_speed: float = 40.0
+@export var sway_push_strength: float = 45.0
+@export var sway_max_speed: float = 20.0
 @export var sway_drag: float = 3.0
-@export var sway_idle_strength: float = 15.0
+@export var sway_idle_strength: float = 3.0
 
 # UI
 # Assign this to UI/CanvasLayer/CrosshairRoot
@@ -285,8 +287,17 @@ func _get_charge_ratio() -> float:
 	if charge_time <= 0.0:
 		return 1.0
 
-	# Loop 0 -> 1 -> 0 while holding
-	return fposmod(charge_timer, charge_time) / charge_time
+	# One full cycle is:
+	# charge up to 100%, then charge back down to 0%
+	var full_cycle: float = charge_time * 2.0
+	var t: float = fposmod(charge_timer, full_cycle)
+
+	if t <= charge_time:
+		# Charging up: 0 -> 1
+		return t / charge_time
+	else:
+		# Charging down: 1 -> 0
+		return 1.0 - ((t - charge_time) / charge_time)
 
 func _update_aim_pointer_ui() -> void:
 	if aim_pointer == null:

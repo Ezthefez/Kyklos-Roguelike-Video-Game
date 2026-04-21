@@ -4,7 +4,7 @@ extends CharacterBody3D
 
 @export var mouse_sensitivity: float = 0.002
 @export var shoot_impulse: float = 25.0
-@export var fire_cooldown: float = 0.12
+@export var fire_cooldown: float = 1.50
 
 var ProjectileScene: PackedScene = preload("res://scenes/Projectile.tscn")
 
