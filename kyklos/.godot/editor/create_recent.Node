@@ -1,3 +1,4 @@
+DirectionalLight3D
 Button
 VBoxContainer
 CenterContainer
@@ -5,7 +6,6 @@ TextureProgressBar
 TextureRect
 Control
 CanvasLayer
-DirectionalLight3D
 CSGCylinder3D
 CSGPolygon3D
 CSGBox3D

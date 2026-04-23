@@ -28,4 +28,4 @@ light_color = Color(0.4443339, 0.58186185, 1, 1)
 light_energy = 0.4
 
 [node name="Cockpit_Scene" parent="CameraYaw/CameraPitch" unique_id=1962816754 instance=ExtResource("3_qhqgy")]
-transform = Transform3D(-1, 0, 8.742278e-08, -8.863464e-09, 0.9948471, -0.10138621, -8.69723e-08, -0.10138621, -0.9948471, 0.008160353, -0.88118446, -2.698205)
+transform = Transform3D(-1, -8.8360174e-16, 8.742278e-08, 2.1206743e-09, 0.9997057, 0.02425769, -8.7397055e-08, 0.02425769, -0.9997057, 0.008160353, -0.9827974, -2.8188262)

@@ -1,11 +1,23 @@
 extends Node3D
 # Kyklos Orbit Camera + Constrained Look + Shooting (Godot 4.x)
 
-@onready var canopy_anim = get_node_or_null("CameraYaw/CameraPitch/Cockpit_Scene/AnimationPlayer")
-@onready var laptop_anim = get_node_or_null("CameraYaw/CameraPitch/Cockpit_Scene/Sketchfab_model/VA_Scifi_Cockpit_7_FBX/Object_2/RootNode/CockpitBody/CentralConsole/Laptop_Position/Cockpit_Laptop/AnimationPlayer")
+# cockpit
+@onready var cockpit_scene = $"CameraYaw/CameraPitch/Cockpit_Scene"
 
-var canopy_open := false
-var laptop_open := false
+# cockpit lag + drift
+@export var orbit_acceleration: float = 1.0
+@export var orbit_drag: float = 0.9
+@export var max_input_speed: float = 1.2
+var orbit_velocity := Vector2.ZERO
+
+# smooth the mouse look + cockpit roll/tilt
+@export var mouse_look_smoothness: float = 6.0
+@export var drift_tilt_x_amount: float = 6.0
+@export var drift_tilt_z_amount: float = 6.0
+@export var drift_tilt_smoothness: float = 6.0
+var smooth_yaw: float = 0.0
+var smooth_pitch: float = 0.0
+var cockpit_base_rotation: Vector3 = Vector3.ZERO
 
 @export var orbit_center: Node3D
 @export var orbit_speed: float = 2.0
@@ -41,16 +53,14 @@ var charge_ui: TextureProgressBar
 # Captures mouse for FPS camera control
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	if canopy_anim:
-		canopy_anim.play("Take 001")
-		canopy_anim.seek(0.0, true)
-		canopy_anim.stop()
+	
+	# cockpits starting rotation
+	smooth_yaw = yaw
+	smooth_pitch = pitch
 
-	if laptop_anim:
-		laptop_anim.play("Take 001")
-		laptop_anim.seek(0.0, true)
-		laptop_anim.stop()
-
+	if cockpit_scene:
+		cockpit_base_rotation = cockpit_scene.rotation_degrees
+		
 # Main loop
 func _process(delta: float) -> void:
 	handle_movement(delta) #Orbit movement (WASD)
@@ -70,35 +80,10 @@ func _process(delta: float) -> void:
 		else:
 			charge_ui.value = 0.0
 			
-	# --- Canopy and Laptop input for Animations ---
-	if Input.is_action_just_pressed("open_canopy") and canopy_anim:
-		if not canopy_anim.is_playing():
-			if canopy_open:
-				canopy_anim.play_backwards("Take 001")
-			else:
-				canopy_anim.play("Take 001")
-			canopy_open = !canopy_open
-
-	if Input.is_action_just_pressed("open_laptop") and laptop_anim:
-		if not laptop_anim.is_playing():
-			var anim_name := "Take 001"
-			var length: float = laptop_anim.get_animation(anim_name).length
-			var pos: float = laptop_anim.current_animation_position
-
-			if pos >= length - 0.01:
-				# fully open → close
-				laptop_anim.play_backwards(anim_name)
-			elif pos <= 0.01:
-				# fully closed → open
-				laptop_anim.play(anim_name)
-			else:
-				# mid state → decide based on direction
-				if pos > length * 0.5:
-					laptop_anim.play_backwards(anim_name)
-				else:
-					laptop_anim.play(anim_name)
-
-
+	# Joystick 
+	var ws_input = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
+	var ad_input = Input.get_action_strength("ui_left") - Input.get_action_strength("ui_right")
+	cockpit_scene.set_joystick_input(ws_input, ad_input)
 
 	#Input Handling
 func _input(event: InputEvent) -> void:
@@ -109,9 +94,7 @@ func _input(event: InputEvent) -> void:
 		yaw -= event.relative.x * look_speed
 		pitch -= event.relative.y * look_speed
 
-		# circular clamp
-		var max_radius: float = max_yaw  # look radius
-
+		var max_radius: float = max_yaw
 		var length: float = sqrt(yaw * yaw + pitch * pitch)
 
 		if length > max_radius:
@@ -120,6 +103,12 @@ func _input(event: InputEvent) -> void:
 			pitch *= scale
 
 		time_since_mouse = 0.0
+
+		if cockpit_scene:
+			cockpit_scene.add_mouse_roll((-event.relative.x - event.relative.y) * 0.18)
+	
+		# Joystick
+		cockpit_scene.add_mouse_roll((-event.relative.x - event.relative.y) * 0.18)
 	
 	# Fire input
 	if event.is_action_pressed("shoot"):
@@ -133,25 +122,47 @@ func _input(event: InputEvent) -> void:
 	#Release mouse from being captured (pseudo pause button)
 	if event.is_action_pressed("ui_cancel"):
 		toggle_pause()
+		
+	# cockpit input
+	if event.is_action_pressed("open_canopy") and cockpit_scene:
+		cockpit_scene.toggle_canopy()
+
+	if event.is_action_pressed("open_laptop") and cockpit_scene:
+		cockpit_scene.toggle_laptop()
+
+	if event.is_action_pressed("open_secondary_screen") and cockpit_scene:
+		cockpit_scene.toggle_secondary_screen()
 
 func handle_movement(delta: float) -> void:
 	# WASD orbit using ui_left/ui_right/ui_up/ui_down
 	var input_x: float = Input.get_action_strength("ui_left") - Input.get_action_strength("ui_right")
 	var input_y: float = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
-	
+
 	if orbit_center == null:
 		return
 
+	var input_vector: Vector2 = Vector2(input_x, input_y)
+
+	if input_vector.length() > 1.0:
+		input_vector = input_vector.normalized()
+
+	var target_velocity: Vector2 = input_vector * max_input_speed
+
+	if input_vector.length() > 0.0:
+		orbit_velocity = orbit_velocity.move_toward(target_velocity, orbit_acceleration * delta)
+	else:
+		orbit_velocity = orbit_velocity.move_toward(Vector2.ZERO, orbit_drag * delta)
+
 	var center: Vector3 = orbit_center.global_position
-	
-	#Direction from center to player
+
+	# Direction from center to player
 	var to_center: Vector3 = (global_position - center).normalized()
-	
+
 	var right_axis: Vector3 = Vector3.UP.cross(to_center).normalized()
-	
-	#Rotate camera around center
-	rotate_around(center, right_axis, input_y * orbit_speed * delta)
-	rotate_around(center, Vector3.UP, -input_x * orbit_speed * delta)
+
+	# Rotate camera around center using velocity instead of raw input
+	rotate_around(center, right_axis, orbit_velocity.y * orbit_speed * delta)
+	rotate_around(center, Vector3.UP, -orbit_velocity.x * orbit_speed * delta)
 
 	# Clamp vertical orbit so you can't go over the poles
 	var new_dir: Vector3 = (global_position - center).normalized()
@@ -163,7 +174,12 @@ func handle_movement(delta: float) -> void:
 		var clamped_y: float = signf(vertical_dot) * max_vertical
 		var horizontal: float = sqrt(1.0 - clamped_y * clamped_y)
 
-		var horiz_dir: Vector3 = Vector3(new_dir.x, 0.0, new_dir.z).normalized()
+		var horiz_dir: Vector3 = Vector3(new_dir.x, 0.0, new_dir.z)
+		if horiz_dir.length() > 0.0001:
+			horiz_dir = horiz_dir.normalized()
+		else:
+			horiz_dir = Vector3.FORWARD
+
 		var clamped_dir: Vector3 = Vector3(
 			horiz_dir.x * horizontal,
 			clamped_y,
@@ -181,23 +197,85 @@ func rotate_around(center: Vector3, axis: Vector3, angle: float) -> void:
 	global_position = center + offset
 
 func update_camera(delta: float) -> void:
-	#Recalculate movement input
+	# Recalculate movement input
 	var input_x: float = Input.get_action_strength("ui_left") - Input.get_action_strength("ui_right")
 	var input_y: float = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
-	
-	#Determine if player is actively moving
+
+	# Determine if player is actively moving
 	var is_moving: bool = abs(input_x) > 0.01 or abs(input_y) > 0.01
-	
-	#Recenter camer when moving (WASD pressed)
+
+	# Recenter camera when moving (WASD pressed)
 	if is_moving:
-		yaw = lerp(yaw, 0.0, recenter_speed * delta)
-		pitch = lerp(pitch, 0.0, recenter_speed * delta)
-	
-	#Smooth application of camera movements
+		yaw = lerp(yaw, 0.0, recenter_speed * delta) as float
+		pitch = lerp(pitch, 0.0, recenter_speed * delta) as float
+
+	# Smooth the camera movement so it doesn't snap instantly to mouse input
+	# yaw/pitch = target values, smooth_yaw/pitch = actual displayed values
+	smooth_yaw = lerp(smooth_yaw, yaw, mouse_look_smoothness * delta) as float
+	smooth_pitch = lerp(smooth_pitch, pitch, mouse_look_smoothness * delta) as float
+
+	# Apply smoothed camera movement
 	if camera_yaw != null:
-		camera_yaw.rotation_degrees.y = lerp(camera_yaw.rotation_degrees.y, yaw, 10.0 * delta)
+		camera_yaw.rotation_degrees.y = lerp(
+			camera_yaw.rotation_degrees.y,
+			smooth_yaw,
+			mouse_look_smoothness * delta
+		) as float
+
 	if camera_pitch != null:
-		camera_pitch.rotation_degrees.x = lerp(camera_pitch.rotation_degrees.x, pitch, 10.0 * delta)
+		camera_pitch.rotation_degrees.x = lerp(
+			camera_pitch.rotation_degrees.x,
+			smooth_pitch,
+			mouse_look_smoothness * delta
+		) as float
+
+	update_cockpit_drift_tilt(delta)
+	
+func update_cockpit_drift_tilt(delta: float) -> void:
+	if cockpit_scene == null:
+		return
+
+	# Use orbit velocity to determine how much the ship is drifting
+	# This creates a visual "weight" effect for the cockpit
+
+
+	# Tilt forward/back when moving up/down around the cluster
+	var target_tilt_x: float = clamp(
+		orbit_velocity.y * drift_tilt_x_amount,
+		-drift_tilt_x_amount,
+		drift_tilt_x_amount
+	)
+
+	# Roll left/right when moving sideways
+	var target_tilt_z: float = clamp(
+		-orbit_velocity.x * drift_tilt_z_amount,
+		-drift_tilt_z_amount,
+		drift_tilt_z_amount
+	)
+	
+	# Combine tilt with original cockpit rotation
+	var desired_x: float = cockpit_base_rotation.x + target_tilt_x
+	var desired_y: float = cockpit_base_rotation.y
+	var desired_z: float = cockpit_base_rotation.z + target_tilt_z
+
+	# Smoothly apply tilt so it feels like inertia instead of snapping
+	cockpit_scene.rotation_degrees.x = lerp(
+		cockpit_scene.rotation_degrees.x,
+		desired_x,
+		drift_tilt_smoothness * delta
+	) as float
+
+	cockpit_scene.rotation_degrees.y = lerp(
+		cockpit_scene.rotation_degrees.y,
+		desired_y,
+		drift_tilt_smoothness * delta
+	) as float
+
+	cockpit_scene.rotation_degrees.z = lerp(
+		cockpit_scene.rotation_degrees.z,
+		desired_z,
+		drift_tilt_smoothness * delta
+	) as float
 
 func fire() -> void:
 	if not can_fire:
