@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ce2203af8nd0i"]
 
-[ext_resource type="Script" uid="uid://c0ep2rvvx370u" path="res://scripts/shop_menu.gd" id="1_5pe57"]
+[ext_resource type="Script" uid="uid://d3g3vpkd2dil5" path="res://scripts/shop_menu.gd" id="1_5pe57"]
 [ext_resource type="Texture2D" uid="uid://ccqa0bdj8wvuc" path="res://assets/shopmenu.jpeg" id="3_1ltno"]
 [ext_resource type="PackedScene" uid="uid://bnn6l1t55skiv" path="res://scenes/KyklonPreview.tscn" id="3_76m3e"]
 
@@ -21,23 +21,20 @@ script = ExtResource("1_5pe57")
 [node name="Panel" type="Panel" parent="CanvasLayer" unique_id=2047585157]
 modulate = Color(1, 1, 1, 0.78431374)
 custom_minimum_size = Vector2(200, 120)
-anchors_preset = -1
-offset_left = 152.0
-offset_top = 147.0
-offset_right = 865.0
-offset_bottom = 524.0
+offset_right = 640.0
+offset_bottom = 233.0
 
 [node name="Label" type="Label" parent="CanvasLayer/Panel" unique_id=1313485921]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -11.5
-offset_right = 20.0
-offset_bottom = 11.5
+anchors_preset = -1
+anchor_left = -0.19000001
+anchor_top = -0.625
+anchor_right = 1.2600001
+anchor_bottom = 1.6500001
+offset_left = 174.6
+offset_top = 116.625
+offset_right = 174.74994
+offset_bottom = 116.625
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 200
@@ -46,10 +43,10 @@ text = "SHOP"
 [node name="Panel2" type="Panel" parent="CanvasLayer" unique_id=286385131]
 modulate = Color(1, 1, 1, 0.78431374)
 custom_minimum_size = Vector2(200, 120)
-offset_left = 977.0
-offset_top = 323.0
-offset_right = 1834.0
-offset_bottom = 820.0
+offset_left = 994.0
+offset_top = 515.0
+offset_right = 1637.0
+offset_bottom = 806.0
 
 [node name="Button" type="Button" parent="CanvasLayer/Panel2" unique_id=1211220915]
 custom_minimum_size = Vector2(350, 300)
@@ -74,10 +71,10 @@ text = "reduced sway"
 [node name="Panel3" type="Panel" parent="CanvasLayer" unique_id=1509093391]
 modulate = Color(1, 1, 1, 0.78431374)
 custom_minimum_size = Vector2(300, 300)
-offset_left = 976.0
-offset_top = 902.0
-offset_right = 1661.0
-offset_bottom = 1308.0
+offset_left = 993.0
+offset_top = 888.0
+offset_right = 1678.0
+offset_bottom = 1294.0
 
 [node name="Button" type="Button" parent="CanvasLayer/Panel3" unique_id=1916515068]
 custom_minimum_size = Vector2(250, 300)
@@ -92,10 +89,10 @@ text = "Voucher"
 [node name="Panel4" type="Panel" parent="CanvasLayer" unique_id=1776305605]
 modulate = Color(1, 1, 1, 0.78431374)
 custom_minimum_size = Vector2(500, 200)
-offset_left = 1819.0
-offset_top = 1223.0
-offset_right = 2770.0
-offset_bottom = 1500.0
+offset_left = 1836.0
+offset_top = 1209.0
+offset_right = 2787.0
+offset_bottom = 1486.0
 
 [node name="Button" type="Button" parent="CanvasLayer/Panel4" unique_id=531155905]
 custom_minimum_size = Vector2(150, 150)
@@ -140,10 +137,10 @@ offset_bottom = 249.0
 [node name="Panel5" type="Panel" parent="CanvasLayer" unique_id=1594610089]
 modulate = Color(1, 1, 1, 0.78431374)
 custom_minimum_size = Vector2(500, 500)
-offset_left = 1984.0
-offset_top = 373.0
-offset_right = 2738.0
-offset_bottom = 1011.0
+offset_left = 2001.0
+offset_top = 359.0
+offset_right = 2755.0
+offset_bottom = 997.0
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/Panel5" unique_id=52188848]
 modulate = Color(1, 1, 1, 0.5882353)
@@ -178,10 +175,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.41134405)
 [node name="NextRoundButton" type="Button" parent="CanvasLayer" unique_id=77961967]
 modulate = Color(1, 1, 1, 0.78431374)
 custom_minimum_size = Vector2(250, 0)
-offset_left = 614.0
-offset_top = 1246.0
-offset_right = 878.0
-offset_bottom = 1392.0
+offset_left = 762.0
+offset_top = 220.0
+offset_right = 1026.0
+offset_bottom = 366.0
 theme_override_font_sizes/font_size = 35
 text = "Next
 Round"
@@ -189,27 +186,31 @@ Round"
 [node name="Button2" type="Button" parent="CanvasLayer" unique_id=1970037805]
 modulate = Color(1, 1, 1, 0.78431374)
 custom_minimum_size = Vector2(250, 0)
-offset_left = 614.0
-offset_top = 1401.0
-offset_right = 878.0
-offset_bottom = 1547.0
+offset_left = 631.0
+offset_top = 1387.0
+offset_right = 895.0
+offset_bottom = 1533.0
 theme_override_font_sizes/font_size = 35
 text = "Reroll"
 
 [node name="Label" type="Label" parent="CanvasLayer" unique_id=404248604]
 modulate = Color(1, 1, 1, 0.78431374)
-offset_left = 1735.0
-offset_top = 1456.0
-offset_right = 1789.0
-offset_bottom = 1505.0
+offset_left = 1752.0
+offset_top = 1442.0
+offset_right = 1806.0
+offset_bottom = 1491.0
 theme_override_font_sizes/font_size = 35
 text = "0/5"
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer" unique_id=207414407]
 modulate = Color(1, 1, 1, 0.27450982)
-anchors_preset = 15
-anchor_right = 1.0
+anchors_preset = -1
+anchor_right = 0.9990001
 anchor_bottom = 1.0
+offset_left = 1391.0
+offset_top = -384.0
+offset_right = 1391.1519
+offset_bottom = -381.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
