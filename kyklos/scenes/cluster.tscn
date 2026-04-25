@@ -6,6 +6,3 @@
 [node name="cluster" type="Node3D" unique_id=608683125]
 script = ExtResource("1_q0jbs")
 target_scene = ExtResource("2_ynrju")
-
-[node name="TargetSphere" parent="." unique_id=1742064879 instance=ExtResource("2_ynrju")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4267354, 0.3771783, -0.071195364)
