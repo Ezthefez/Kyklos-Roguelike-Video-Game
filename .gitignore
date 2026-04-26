@@ -12,6 +12,7 @@
 
 # Godot import cache (auto-generated)
 .import/
+*.import
 
 # Godot export files (optional)
 .export/
