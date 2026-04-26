@@ -24,6 +24,7 @@ var joystick_rest_rotation: Vector3
 var joystick_ws: float = 0.0
 var joystick_ad: float = 0.0
 var joystick_mouse_roll: float = 0.0
+var joystick_mouse_x: float = 0.0
 
 # State tracking
 var canopy_open := false
@@ -45,6 +46,10 @@ func _ready() -> void:
 		laptop_anim.play("Take 001")
 		laptop_anim.seek(0.0, true)
 		laptop_anim.stop()
+		
+func add_mouse_x(amount: float) -> void:
+	joystick_mouse_x += amount
+	joystick_mouse_x = clamp(joystick_mouse_x, -joystick_limit_x, joystick_limit_x)
 
 func _process(delta: float) -> void:
 	# Update joystick every frame based on input
@@ -64,11 +69,17 @@ func update_joystick(delta: float) -> void:
 	if joystick == null:
 		return
 
-	# Convert input into rotation targets
+	# Smoothly return mouse X tilt back to center
+	joystick_mouse_x = lerp(
+	joystick_mouse_x,
+	0.0,
+	joystick_return_speed * delta
+	) as float
+
 	var target_x: float = clamp(
-		joystick_ws * joystick_limit_x,
-		-joystick_limit_x,
-		joystick_limit_x
+	(joystick_ws * joystick_limit_x) + joystick_mouse_x,
+	-joystick_limit_x,
+	joystick_limit_x
 	)
 
 	var target_y: float = clamp(

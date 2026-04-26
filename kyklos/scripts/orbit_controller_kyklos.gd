@@ -13,9 +13,9 @@ extends Node3D
 var orbit_velocity := Vector2.ZERO
 
 # smooth the mouse look + cockpit roll/tilt
-@export var mouse_look_smoothness: float = 6.0
-@export var drift_tilt_x_amount: float = 6.0
-@export var drift_tilt_z_amount: float = 6.0
+@export var mouse_look_smoothness: float = 4.0
+@export var drift_tilt_x_amount: float = 10.0
+@export var drift_tilt_z_amount: float = 10.0
 @export var drift_tilt_smoothness: float = 6.0
 var smooth_yaw: float = 0.0
 var smooth_pitch: float = 0.0
@@ -32,7 +32,7 @@ var cockpit_base_rotation: Vector3 = Vector3.ZERO
 @export var recenter_speed: float = 5.0
 
 # Normal mouse look when NOT charging
-@export var look_speed: float = 0.08
+@export var look_speed: float = 0.02
 @export var max_yaw: float = 30.0
 @export var max_pitch: float = 18.0
 @export var max_vertical: float = 0.9
@@ -180,6 +180,11 @@ func _input(event: InputEvent) -> void:
 			yaw -= event.relative.x * look_speed
 			pitch -= event.relative.y * look_speed
 			_apply_circular_camera_clamp()
+			
+			# Joystick movement from mouse
+			if cockpit_scene:
+				cockpit_scene.add_mouse_roll(-event.relative.x * 0.08)
+				cockpit_scene.add_mouse_x(event.relative.y * 0.08)
 
 	if event.is_action_pressed("shoot"):
 		if GameManager.game_over:
