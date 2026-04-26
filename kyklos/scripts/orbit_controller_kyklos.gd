@@ -3,6 +3,24 @@
 extends Node3D
 # Kyklos Orbit Camera + Charge Shot using screen-space crosshair aim + smooth 360 sway
 
+# cockpit
+@onready var cockpit_scene = $"CameraYaw/CameraPitch/Cockpit_Scene"
+
+# cockpit lag + drift
+@export var orbit_acceleration: float = 1.0
+@export var orbit_drag: float = 0.9
+@export var max_input_speed: float = 1.2
+var orbit_velocity := Vector2.ZERO
+
+# smooth the mouse look + cockpit roll/tilt
+@export var mouse_look_smoothness: float = 6.0
+@export var drift_tilt_x_amount: float = 6.0
+@export var drift_tilt_z_amount: float = 6.0
+@export var drift_tilt_smoothness: float = 6.0
+var smooth_yaw: float = 0.0
+var smooth_pitch: float = 0.0
+var cockpit_base_rotation: Vector3 = Vector3.ZERO
+
 @export var orbit_center: Node3D
 @export var orbit_speed: float = 2.0
 
@@ -58,12 +76,20 @@ var last_mouse_delta: Vector2 = Vector2.ZERO
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+	# cockpits starting rotation
+	smooth_yaw = yaw
+	smooth_pitch = pitch
 
 	if aim_pointer != null:
 		aim_pointer.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		aim_pointer.visible = false
 		_center_pointer_now()
 
+	if cockpit_scene:
+		cockpit_base_rotation = cockpit_scene.rotation_degrees
+		
+# Main loop
 func _process(delta: float) -> void:
 	handle_movement(delta)
 	update_camera(delta)
@@ -89,6 +115,11 @@ func _process(delta: float) -> void:
 	else:
 		if charge_ui != null:
 			charge_ui.value = 0.0
+			
+	# Joystick 
+	var ws_input = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
+	var ad_input = Input.get_action_strength("ui_left") - Input.get_action_strength("ui_right")
+	cockpit_scene.set_joystick_input(ws_input, ad_input)
 
 		if aim_initialized:
 			var center := _get_screen_center()
@@ -166,6 +197,15 @@ func _input(event: InputEvent) -> void:
 			is_charging = false
 			fire_with_charge(charge_ratio)
 
+	if event.is_action_pressed("open_canopy") and cockpit_scene:
+		cockpit_scene.toggle_canopy()
+
+	if event.is_action_pressed("open_laptop") and cockpit_scene:
+		cockpit_scene.toggle_laptop()
+
+	if event.is_action_pressed("open_secondary_screen") and cockpit_scene:
+		cockpit_scene.toggle_secondary_screen()
+
 func _apply_charge_sway(delta: float) -> void:
 	# Apply continuous 360-degree drift from the current sway velocity
 	aim_screen_target += sway_velocity * delta
@@ -228,12 +268,28 @@ func handle_movement(delta: float) -> void:
 	if orbit_center == null:
 		return
 
+	var input_vector: Vector2 = Vector2(input_x, input_y)
+
+	if input_vector.length() > 1.0:
+		input_vector = input_vector.normalized()
+
+	var target_velocity: Vector2 = input_vector * max_input_speed
+
+	if input_vector.length() > 0.0:
+		orbit_velocity = orbit_velocity.move_toward(target_velocity, orbit_acceleration * delta)
+	else:
+		orbit_velocity = orbit_velocity.move_toward(Vector2.ZERO, orbit_drag * delta)
+
 	var center: Vector3 = orbit_center.global_position
+
+	# Direction from center to player
 	var to_center: Vector3 = (global_position - center).normalized()
+
 	var right_axis: Vector3 = Vector3.UP.cross(to_center).normalized()
 
-	rotate_around(center, right_axis, input_y * orbit_speed * delta)
-	rotate_around(center, Vector3.UP, -input_x * orbit_speed * delta)
+	# Rotate camera around center using velocity instead of raw input
+	rotate_around(center, right_axis, orbit_velocity.y * orbit_speed * delta)
+	rotate_around(center, Vector3.UP, -orbit_velocity.x * orbit_speed * delta)
 
 	var new_dir: Vector3 = (global_position - center).normalized()
 	var vertical_dot: float = new_dir.dot(Vector3.UP)
@@ -242,7 +298,13 @@ func handle_movement(delta: float) -> void:
 		var radius: float = (global_position - center).length()
 		var clamped_y: float = signf(vertical_dot) * max_vertical
 		var horizontal: float = sqrt(1.0 - clamped_y * clamped_y)
-		var horiz_dir: Vector3 = Vector3(new_dir.x, 0.0, new_dir.z).normalized()
+
+		var horiz_dir: Vector3 = Vector3(new_dir.x, 0.0, new_dir.z)
+		if horiz_dir.length() > 0.0001:
+			horiz_dir = horiz_dir.normalized()
+		else:
+			horiz_dir = Vector3.FORWARD
+
 		var clamped_dir: Vector3 = Vector3(
 			horiz_dir.x * horizontal,
 			clamped_y,
@@ -258,10 +320,85 @@ func rotate_around(center: Vector3, axis: Vector3, angle: float) -> void:
 	global_position = center + offset
 
 func update_camera(delta: float) -> void:
+	# Recalculate movement input
+	var input_x: float = Input.get_action_strength("ui_left") - Input.get_action_strength("ui_right")
+	var input_y: float = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
+
+	# Determine if player is actively moving
+	var is_moving: bool = abs(input_x) > 0.01 or abs(input_y) > 0.01
+
+	# Recenter camera when moving (WASD pressed)
+	if is_moving:
+		yaw = lerp(yaw, 0.0, recenter_speed * delta) as float
+		pitch = lerp(pitch, 0.0, recenter_speed * delta) as float
+
+	# Smooth the camera movement so it doesn't snap instantly to mouse input
+	# yaw/pitch = target values, smooth_yaw/pitch = actual displayed values
+	smooth_yaw = lerp(smooth_yaw, yaw, mouse_look_smoothness * delta) as float
+	smooth_pitch = lerp(smooth_pitch, pitch, mouse_look_smoothness * delta) as float
+
+	# Apply smoothed camera movement
 	if camera_yaw != null:
-		camera_yaw.rotation_degrees.y = lerp(camera_yaw.rotation_degrees.y, yaw, 10.0 * delta)
+		camera_yaw.rotation_degrees.y = lerp(
+			camera_yaw.rotation_degrees.y,
+			smooth_yaw,
+			mouse_look_smoothness * delta
+		) as float
+
 	if camera_pitch != null:
-		camera_pitch.rotation_degrees.x = lerp(camera_pitch.rotation_degrees.x, pitch, 10.0 * delta)
+		camera_pitch.rotation_degrees.x = lerp(
+			camera_pitch.rotation_degrees.x,
+			smooth_pitch,
+			mouse_look_smoothness * delta
+		) as float
+
+	update_cockpit_drift_tilt(delta)
+	
+func update_cockpit_drift_tilt(delta: float) -> void:
+	if cockpit_scene == null:
+		return
+
+	# Use orbit velocity to determine how much the ship is drifting
+	# This creates a visual "weight" effect for the cockpit
+
+
+	# Tilt forward/back when moving up/down around the cluster
+	var target_tilt_x: float = clamp(
+		orbit_velocity.y * drift_tilt_x_amount,
+		-drift_tilt_x_amount,
+		drift_tilt_x_amount
+	)
+
+	# Roll left/right when moving sideways
+	var target_tilt_z: float = clamp(
+		-orbit_velocity.x * drift_tilt_z_amount,
+		-drift_tilt_z_amount,
+		drift_tilt_z_amount
+	)
+	
+	# Combine tilt with original cockpit rotation
+	var desired_x: float = cockpit_base_rotation.x + target_tilt_x
+	var desired_y: float = cockpit_base_rotation.y
+	var desired_z: float = cockpit_base_rotation.z + target_tilt_z
+
+	# Smoothly apply tilt so it feels like inertia instead of snapping
+	cockpit_scene.rotation_degrees.x = lerp(
+		cockpit_scene.rotation_degrees.x,
+		desired_x,
+		drift_tilt_smoothness * delta
+	) as float
+
+	cockpit_scene.rotation_degrees.y = lerp(
+		cockpit_scene.rotation_degrees.y,
+		desired_y,
+		drift_tilt_smoothness * delta
+	) as float
+
+	cockpit_scene.rotation_degrees.z = lerp(
+		cockpit_scene.rotation_degrees.z,
+		desired_z,
+		drift_tilt_smoothness * delta
+	) as float
 
 func fire_with_charge(charge_ratio: float) -> void:
 	if not can_fire:

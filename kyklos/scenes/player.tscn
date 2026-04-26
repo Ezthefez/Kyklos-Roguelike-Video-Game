@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ccifvlkyyoivs" path="res://scripts/orbit_controller_kyklos.gd" id="1_g2els"]
 [ext_resource type="PackedScene" uid="uid://eio0xsavupt2" path="res://scenes/Projectile.tscn" id="2_qhqgy"]
+[ext_resource type="PackedScene" uid="uid://cesdusnacd20p" path="res://scenes/cockpit_scene.tscn" id="3_qhqgy"]
 
 [node name="OrbitRoot" type="Node3D" unique_id=1720029618 node_paths=PackedStringArray("camera_yaw", "camera_pitch", "camera", "muzzle")]
 script = ExtResource("1_g2els")
@@ -23,3 +24,8 @@ current = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1344043, -0.029741287)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="CameraYaw/CameraPitch/Camera3D" unique_id=627132390]
+light_color = Color(0.4443339, 0.58186185, 1, 1)
+light_energy = 0.4
+
+[node name="Cockpit_Scene" parent="CameraYaw/CameraPitch" unique_id=1962816754 instance=ExtResource("3_qhqgy")]
+transform = Transform3D(-1, -8.8360174e-16, 8.742278e-08, 2.1206743e-09, 0.9997057, 0.02425769, -8.7397055e-08, 0.02425769, -0.9997057, 0.008160353, -0.9827974, -2.8188262)

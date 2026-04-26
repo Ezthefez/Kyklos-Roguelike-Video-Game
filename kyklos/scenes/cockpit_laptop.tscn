@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://ce83ivfg2s8rs"]
+
+[ext_resource type="PackedScene" uid="uid://c6stbcu6x371r" path="res://assets/cockpit/VA_Scifi_Cockpit_7_Laptop.FBX" id="1_d2yjk"]
+[ext_resource type="Texture2D" uid="uid://4esosemwbtdq" path="res://assets/cockpit/Textures/Screen/VA_Scifi_Cockpit7_Displays_Metallic.png" id="2_jq211"]
+[ext_resource type="Texture2D" uid="uid://cdcdesjwoa7s0" path="res://assets/cockpit/Textures/Screen/1bc8ffe3ab723ce013f6c22aebcb7b37.jpg" id="3_myirb"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_htthj"]
+albedo_texture = ExtResource("2_jq211")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7ik2s"]
+albedo_texture = ExtResource("2_jq211")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hsdtp"]
+albedo_texture = ExtResource("3_myirb")
+emission_enabled = true
+emission_energy_multiplier = 1.5
+emission_texture = ExtResource("3_myirb")
+
+[node name="Cockpit_Laptop" unique_id=1906991387 instance=ExtResource("1_d2yjk")]
+
+[node name="LaptopBody" parent="." index="0" unique_id=1416708342]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 2.1329097e-08, 0, 0.005)
+surface_material_override/0 = SubResource("StandardMaterial3D_htthj")
+
+[node name="LaptopScreen" parent="LaptopBody" index="0" unique_id=51962947]
+surface_material_override/0 = SubResource("StandardMaterial3D_7ik2s")
+
+[node name="LaptopDisplay" parent="LaptopBody/LaptopScreen" index="0" unique_id=1910549585]
+surface_material_override/0 = SubResource("StandardMaterial3D_hsdtp")

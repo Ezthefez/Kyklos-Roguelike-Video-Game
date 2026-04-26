@@ -42,3 +42,8 @@ generate_at_origin = false
 layout_mode = 1
 
 [node name="BoundarySphere" parent="." unique_id=1641793602 instance=ExtResource("8_tipki")]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1071464705]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.45876, -0.0023007393, 25.590424)
+light_color = Color(1, 0.8672408, 0.8447085, 1)
+light_energy = 0.75
