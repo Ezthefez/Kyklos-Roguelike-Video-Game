@@ -29,6 +29,7 @@ var cockpit_base_rotation: Vector3 = Vector3.ZERO
 @export var camera_pitch: Node3D
 @export var camera: Camera3D
 @export var muzzle: Marker3D
+@export var recenter_speed: float = 5.0
 
 # Normal mouse look when NOT charging
 @export var look_speed: float = 0.08
@@ -121,18 +122,23 @@ func _process(delta: float) -> void:
 	var ad_input = Input.get_action_strength("ui_left") - Input.get_action_strength("ui_right")
 	cockpit_scene.set_joystick_input(ws_input, ad_input)
 
-		if aim_initialized:
-			var center := _get_screen_center()
-			aim_screen_target = aim_screen_target.lerp(
-				center,
-				clamp(charge_aim_smooth_speed * delta, 0.0, 1.0)
-			)
-			aim_screen_current = aim_screen_current.lerp(
-				center,
-				clamp(charge_aim_smooth_speed * delta, 0.0, 1.0)
-			)
+	var input_x: float = Input.get_action_strength("ui_left") - Input.get_action_strength("ui_right")
+	var input_y: float = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
 
-		sway_velocity = sway_velocity.lerp(Vector2.ZERO, clamp(sway_drag * delta, 0.0, 1.0))
+	var is_moving: bool = abs(input_x) > 0.01 or abs(input_y) > 0.01
+
+	if aim_initialized and not is_charging and is_moving:
+		var center := _get_screen_center()
+		aim_screen_target = aim_screen_target.lerp(
+			center,
+			clamp(charge_aim_smooth_speed * delta, 0.0, 1.0)
+		)
+		aim_screen_current = aim_screen_current.lerp(
+			center,
+			clamp(charge_aim_smooth_speed * delta, 0.0, 1.0)
+		)
+
+	sway_velocity = sway_velocity.lerp(Vector2.ZERO, clamp(sway_drag * delta, 0.0, 1.0))
 
 	_update_aim_pointer_ui()
 
