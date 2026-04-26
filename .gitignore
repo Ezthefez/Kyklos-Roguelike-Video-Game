@@ -8,7 +8,7 @@
 # =========================
 # Godot 4
 # =========================
-.godot/
+kyklos/.godot/
 
 # Godot import cache (auto-generated)
 .import/
