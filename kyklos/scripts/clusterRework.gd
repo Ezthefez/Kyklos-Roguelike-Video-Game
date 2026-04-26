@@ -38,6 +38,8 @@ func _ready() -> void:
 	
 	spawn_targets()
 	
+	GameManager.targets_remaining = tracked_targets.size()
+	
 	await get_tree().create_timer(0.2).timeout
 	gravity_enabled = true
 

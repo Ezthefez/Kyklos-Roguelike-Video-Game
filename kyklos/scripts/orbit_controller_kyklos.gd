@@ -145,6 +145,14 @@ func _input(event: InputEvent) -> void:
 			_apply_circular_camera_clamp()
 
 	if event.is_action_pressed("shoot"):
+		if GameManager.game_over:
+			return
+
+		if GameManager.ammo <= 0:
+			GameManager.game_over = true
+			GameManager.emit_signal("game_lost")
+			return
+			
 		if can_fire:
 			is_charging = true
 			charge_timer = 0.0
@@ -264,6 +272,9 @@ func fire_with_charge(charge_ratio: float) -> void:
 		return
 
 	can_fire = false
+	
+	GameManager.ammo -= 1
+	GameManager.emit_signal("ammo_changed", GameManager.ammo)
 
 	var projectile := projectile_scene.instantiate() as RigidBody3D
 	get_tree().current_scene.add_child(projectile)

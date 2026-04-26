@@ -1,46 +1,21 @@
-# =========================
-# macOS
-# =========================
-.DS_Store
-.AppleDouble
-.LSOverride
-
-# =========================
-# Godot 4
-# =========================
-kyklos/.godot/
-
-# Godot import cache (auto-generated)
-.import/
+# Godot
+**/.godot/
+**/.import/
 *.import
 
-# Godot export files (optional)
-.export/
-.export_presets.cfg
+# OS
+.DS_Store
+Thumbs.db
 
-# =========================
-# Editor / IDE
-# =========================
+# Editors
 .vscode/
 .idea/
-*.swp
-*.tmp
 
-# =========================
-# Logs / temp files
-# =========================
+# Logs
 *.log
 *.cache
 
-# =========================
-# System files
-# =========================
-Thumbs.db
-desktop.ini
-
-# =========================
-# Build / export outputs
-# =========================
-bin/
+# Builds
 build/
 dist/
+bin/

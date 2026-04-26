@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://8ip8klr3e1nq"]
 
+[ext_resource type="Script" uid="uid://ds56cqio2ajh" path="res://scenes/ui.gd" id="1_gdt2y"]
 [ext_resource type="Texture2D" uid="uid://c8vxtax11mmkd" path="res://assets/Crosshair.png" id="1_tdwok"]
 [ext_resource type="Texture2D" uid="uid://ur1txf8kwdju" path="res://assets/CircularProgressBar.png" id="2_x4jx1"]
 [ext_resource type="PackedScene" uid="uid://cgyfa2f5jjphr" path="res://scenes/pause_menu.tscn" id="3_yev5y"]
@@ -11,10 +12,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_gdt2y")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=343343647]
 
 [node name="PauseMenu" parent="CanvasLayer" unique_id=1210719568 instance=ExtResource("3_yev5y")]
+visible = false
 
 [node name="CrosshairRoot" type="Control" parent="CanvasLayer" unique_id=187113141]
 custom_minimum_size = Vector2(32, 32)
@@ -57,3 +60,48 @@ step = 0.01
 value = 1.0
 fill_mode = 4
 texture_progress = ExtResource("2_x4jx1")
+
+[node name="AmmoLabel" type="Label" parent="CanvasLayer" unique_id=506608703]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Ammo: 0"
+
+[node name="WinScreen" type="Control" parent="CanvasLayer" unique_id=1441095187]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/WinScreen" unique_id=428258408]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "YOU WIN"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LoseScreen" type="Control" parent="CanvasLayer" unique_id=1723479089]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/LoseScreen" unique_id=960620281]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "YOU LOSE"
+horizontal_alignment = 1
+vertical_alignment = 1

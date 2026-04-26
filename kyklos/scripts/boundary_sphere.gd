@@ -32,7 +32,6 @@ func _physics_process(_delta: float) -> void:
 
 		# ENTIRELY outside the boundary sphere
 		if distance_from_center > (boundary_radius + radius):
-			harvested[body] = true
 			_begin_harvest(body)
 
 func _get_body_radius(body: RigidBody3D) -> float:
@@ -44,7 +43,22 @@ func _get_body_radius(body: RigidBody3D) -> float:
 	return 0.5
 
 func _begin_harvest(body: RigidBody3D) -> void:
-	# Turn off collisions immediately so harvested marbles stop affecting gameplay
+	if harvested.has(body):
+		return
+
+	harvested[body] = true
+
+	#GAME LOGIC
+	GameManager.targets_remaining -= 1
+	GameManager.ammo += 1
+	GameManager.emit_signal("ammo_changed", GameManager.ammo)
+
+	#WIN CHECK (IMPORTANT: check BEFORE lose)
+	if GameManager.targets_remaining <= 0 and not GameManager.game_over:
+		GameManager.game_over = true
+		GameManager.emit_signal("game_won")
+
+	#Turn off collisions
 	body.collision_layer = 0
 	body.collision_mask = 0
 	body.freeze = true
