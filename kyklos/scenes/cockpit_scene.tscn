@@ -20,7 +20,7 @@ emission_texture = ExtResource("2_eqbwn")
 script = ExtResource("2_snf4n")
 
 [node name="Cockpit_Seat" parent="Sketchfab_model/VA_Scifi_Cockpit_7_FBX/Object_2/RootNode/CockpitBody" parent_id_path=PackedInt32Array(1191399931) index="2" unique_id=1423935542]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 17.552874, 16.512352)
+transform = Transform3D(1, 0, 0, 0, 0.99918664, 0.040323623, 0, -0.040323623, 0.99918664, 0, 17.552874, 16.512352)
 
 [node name="Joystick" parent="Sketchfab_model/VA_Scifi_Cockpit_7_FBX/Object_2/RootNode/CockpitBody" parent_id_path=PackedInt32Array(1191399931) index="3" unique_id=68586189]
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, -36.171074, -12.848876, 51.677494)
