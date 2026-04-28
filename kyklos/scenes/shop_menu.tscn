@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://ce2203af8nd0i"]
 
-[ext_resource type="Script" uid="uid://d3g3vpkd2dil5" path="res://scripts/shop_menu.gd" id="1_5pe57"]
-[ext_resource type="Texture2D" uid="uid://ccqa0bdj8wvuc" path="res://assets/shopmenu.jpeg" id="3_1ltno"]
+[ext_resource type="Script" uid="uid://cxdfounxl6o24" path="res://scripts/shop_menu.gd" id="1_5pe57"]
+[ext_resource type="Texture2D" uid="uid://ba0ybom54hr54" path="res://assets/shopmenu.jpeg" id="3_1ltno"]
 [ext_resource type="PackedScene" uid="uid://bnn6l1t55skiv" path="res://scenes/KyklonPreview.tscn" id="3_76m3e"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_cql4u"]
-viewport_path = NodePath("CanvasLayer/Panel5/TextureRect/SubViewportContainer/SubViewport")
+[sub_resource type="LabelSettings" id="LabelSettings_1ltno"]
+font_size = 160
 
 [node name="ShopMenu" type="Control" unique_id=739052369]
 layout_mode = 3
@@ -18,81 +18,101 @@ script = ExtResource("1_5pe57")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=832751027]
 
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer" unique_id=207414407]
+modulate = Color(1, 1, 1, 0.27450982)
+anchors_preset = -1
+anchor_right = 0.9990001
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_right = 1.1518555
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_1ltno")
+
 [node name="Panel" type="Panel" parent="CanvasLayer" unique_id=2047585157]
 modulate = Color(1, 1, 1, 0.78431374)
 custom_minimum_size = Vector2(200, 120)
-offset_right = 640.0
-offset_bottom = 233.0
+anchors_preset = -1
+anchor_left = 0.021000002
+anchor_top = 0.081
+anchor_right = 0.30800003
+anchor_bottom = 0.25100002
+offset_left = 0.6799965
+offset_top = 0.51999664
+offset_right = 0.6399536
+offset_bottom = -0.08001709
 
 [node name="Label" type="Label" parent="CanvasLayer/Panel" unique_id=1313485921]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = -0.19000001
-anchor_top = -0.625
-anchor_right = 1.2600001
-anchor_bottom = 1.6500001
-offset_left = 174.6
-offset_top = 116.625
-offset_right = 174.74994
-offset_bottom = 116.625
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -272.5
+offset_top = -65.5
+offset_right = 411.5
+offset_bottom = 145.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 200
 text = "SHOP"
+label_settings = SubResource("LabelSettings_1ltno")
 
 [node name="Panel2" type="Panel" parent="CanvasLayer" unique_id=286385131]
 modulate = Color(1, 1, 1, 0.78431374)
 custom_minimum_size = Vector2(200, 120)
-offset_left = 994.0
-offset_top = 515.0
-offset_right = 1637.0
-offset_bottom = 806.0
+offset_left = 628.0
+offset_top = 215.0
+offset_right = 1271.0
+offset_bottom = 506.0
 
 [node name="Button" type="Button" parent="CanvasLayer/Panel2" unique_id=1211220915]
-custom_minimum_size = Vector2(350, 300)
 layout_mode = 0
-offset_left = 49.0
-offset_top = 76.0
-offset_right = 385.0
-offset_bottom = 425.0
+offset_left = 25.0
+offset_top = 10.0
+offset_right = 295.0
+offset_bottom = 280.0
 theme_override_font_sizes/font_size = 35
 text = "barrel stabilizer"
+autowrap_mode = 3
 
 [node name="Button2" type="Button" parent="CanvasLayer/Panel2" unique_id=1592021487]
-custom_minimum_size = Vector2(350, 300)
 layout_mode = 0
-offset_left = 463.0
-offset_top = 74.0
-offset_right = 733.0
-offset_bottom = 423.0
+offset_left = 335.0
+offset_top = 6.0
+offset_right = 605.0
+offset_bottom = 276.0
 theme_override_font_sizes/font_size = 35
 text = "reduced sway"
+autowrap_mode = 3
 
 [node name="Panel3" type="Panel" parent="CanvasLayer" unique_id=1509093391]
 modulate = Color(1, 1, 1, 0.78431374)
 custom_minimum_size = Vector2(300, 300)
-offset_left = 993.0
-offset_top = 888.0
-offset_right = 1678.0
-offset_bottom = 1294.0
+offset_left = 623.0
+offset_top = 519.0
+offset_right = 1137.0
+offset_bottom = 819.0
 
 [node name="Button" type="Button" parent="CanvasLayer/Panel3" unique_id=1916515068]
-custom_minimum_size = Vector2(250, 300)
 layout_mode = 0
-offset_left = 315.0
-offset_top = 41.0
-offset_right = 565.0
-offset_bottom = 375.0
+offset_left = 19.0
+offset_top = 7.0
+offset_right = 269.0
+offset_bottom = 287.0
 theme_override_font_sizes/font_size = 35
 text = "Voucher"
 
 [node name="Panel4" type="Panel" parent="CanvasLayer" unique_id=1776305605]
 modulate = Color(1, 1, 1, 0.78431374)
 custom_minimum_size = Vector2(500, 200)
-offset_left = 1836.0
-offset_top = 1209.0
-offset_right = 2787.0
-offset_bottom = 1486.0
+offset_left = 984.0
+offset_top = 834.0
+offset_right = 1902.0
+offset_bottom = 1064.0
 
 [node name="Button" type="Button" parent="CanvasLayer/Panel4" unique_id=531155905]
 custom_minimum_size = Vector2(150, 150)
@@ -100,7 +120,7 @@ layout_mode = 0
 offset_left = 25.0
 offset_top = 32.0
 offset_right = 175.0
-offset_bottom = 247.0
+offset_bottom = 187.0
 
 [node name="Button2" type="Button" parent="CanvasLayer/Panel4" unique_id=898764421]
 custom_minimum_size = Vector2(150, 150)
@@ -108,15 +128,15 @@ layout_mode = 0
 offset_left = 195.0
 offset_top = 37.0
 offset_right = 345.0
-offset_bottom = 252.0
+offset_bottom = 187.0
 
 [node name="Button3" type="Button" parent="CanvasLayer/Panel4" unique_id=1240647518]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 0
 offset_left = 373.0
-offset_top = 32.0
+offset_top = 35.0
 offset_right = 523.0
-offset_bottom = 247.0
+offset_bottom = 187.0
 
 [node name="Button4" type="Button" parent="CanvasLayer/Panel4" unique_id=783763827]
 custom_minimum_size = Vector2(150, 150)
@@ -124,23 +144,23 @@ layout_mode = 0
 offset_left = 549.0
 offset_top = 39.0
 offset_right = 699.0
-offset_bottom = 254.0
+offset_bottom = 189.0
 
 [node name="Button5" type="Button" parent="CanvasLayer/Panel4" unique_id=1619578611]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 0
 offset_left = 739.0
-offset_top = 34.0
+offset_top = 36.0
 offset_right = 889.0
-offset_bottom = 249.0
+offset_bottom = 186.0
 
 [node name="Panel5" type="Panel" parent="CanvasLayer" unique_id=1594610089]
 modulate = Color(1, 1, 1, 0.78431374)
 custom_minimum_size = Vector2(500, 500)
-offset_left = 2001.0
-offset_top = 359.0
-offset_right = 2755.0
-offset_bottom = 997.0
+offset_left = 1333.0
+offset_top = 217.0
+offset_right = 1849.0
+offset_bottom = 717.0
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/Panel5" unique_id=52188848]
 modulate = Color(1, 1, 1, 0.5882353)
@@ -149,19 +169,19 @@ offset_left = -4.0
 offset_top = 121.0
 offset_right = 396.0
 offset_bottom = 521.0
-texture = SubResource("ViewportTexture_cql4u")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayer/Panel5/TextureRect" unique_id=489720916]
 layout_mode = 0
-offset_left = 346.0
-offset_right = 746.0
-offset_bottom = 400.0
+offset_left = 236.0
+offset_top = -23.0
+offset_right = 636.0
+offset_bottom = 377.0
 
 [node name="SubViewport" type="SubViewport" parent="CanvasLayer/Panel5/TextureRect/SubViewportContainer" unique_id=1182646005]
 own_world_3d = true
 transparent_bg = true
 handle_input_locally = false
-size = Vector2i(400, 400)
+size = Vector2i(300, 300)
 render_target_update_mode = 4
 
 [node name="Camera3D" type="Camera3D" parent="CanvasLayer/Panel5/TextureRect/SubViewportContainer/SubViewport" unique_id=1261694491]
@@ -172,13 +192,34 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.41134405)
 
 [node name="KyklonPreview" parent="CanvasLayer/Panel5/TextureRect/SubViewportContainer/SubViewport" unique_id=1529538052 instance=ExtResource("3_76m3e")]
 
+[node name="SubViewportContainer2" type="SubViewportContainer" parent="CanvasLayer/Panel5/TextureRect" unique_id=161702497]
+layout_mode = 0
+offset_top = -23.0
+offset_right = 400.0
+offset_bottom = 377.0
+
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/Panel5/TextureRect/SubViewportContainer2" unique_id=336812951]
+own_world_3d = true
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(300, 300)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="CanvasLayer/Panel5/TextureRect/SubViewportContainer2/SubViewport" unique_id=1515551389]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.2218529)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="CanvasLayer/Panel5/TextureRect/SubViewportContainer2/SubViewport" unique_id=1006046302]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.41134405)
+
+[node name="KyklonPreview" parent="CanvasLayer/Panel5/TextureRect/SubViewportContainer2/SubViewport" unique_id=329168976 instance=ExtResource("3_76m3e")]
+
 [node name="NextRoundButton" type="Button" parent="CanvasLayer" unique_id=77961967]
 modulate = Color(1, 1, 1, 0.78431374)
 custom_minimum_size = Vector2(250, 0)
-offset_left = 762.0
-offset_top = 220.0
-offset_right = 1026.0
-offset_bottom = 366.0
+offset_left = 103.0
+offset_top = 785.0
+offset_right = 353.0
+offset_bottom = 891.0
 theme_override_font_sizes/font_size = 35
 text = "Next
 Round"
@@ -186,10 +227,10 @@ Round"
 [node name="Button2" type="Button" parent="CanvasLayer" unique_id=1970037805]
 modulate = Color(1, 1, 1, 0.78431374)
 custom_minimum_size = Vector2(250, 0)
-offset_left = 631.0
-offset_top = 1387.0
-offset_right = 895.0
-offset_bottom = 1533.0
+offset_left = 104.0
+offset_top = 907.0
+offset_right = 354.0
+offset_bottom = 1011.0
 theme_override_font_sizes/font_size = 35
 text = "Reroll"
 
@@ -201,19 +242,5 @@ offset_right = 1806.0
 offset_bottom = 1491.0
 theme_override_font_sizes/font_size = 35
 text = "0/5"
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer" unique_id=207414407]
-modulate = Color(1, 1, 1, 0.27450982)
-anchors_preset = -1
-anchor_right = 0.9990001
-anchor_bottom = 1.0
-offset_left = 1391.0
-offset_top = -384.0
-offset_right = 1391.1519
-offset_bottom = -381.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("3_1ltno")
 
 [connection signal="pressed" from="CanvasLayer/NextRoundButton" to="." method="_on_next_round_button_pressed"]

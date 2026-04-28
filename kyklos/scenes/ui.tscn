@@ -1,9 +1,14 @@
 [gd_scene format=3 uid="uid://8ip8klr3e1nq"]
 
-[ext_resource type="Script" uid="uid://ds56cqio2ajh" path="res://scenes/ui.gd" id="1_gdt2y"]
+[ext_resource type="Script" uid="uid://sodawts2q1wq" path="res://scenes/ui.gd" id="1_gdt2y"]
 [ext_resource type="Texture2D" uid="uid://c8vxtax11mmkd" path="res://assets/Crosshair.png" id="1_tdwok"]
 [ext_resource type="Texture2D" uid="uid://ur1txf8kwdju" path="res://assets/CircularProgressBar.png" id="2_x4jx1"]
 [ext_resource type="PackedScene" uid="uid://cgyfa2f5jjphr" path="res://scenes/pause_menu.tscn" id="3_yev5y"]
+[ext_resource type="FontFile" uid="uid://d4g88siqw8xvv" path="res://assets/sterion-font/Sterion-BLLld.ttf" id="5_wm3ai"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_gdt2y"]
+font = ExtResource("5_wm3ai")
+font_size = 42
 
 [node name="UI" type="Control" unique_id=143402949]
 layout_mode = 3
@@ -62,9 +67,13 @@ fill_mode = 4
 texture_progress = ExtResource("2_x4jx1")
 
 [node name="AmmoLabel" type="Label" parent="CanvasLayer" unique_id=506608703]
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 37.0
+offset_top = 33.0
+offset_right = 289.0
+offset_bottom = 74.0
 text = "Ammo: 0"
+label_settings = SubResource("LabelSettings_gdt2y")
+horizontal_alignment = 1
 
 [node name="WinScreen" type="Control" parent="CanvasLayer" unique_id=1441095187]
 visible = false

@@ -70,10 +70,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 5)
 
 [node name="InfoPanel3" type="Panel" parent="CanvasLayer" unique_id=516335879]
 custom_minimum_size = Vector2(500, 120)
-offset_left = 1922.0
-offset_top = 426.0
-offset_right = 2422.0
-offset_bottom = 546.0
+offset_left = 1306.0
+offset_top = 280.0
+offset_right = 1806.0
+offset_bottom = 400.0
 
 [node name="InfoLabel" type="Label" parent="CanvasLayer/InfoPanel3" unique_id=163524156]
 layout_mode = 0
@@ -84,10 +84,10 @@ text = "Cluster 3: "
 
 [node name="InfoPanel2" type="Panel" parent="CanvasLayer" unique_id=1567443681]
 custom_minimum_size = Vector2(500, 120)
-offset_left = 1198.0
-offset_top = 422.0
-offset_right = 1698.0
-offset_bottom = 542.0
+offset_left = 706.0
+offset_top = 276.0
+offset_right = 1206.0
+offset_bottom = 396.0
 
 [node name="InfoLabel" type="Label" parent="CanvasLayer/InfoPanel2" unique_id=394418736]
 layout_mode = 0
@@ -98,10 +98,10 @@ text = "Cluster 2: "
 
 [node name="InfoPanel1" type="Panel" parent="CanvasLayer" unique_id=852598005]
 custom_minimum_size = Vector2(500, 120)
-offset_left = 362.0
-offset_top = 420.0
-offset_right = 862.0
-offset_bottom = 540.0
+offset_left = 122.0
+offset_top = 278.0
+offset_right = 622.0
+offset_bottom = 398.0
 
 [node name="InfoLabel" type="Label" parent="CanvasLayer/InfoPanel1" unique_id=1765935650]
 layout_mode = 0
