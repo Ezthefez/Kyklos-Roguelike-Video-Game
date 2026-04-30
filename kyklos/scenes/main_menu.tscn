@@ -68,10 +68,10 @@ offset_bottom = 40.0
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="Title" unique_id=1531594771]
 layout_mode = 0
-offset_left = 1050.0
-offset_top = 21.0
-offset_right = 1350.0
-offset_bottom = 321.0
+offset_left = 1048.0
+offset_top = 255.0
+offset_right = 1348.0
+offset_bottom = 555.0
 
 [node name="SubViewport" type="SubViewport" parent="Title/SubViewportContainer" unique_id=454517784]
 own_world_3d = true
@@ -90,10 +90,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.41134405)
 
 [node name="KYKLOS" type="Label" parent="Title" unique_id=2144058926]
 layout_mode = 0
-offset_left = 464.0
-offset_top = 100.0
-offset_right = 1460.0
-offset_bottom = 676.0
+offset_left = 463.0
+offset_top = 321.0
+offset_right = 1459.0
+offset_bottom = 897.0
 theme_override_font_sizes/font_size = 178
 text = "KYKL  S
 "
