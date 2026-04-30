@@ -65,17 +65,18 @@ script = ExtResource("1_06t4h")
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer" unique_id=575204357]
 top_level = true
-offset_left = 814.0
-offset_top = 42.0
-offset_right = 1160.0
-offset_bottom = 426.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayer/TextureRect" unique_id=1531594771]
 layout_mode = 0
-offset_left = 236.0
-offset_top = -31.0
-offset_right = 702.0
-offset_bottom = 377.0
+offset_left = 1047.0
+offset_top = -1.0
+offset_right = 1347.0
+offset_bottom = 299.0
 
 [node name="SubViewport" type="SubViewport" parent="CanvasLayer/TextureRect/SubViewportContainer" unique_id=454517784]
 own_world_3d = true
