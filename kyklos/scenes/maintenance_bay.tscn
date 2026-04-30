@@ -1,8 +1,68 @@
 [gd_scene format=3 uid="uid://bawd5ieaq31gm"]
 
 [ext_resource type="Texture2D" uid="uid://bvlnx5ko4g0t5" path="res://assets/shopbackground.png" id="1_fa72y"]
-[ext_resource type="Script" uid="uid://bqw2g2jk1qytw" path="res://scripts/maintenance_bay.gd" id="1_hfgmh"]
 [ext_resource type="Shader" uid="uid://dkjlig3g22qrx" path="res://assets/maintenance_bay.gdshader" id="3_q11gt"]
+
+[sub_resource type="GDScript" id="GDScript_hfgmh"]
+script/source = "extends Control
+
+var kyklon_total: int = 1000
+
+@onready var blur_overlay = $BlurOverlay
+@onready var back_button = $BackButton
+@onready var store_panel = $StorePanel
+@onready var play_mainmenu = $Play_MainMenuButtons
+@onready var store_gearup = $Store_GearUpButtons
+@onready var gearup_back_button = $GearUpBackButton
+@onready var gear_up_panel = $GearUpPanel
+@onready var kyklon_label = $KyklonLabel
+
+func _ready() -> void:
+	update_kyklon_label()
+
+func _on_play_pressed() -> void:
+		get_tree().change_scene_to_file(\"res://scenes/LevelSelect.tscn\")
+
+func _on_main_menu_pressed() -> void:
+		get_tree().change_scene_to_file(\"res://scenes/main_menu.tscn\")
+
+func update_kyklon_label() -> void:
+	kyklon_label.text = \"Kyklons: \" + str(kyklon_total)
+
+
+func _on_store_pressed() -> void:
+	blur_overlay.visible = true
+	back_button.visible = true
+	store_panel.visible = true
+
+func _on_back_pressed() -> void:
+	blur_overlay.visible = false
+	back_button.visible = false
+	store_panel.visible = false
+
+
+func _on_gear_up_pressed() -> void:
+	play_mainmenu.visible = false
+	store_gearup.visible = false
+	gearup_back_button.visible = true
+	gear_up_panel.visible = true
+
+func _on_gear_up_back_button_pressed() -> void:
+	gearup_back_button.visible = false
+	play_mainmenu.visible = true
+	store_gearup.visible = true
+	gear_up_panel.visible = false
+
+
+func buy_upgrade(cost: int) -> void:
+	if kyklon_total >= cost:
+		kyklon_total -= cost
+		update_kyklon_label()
+
+
+func _on_buy_button_pressed() -> void:
+	buy_upgrade(50)
+"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l2ygw"]
 shader = ExtResource("3_q11gt")
@@ -16,7 +76,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_hfgmh")
+script = SubResource("GDScript_hfgmh")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1764758374]
 layout_mode = 1

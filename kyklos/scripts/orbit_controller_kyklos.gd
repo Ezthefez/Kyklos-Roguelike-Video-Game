@@ -76,6 +76,7 @@ var sway_velocity: Vector2 = Vector2.ZERO
 var last_mouse_delta: Vector2 = Vector2.ZERO
 
 func _ready() -> void:
+	get_tree().paused = false
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
 	# cockpits starting rotation

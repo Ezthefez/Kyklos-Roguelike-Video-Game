@@ -26,9 +26,11 @@ layout_mode = 2
 [node name="ResumeButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1877572385]
 custom_minimum_size = Vector2(300, 80)
 layout_mode = 2
-text = "Resume"
+theme_override_font_sizes/font_size = 33
+text = "RESUME GAME"
 
 [node name="QuitButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1984051631]
 custom_minimum_size = Vector2(300, 80)
 layout_mode = 2
-text = "Quit to Shop"
+theme_override_font_sizes/font_size = 33
+text = "QUIT TO MENU"

@@ -17,4 +17,5 @@ func _on_resume_pressed():
 
 func _on_quit_pressed():
 	get_tree().paused = false
-	get_tree().change_scene_to_file("res://scenes/Shop.tscn")
+	GameManager.reset_all()
+	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")

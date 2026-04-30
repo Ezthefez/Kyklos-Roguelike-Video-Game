@@ -17,8 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-GameState="*uid://c0mknssyhwykd"
-GameManager="*uid://81gxq4shh45k"
+GameManager="*uid://cuwvu7hnavtfv"
 
 [display]
 
@@ -29,7 +28,7 @@ window/stretch/aspect="ignore"
 
 [gui]
 
-theme/custom_font="uid://d4g88siqw8xvv"
+theme/custom_font="uid://c2i144h4pryop"
 
 [input]
 

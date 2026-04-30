@@ -50,6 +50,7 @@ func _begin_harvest(body: RigidBody3D) -> void:
 
 	#GAME LOGIC
 	GameManager.targets_remaining -= 1
+	GameManager.targets_collected += 1
 	GameManager.ammo += 1
 	GameManager.emit_signal("ammo_changed", GameManager.ammo)
 

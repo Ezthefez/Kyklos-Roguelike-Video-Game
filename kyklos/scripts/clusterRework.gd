@@ -25,10 +25,10 @@ var escape_timers: Dictionary = {}
 
 func _ready() -> void:
 	await get_tree().process_frame
-	print("GAMESTATE SEED:", GameState.selected_seed)
+	print("GAMEMANAGER SEED:", GameManager.selected_seed)
 	
-	if GameState.selected_seed != 0:
-		cluster_seed = GameState.selected_seed
+	if GameManager.selected_seed != 0:
+		cluster_seed = GameManager.selected_seed
 	elif cluster_seed == 0:
 		cluster_seed = randi()
 

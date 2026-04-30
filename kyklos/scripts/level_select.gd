@@ -13,9 +13,12 @@ var is_zooming := false
 func _on_zoom_finished():
 	is_zooming = false
 	
-	GameState.selected_seed = selected_seed
+	GameManager.selected_seed = selected_seed
 	print("SELECTED SEED:", selected_seed)
 	
+	get_tree().paused = false
+	GameManager.reset_run()
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	get_tree().change_scene_to_file("res://scenes/main.tscn")
 
 func hide_all_info_panels():
