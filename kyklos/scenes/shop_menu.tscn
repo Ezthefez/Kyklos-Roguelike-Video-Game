@@ -1,13 +1,36 @@
 [gd_scene format=3 uid="uid://ce2203af8nd0i"]
 
-[ext_resource type="Script" uid="uid://cxdfounxl6o24" path="res://scripts/shop_menu.gd" id="1_5pe57"]
-[ext_resource type="Texture2D" uid="uid://ba0ybom54hr54" path="res://assets/shopmenu.jpeg" id="3_1ltno"]
+[ext_resource type="Script" uid="uid://cxdfounxl6o24" path="res://scripts/shop/shop_menu.gd" id="1_5pe57"]
+[ext_resource type="PackedScene" uid="uid://dhdbykrbh4q5o" path="res://scenes/shop_item_ui.tscn" id="2_1ltno"]
+[ext_resource type="Script" uid="uid://bktcwkxeh5ogu" path="res://scripts/shop/shop_item.gd" id="2_76m3e"]
 [ext_resource type="PackedScene" uid="uid://bnn6l1t55skiv" path="res://scenes/KyklonPreview.tscn" id="3_76m3e"]
+[ext_resource type="Resource" uid="uid://1fycye6g2huo" path="res://resources/shop_items/common/liquid_cooling.tres" id="3_lngpu"]
+[ext_resource type="Resource" uid="uid://cibggx45qfy7w" path="res://resources/shop_items/rare/mega_shot.tres" id="4_hgolc"]
+[ext_resource type="Resource" uid="uid://cghrhkeotijqd" path="res://resources/shop_items/common/increase_charge.tres" id="5_amlfo"]
+[ext_resource type="Resource" uid="uid://bku532vx264vs" path="res://resources/shop_items/common/increase_capacity.tres" id="6_tnh3q"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_1ltno"]
-font_size = 160
+font_size = 240
 
-[node name="ShopMenu" type="Control" unique_id=739052369]
+[sub_resource type="LabelSettings" id="LabelSettings_5pe57"]
+font_size = 70
+
+[sub_resource type="LabelSettings" id="LabelSettings_bq4yc"]
+font_size = 65
+font_color = Color(1, 0.80784315, 0.12156863, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_cql4u"]
+font_size = 75
+
+[sub_resource type="LabelSettings" id="LabelSettings_xw4en"]
+font_size = 65
+font_color = Color(1, 0.80784315, 0.12156863, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_76m3e"]
+font_size = 100
+font_color = Color(1, 0.80784315, 0.12156863, 1)
+
+[node name="ShopMenu" type="Control" unique_id=739052369 node_paths=PackedStringArray("shop_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -15,232 +38,259 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_5pe57")
+item_pool = Array[ExtResource("2_76m3e")]([ExtResource("3_lngpu"), ExtResource("4_hgolc"), ExtResource("5_amlfo"), ExtResource("6_tnh3q")])
+item_scene = ExtResource("2_1ltno")
+shop_container = NodePath("CanvasLayer/Upgrades/HBoxContainer")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=832751027]
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer" unique_id=207414407]
-modulate = Color(1, 1, 1, 0.27450982)
-anchors_preset = -1
-anchor_right = 0.9990001
-anchor_bottom = 1.0
-offset_left = 1.0
-offset_right = 1.1518555
-offset_bottom = 3.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("3_1ltno")
-
-[node name="Panel" type="Panel" parent="CanvasLayer" unique_id=2047585157]
-modulate = Color(1, 1, 1, 0.78431374)
-custom_minimum_size = Vector2(200, 120)
-anchors_preset = -1
-anchor_left = 0.021000002
-anchor_top = 0.081
-anchor_right = 0.30800003
-anchor_bottom = 0.25100002
-offset_left = 0.6799965
-offset_top = 0.51999664
-offset_right = 0.6399536
-offset_bottom = -0.08001709
-
-[node name="Label" type="Label" parent="CanvasLayer/Panel" unique_id=1313485921]
-layout_mode = 1
+[node name="Title" type="Label" parent="CanvasLayer" unique_id=1313485921]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -272.5
-offset_top = -65.5
-offset_right = 411.5
-offset_bottom = 145.5
+offset_left = -810.0
+offset_top = -524.0
+offset_right = -403.0
+offset_bottom = -260.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 200
 text = "SHOP"
 label_settings = SubResource("LabelSettings_1ltno")
 
-[node name="Panel2" type="Panel" parent="CanvasLayer" unique_id=286385131]
-modulate = Color(1, 1, 1, 0.78431374)
-custom_minimum_size = Vector2(200, 120)
-offset_left = 628.0
-offset_top = 215.0
-offset_right = 1271.0
-offset_bottom = 506.0
-
-[node name="Button" type="Button" parent="CanvasLayer/Panel2" unique_id=1211220915]
-layout_mode = 0
-offset_left = 25.0
-offset_top = 10.0
-offset_right = 295.0
-offset_bottom = 280.0
-theme_override_font_sizes/font_size = 35
-text = "barrel stabilizer"
-autowrap_mode = 3
-
-[node name="Button2" type="Button" parent="CanvasLayer/Panel2" unique_id=1592021487]
-layout_mode = 0
-offset_left = 335.0
-offset_top = 6.0
-offset_right = 605.0
-offset_bottom = 276.0
-theme_override_font_sizes/font_size = 35
-text = "reduced sway"
-autowrap_mode = 3
-
-[node name="Panel3" type="Panel" parent="CanvasLayer" unique_id=1509093391]
-modulate = Color(1, 1, 1, 0.78431374)
-custom_minimum_size = Vector2(300, 300)
-offset_left = 623.0
-offset_top = 519.0
-offset_right = 1137.0
-offset_bottom = 819.0
-
-[node name="Button" type="Button" parent="CanvasLayer/Panel3" unique_id=1916515068]
-layout_mode = 0
-offset_left = 19.0
-offset_top = 7.0
-offset_right = 269.0
-offset_bottom = 287.0
-theme_override_font_sizes/font_size = 35
-text = "Voucher"
-
-[node name="Panel4" type="Panel" parent="CanvasLayer" unique_id=1776305605]
-modulate = Color(1, 1, 1, 0.78431374)
-custom_minimum_size = Vector2(500, 200)
-offset_left = 984.0
-offset_top = 834.0
-offset_right = 1902.0
-offset_bottom = 1064.0
-
-[node name="Button" type="Button" parent="CanvasLayer/Panel4" unique_id=531155905]
-custom_minimum_size = Vector2(150, 150)
-layout_mode = 0
-offset_left = 25.0
-offset_top = 32.0
-offset_right = 175.0
-offset_bottom = 187.0
-
-[node name="Button2" type="Button" parent="CanvasLayer/Panel4" unique_id=898764421]
-custom_minimum_size = Vector2(150, 150)
-layout_mode = 0
-offset_left = 195.0
-offset_top = 37.0
-offset_right = 345.0
-offset_bottom = 187.0
-
-[node name="Button3" type="Button" parent="CanvasLayer/Panel4" unique_id=1240647518]
-custom_minimum_size = Vector2(150, 150)
-layout_mode = 0
-offset_left = 373.0
-offset_top = 35.0
-offset_right = 523.0
-offset_bottom = 187.0
-
-[node name="Button4" type="Button" parent="CanvasLayer/Panel4" unique_id=783763827]
-custom_minimum_size = Vector2(150, 150)
-layout_mode = 0
-offset_left = 549.0
-offset_top = 39.0
-offset_right = 699.0
-offset_bottom = 189.0
-
-[node name="Button5" type="Button" parent="CanvasLayer/Panel4" unique_id=1619578611]
-custom_minimum_size = Vector2(150, 150)
-layout_mode = 0
-offset_left = 739.0
-offset_top = 36.0
-offset_right = 889.0
-offset_bottom = 186.0
-
-[node name="Panel5" type="Panel" parent="CanvasLayer" unique_id=1594610089]
-modulate = Color(1, 1, 1, 0.78431374)
-custom_minimum_size = Vector2(500, 500)
-offset_left = 1333.0
-offset_top = 217.0
-offset_right = 1849.0
-offset_bottom = 717.0
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Panel5" unique_id=52188848]
-modulate = Color(1, 1, 1, 0.5882353)
-layout_mode = 0
-offset_left = -4.0
-offset_top = 121.0
-offset_right = 396.0
-offset_bottom = 521.0
-
-[node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayer/Panel5/TextureRect" unique_id=489720916]
-layout_mode = 0
-offset_left = 236.0
-offset_top = -23.0
-offset_right = 636.0
-offset_bottom = 377.0
-
-[node name="SubViewport" type="SubViewport" parent="CanvasLayer/Panel5/TextureRect/SubViewportContainer" unique_id=1182646005]
-own_world_3d = true
-transparent_bg = true
-handle_input_locally = false
-size = Vector2i(300, 300)
-render_target_update_mode = 4
-
-[node name="Camera3D" type="Camera3D" parent="CanvasLayer/Panel5/TextureRect/SubViewportContainer/SubViewport" unique_id=1261694491]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.2218529)
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="CanvasLayer/Panel5/TextureRect/SubViewportContainer/SubViewport" unique_id=1522606763]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.41134405)
-
-[node name="KyklonPreview" parent="CanvasLayer/Panel5/TextureRect/SubViewportContainer/SubViewport" unique_id=1529538052 instance=ExtResource("3_76m3e")]
-
-[node name="SubViewportContainer2" type="SubViewportContainer" parent="CanvasLayer/Panel5/TextureRect" unique_id=161702497]
-layout_mode = 0
-offset_top = -23.0
-offset_right = 400.0
-offset_bottom = 377.0
-
-[node name="SubViewport" type="SubViewport" parent="CanvasLayer/Panel5/TextureRect/SubViewportContainer2" unique_id=336812951]
-own_world_3d = true
-transparent_bg = true
-handle_input_locally = false
-size = Vector2i(300, 300)
-render_target_update_mode = 4
-
-[node name="Camera3D" type="Camera3D" parent="CanvasLayer/Panel5/TextureRect/SubViewportContainer2/SubViewport" unique_id=1515551389]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.2218529)
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="CanvasLayer/Panel5/TextureRect/SubViewportContainer2/SubViewport" unique_id=1006046302]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.41134405)
-
-[node name="KyklonPreview" parent="CanvasLayer/Panel5/TextureRect/SubViewportContainer2/SubViewport" unique_id=329168976 instance=ExtResource("3_76m3e")]
-
 [node name="NextRoundButton" type="Button" parent="CanvasLayer" unique_id=77961967]
 modulate = Color(1, 1, 1, 0.78431374)
 custom_minimum_size = Vector2(250, 0)
-offset_left = 103.0
-offset_top = 785.0
-offset_right = 353.0
-offset_bottom = 891.0
+offset_left = 217.0
+offset_top = 869.0
+offset_right = 467.0
+offset_bottom = 975.0
 theme_override_font_sizes/font_size = 35
 text = "Next
 Round"
 
-[node name="Button2" type="Button" parent="CanvasLayer" unique_id=1970037805]
-modulate = Color(1, 1, 1, 0.78431374)
-custom_minimum_size = Vector2(250, 0)
-offset_left = 104.0
-offset_top = 907.0
-offset_right = 354.0
-offset_bottom = 1011.0
-theme_override_font_sizes/font_size = 35
-text = "Reroll"
+[node name="Upgrades" type="Panel" parent="CanvasLayer" unique_id=286385131]
+custom_minimum_size = Vector2(200, 120)
+offset_left = 592.0
+offset_top = 209.0
+offset_right = 1210.0
+offset_bottom = 585.0
 
-[node name="Label" type="Label" parent="CanvasLayer" unique_id=404248604]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Upgrades" unique_id=1495491748]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 69.0
+offset_right = 634.0
+offset_bottom = 446.0
+
+[node name="Part1" type="Button" parent="CanvasLayer/Upgrades" unique_id=1211220915]
+visible = false
+layout_mode = 0
+offset_left = 25.0
+offset_top = 79.0
+offset_right = 295.0
+offset_bottom = 349.0
+theme_override_font_sizes/font_size = 55
+text = "PART 1"
+autowrap_mode = 3
+
+[node name="Part2" type="Button" parent="CanvasLayer/Upgrades" unique_id=1592021487]
+visible = false
+layout_mode = 0
+offset_left = 321.0
+offset_top = 79.0
+offset_right = 591.0
+offset_bottom = 349.0
+theme_override_font_sizes/font_size = 55
+text = "PART 2"
+autowrap_mode = 3
+
+[node name="Title" type="Label" parent="CanvasLayer/Upgrades" unique_id=1349006094]
+layout_mode = 0
+offset_left = 139.0
+offset_top = -8.0
+offset_right = 494.0
+offset_bottom = 75.0
+text = "SHIP UPGRADES"
+label_settings = SubResource("LabelSettings_5pe57")
+
+[node name="Price1" type="Label" parent="CanvasLayer/Upgrades" unique_id=2130735433]
+visible = false
+layout_mode = 0
+offset_left = 56.0
+offset_top = 262.0
+offset_right = 259.0
+offset_bottom = 334.0
+text = "$ "
+label_settings = SubResource("LabelSettings_bq4yc")
+horizontal_alignment = 1
+
+[node name="Price2" type="Label" parent="CanvasLayer/Upgrades" unique_id=1215429227]
+visible = false
+layout_mode = 0
+offset_left = 359.0
+offset_top = 260.0
+offset_right = 562.0
+offset_bottom = 332.0
+text = "$ "
+label_settings = SubResource("LabelSettings_bq4yc")
+horizontal_alignment = 1
+
+[node name="Equipped" type="Panel" parent="CanvasLayer" unique_id=1776305605]
 modulate = Color(1, 1, 1, 0.78431374)
-offset_left = 1752.0
-offset_top = 1442.0
-offset_right = 1806.0
-offset_bottom = 1491.0
-theme_override_font_sizes/font_size = 35
-text = "0/5"
+custom_minimum_size = Vector2(500, 200)
+offset_left = 592.0
+offset_top = 776.0
+offset_right = 1596.0
+offset_bottom = 1047.0
+
+[node name="Equip1" type="Button" parent="CanvasLayer/Equipped" unique_id=1619578611]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 0
+offset_left = 34.0
+offset_top = 38.0
+offset_right = 250.0
+offset_bottom = 239.0
+
+[node name="Equip2" type="Button" parent="CanvasLayer/Equipped" unique_id=1000341349]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 0
+offset_left = 753.0
+offset_top = 38.0
+offset_right = 969.0
+offset_bottom = 239.0
+
+[node name="Equip3" type="Button" parent="CanvasLayer/Equipped" unique_id=540222666]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 0
+offset_left = 516.0
+offset_top = 38.0
+offset_right = 732.0
+offset_bottom = 239.0
+
+[node name="Equip4" type="Button" parent="CanvasLayer/Equipped" unique_id=352614996]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 0
+offset_left = 272.0
+offset_top = 38.0
+offset_right = 488.0
+offset_bottom = 239.0
+
+[node name="Ammo" type="Panel" parent="CanvasLayer" unique_id=1594610089]
+custom_minimum_size = Vector2(500, 500)
+offset_left = 1270.0
+offset_top = 114.0
+offset_right = 1887.0
+offset_bottom = 655.0
+
+[node name="Title" type="Label" parent="CanvasLayer/Ammo" unique_id=100328675]
+layout_mode = 0
+offset_left = 113.0
+offset_top = 2.0
+offset_right = 495.0
+offset_bottom = 85.0
+text = "RESTOCK AMMO"
+label_settings = SubResource("LabelSettings_cql4u")
+
+[node name="Purchase1" type="Button" parent="CanvasLayer/Ammo" unique_id=1673612358]
+layout_mode = 0
+offset_left = 42.0
+offset_top = 124.0
+offset_right = 292.0
+offset_bottom = 504.0
+theme_override_colors/font_color = Color(1, 0.80784315, 0.12156863, 1)
+theme_override_font_sizes/font_size = 65
+alignment = 0
+
+[node name="Purchase2" type="Button" parent="CanvasLayer/Ammo" unique_id=1775911905]
+layout_mode = 0
+offset_left = 327.0
+offset_top = 124.0
+offset_right = 577.0
+offset_bottom = 504.0
+theme_override_colors/font_color = Color(1, 0.80784315, 0.12156863, 1)
+theme_override_font_sizes/font_size = 65
+alignment = 0
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayer/Ammo" unique_id=489720916]
+layout_mode = 0
+offset_left = 301.0
+offset_top = 144.0
+offset_right = 601.0
+offset_bottom = 444.0
+
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/Ammo/SubViewportContainer" unique_id=1182646005]
+own_world_3d = true
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(300, 300)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="CanvasLayer/Ammo/SubViewportContainer/SubViewport" unique_id=1261694491]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.2218529)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="CanvasLayer/Ammo/SubViewportContainer/SubViewport" unique_id=1522606763]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.41134405)
+
+[node name="KyklonPreview" parent="CanvasLayer/Ammo/SubViewportContainer/SubViewport" unique_id=1529538052 instance=ExtResource("3_76m3e")]
+
+[node name="SubViewportContainer2" type="SubViewportContainer" parent="CanvasLayer/Ammo" unique_id=161702497]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 144.0
+offset_right = 315.0
+offset_bottom = 444.0
+
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/Ammo/SubViewportContainer2" unique_id=336812951]
+own_world_3d = true
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(300, 300)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="CanvasLayer/Ammo/SubViewportContainer2/SubViewport" unique_id=1515551389]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.2218529)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="CanvasLayer/Ammo/SubViewportContainer2/SubViewport" unique_id=1006046302]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.41134405)
+
+[node name="KyklonPreview" parent="CanvasLayer/Ammo/SubViewportContainer2/SubViewport" unique_id=329168976 instance=ExtResource("3_76m3e")]
+
+[node name="Price1" type="Label" parent="CanvasLayer/Ammo" unique_id=738877394]
+layout_mode = 0
+offset_left = 87.0
+offset_top = 404.0
+offset_right = 243.0
+offset_bottom = 476.0
+text = "$ "
+label_settings = SubResource("LabelSettings_xw4en")
+horizontal_alignment = 1
+
+[node name="Price2" type="Label" parent="CanvasLayer/Ammo" unique_id=103615895]
+layout_mode = 0
+offset_left = 372.0
+offset_top = 402.0
+offset_right = 528.0
+offset_bottom = 474.0
+text = "$ "
+label_settings = SubResource("LabelSettings_xw4en")
+horizontal_alignment = 1
+
+[node name="Money" type="Panel" parent="CanvasLayer" unique_id=222284844]
+offset_left = 200.0
+offset_top = 262.0
+offset_right = 497.0
+offset_bottom = 373.0
+
+[node name="Amount" type="Label" parent="CanvasLayer/Money" unique_id=741737819]
+layout_mode = 0
+offset_left = 3.0
+offset_right = 293.0
+offset_bottom = 110.0
+text = "$ "
+label_settings = SubResource("LabelSettings_76m3e")
+horizontal_alignment = 1
 
 [connection signal="pressed" from="CanvasLayer/NextRoundButton" to="." method="_on_next_round_button_pressed"]
