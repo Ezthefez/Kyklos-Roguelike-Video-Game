@@ -1,0 +1,241 @@
+[gd_scene format=3 uid="uid://8ip8klr3e1nq"]
+
+[ext_resource type="Texture2D" uid="uid://c8vxtax11mmkd" path="res://assets/Crosshair.png" id="1_tdwok"]
+[ext_resource type="Script" uid="uid://ckb4pau4l6ktk" path="res://scripts/ui.gd" id="1_wm3ai"]
+[ext_resource type="Texture2D" uid="uid://ur1txf8kwdju" path="res://assets/CircularProgressBar.png" id="2_x4jx1"]
+[ext_resource type="PackedScene" uid="uid://cgyfa2f5jjphr" path="res://scenes/pause_menu.tscn" id="3_yev5y"]
+[ext_resource type="FontFile" uid="uid://c2i144h4pryop" path="res://assets/star-shield-2-font/StarShieldV2-9M52K.ttf" id="5_wm3ai"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_gdt2y"]
+font = ExtResource("5_wm3ai")
+font_size = 42
+
+[sub_resource type="LabelSettings" id="LabelSettings_wm3ai"]
+font_size = 66
+
+[sub_resource type="LabelSettings" id="LabelSettings_8dubc"]
+font_size = 33
+
+[sub_resource type="LabelSettings" id="LabelSettings_p7vwb"]
+font_size = 33
+
+[sub_resource type="LabelSettings" id="LabelSettings_ktti3"]
+font_size = 33
+
+[sub_resource type="LabelSettings" id="LabelSettings_cgfq5"]
+font_size = 66
+
+[node name="UI" type="Control" unique_id=143402949]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wm3ai")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=343343647]
+
+[node name="PauseMenu" parent="CanvasLayer" unique_id=1210719568 instance=ExtResource("3_yev5y")]
+visible = false
+
+[node name="CrosshairRoot" type="Control" parent="CanvasLayer" unique_id=187113141]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 3
+anchors_preset = 0
+offset_left = -24.0
+offset_top = -24.0
+offset_right = 72.0
+offset_bottom = 72.0
+
+[node name="Crosshair" type="TextureRect" parent="CanvasLayer/CrosshairRoot" unique_id=233951611]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 2016.0
+offset_bottom = 2016.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.016, 0.016)
+texture = ExtResource("1_tdwok")
+stretch_mode = 5
+
+[node name="ChargeCircle" type="TextureProgressBar" parent="CanvasLayer/CrosshairRoot" unique_id=955001530]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -21.0
+offset_top = -21.0
+offset_right = 247.0
+offset_bottom = 247.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.25, 0.25)
+max_value = 1.0
+step = 0.01
+value = 1.0
+fill_mode = 4
+texture_progress = ExtResource("2_x4jx1")
+
+[node name="AmmoLabel" type="Label" parent="CanvasLayer" unique_id=506608703]
+offset_left = 37.0
+offset_top = 33.0
+offset_right = 289.0
+offset_bottom = 74.0
+text = "Ammo: 0"
+label_settings = SubResource("LabelSettings_gdt2y")
+horizontal_alignment = 1
+
+[node name="ReportMenu" type="Control" parent="CanvasLayer" unique_id=1441095187]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CanvasLayer/ReportMenu" unique_id=1538137652]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -249.5
+offset_top = -146.0
+offset_right = 209.0
+offset_bottom = 200.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleLabel" type="Label" parent="CanvasLayer/ReportMenu/Panel" unique_id=428258408]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -73.5
+offset_top = -138.0
+offset_right = 68.5
+offset_bottom = -138.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "MISSION SUCCESS"
+label_settings = SubResource("LabelSettings_wm3ai")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StatsContainer" type="VBoxContainer" parent="CanvasLayer/ReportMenu/Panel" unique_id=2076656783]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -111.75
+offset_top = -68.25
+offset_right = 127.25
+offset_bottom = -12.25
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CollectedLabel" type="Label" parent="CanvasLayer/ReportMenu/Panel/StatsContainer" unique_id=1156344078]
+layout_mode = 2
+text = "Kyklons Collected: 0"
+label_settings = SubResource("LabelSettings_8dubc")
+
+[node name="BonusLabel" type="Label" parent="CanvasLayer/ReportMenu/Panel/StatsContainer" unique_id=1505906163]
+layout_mode = 2
+text = "Reward: $0"
+label_settings = SubResource("LabelSettings_p7vwb")
+
+[node name="TotalMoneyLabel" type="Label" parent="CanvasLayer/ReportMenu/Panel/StatsContainer" unique_id=571478004]
+layout_mode = 2
+text = "Total Money: $0"
+label_settings = SubResource("LabelSettings_ktti3")
+
+[node name="ButtonContainer" type="HBoxContainer" parent="CanvasLayer/ReportMenu/Panel" unique_id=1322143768]
+layout_mode = 0
+offset_left = 139.5
+offset_top = 237.0
+offset_right = 278.5
+offset_bottom = 294.0
+
+[node name="ContinueButton" type="Button" parent="CanvasLayer/ReportMenu/Panel/ButtonContainer" unique_id=1521887464]
+layout_mode = 2
+theme_override_font_sizes/font_size = 59
+text = "Continue"
+
+[node name="LoseScreen" type="Control" parent="CanvasLayer" unique_id=1723479089]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CanvasLayer/LoseScreen" unique_id=401724297]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -249.5
+offset_top = -146.0
+offset_right = 209.0
+offset_bottom = 210.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleLabel" type="Label" parent="CanvasLayer/LoseScreen/Panel" unique_id=960620281]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -3.5
+offset_top = -140.0
+offset_right = 6.5
+offset_bottom = -140.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "MISSION FAILED"
+label_settings = SubResource("LabelSettings_cgfq5")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="VBoxContainer" parent="CanvasLayer/LoseScreen/Panel" unique_id=1745811685]
+layout_mode = 0
+offset_left = 113.5
+offset_top = 145.0
+offset_right = 348.5
+offset_bottom = 275.0
+
+[node name="NewRunButton" type="Button" parent="CanvasLayer/LoseScreen/Panel/HBoxContainer" unique_id=43942623]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "NEW RUN"
+
+[node name="QuitToMainMenuButton" type="Button" parent="CanvasLayer/LoseScreen/Panel/HBoxContainer" unique_id=399638296]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "QUIT TO MENU"
+
+[node name="NuclearFlash" type="ColorRect" parent="CanvasLayer" unique_id=740589691]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[connection signal="pressed" from="CanvasLayer/ReportMenu/Panel/ButtonContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/LoseScreen/Panel/HBoxContainer/NewRunButton" to="." method="_on_new_run_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/LoseScreen/Panel/HBoxContainer/QuitToMainMenuButton" to="." method="_on_quit_to_main_menu_button_pressed"]

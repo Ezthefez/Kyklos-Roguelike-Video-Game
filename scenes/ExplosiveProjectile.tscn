@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://cgy6ttvpicdbu"]
+
+[ext_resource type="Script" uid="uid://bu5g4vp78adxc" path="res://scripts/explosive_projectile.gd" id="1_637db"]
+[ext_resource type="Texture2D" uid="uid://uok1kl7fjcef" path="res://assets/plasma.png" id="2_hh0uh"]
+[ext_resource type="Shader" uid="uid://rilc21uunqn3" path="res://assets/ExplosiveProjectile.gdshader" id="3_hh0uh"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_dprbf"]
+friction = 0.05
+bounce = 0.85
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6dmt0"]
+albedo_texture = ExtResource("2_hh0uh")
+
+[sub_resource type="SphereMesh" id="SphereMesh_6ku62"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_dprbf"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6dmt0"]
+render_priority = 0
+shader = ExtResource("3_hh0uh")
+shader_parameter/energy_color = Color(0.3, 0.8, 1, 0.35)
+shader_parameter/edge_color = Color(1, 1, 1, 0.9)
+shader_parameter/edge_power = 3.0
+shader_parameter/pulse_speed = 4.0
+shader_parameter/pulse_strength = 0.15
+
+[sub_resource type="SphereMesh" id="SphereMesh_hh0uh"]
+
+[node name="Projectile" type="RigidBody3D" unique_id=662892976 groups=["projectiles"]]
+physics_material_override = SubResource("PhysicsMaterial_dprbf")
+gravity_scale = 0.0
+continuous_cd = true
+script = ExtResource("1_637db")
+max_explosion_radius = 5.0
+explosion_duration = 0.5
+explosion_force = 555.0
+
+[node name="Mesh" type="MeshInstance3D" parent="." unique_id=1020596865]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_6dmt0")
+mesh = SubResource("SphereMesh_6ku62")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1885122246]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+shape = SubResource("SphereShape3D_dprbf")
+
+[node name="ExplosionVisual" type="MeshInstance3D" parent="." unique_id=123185500]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_6dmt0")
+mesh = SubResource("SphereMesh_hh0uh")
