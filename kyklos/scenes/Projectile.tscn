@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://eio0xsavupt2"]
+[gd_scene format=3 uid="uid://c78pswuk4irjp"]
 
-[ext_resource type="Texture2D" uid="uid://bj5d5wit82nd" path="res://assets/kyklonTextures/cosmic.jpg" id="1_dprbf"]
+[ext_resource type="Texture2D" uid="uid://cj6tlby6pdkhu" path="res://assets/kyklonTextures/cosmic.jpg" id="1_dprbf"]
 [ext_resource type="Script" uid="uid://nvbs7r1qgeg5" path="res://scripts/projectile_physics.gd" id="1_vihyi"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_dprbf"]
