@@ -2,6 +2,7 @@ extends Node
 
 var selected_seed: int = 0
 var ammo: int = 5
+var base_ammo: int = 5
 var targets_remaining: int = 0
 var game_over := false
 var money: int = 0
@@ -21,7 +22,7 @@ func calculate_reward() -> int:
 	return extra * 50
 
 func reset_run():
-	ammo = 5
+	ammo = base_ammo
 	targets_collected = 0
 	game_over = false
 	
@@ -31,3 +32,19 @@ func reset_all():
 	targets_collected = 0
 	money = 0
 	game_over = false
+
+func apply_upgrade(item: ShopItem) -> void:
+	match item.effect_type:
+		"ammo":
+			var amount := int(item.effect_value)
+			
+			# future runs
+			base_ammo += amount
+
+			# current run (THIS is what you're missing)
+			ammo += amount
+			emit_signal("ammo_changed", ammo)
+			
+			print("Bought ammo upgrade:", item.effect_value)
+			print("Ammo now:", ammo)
+			print("Base ammo now:", base_ammo)

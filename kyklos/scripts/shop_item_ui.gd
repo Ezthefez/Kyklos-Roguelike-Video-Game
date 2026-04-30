@@ -30,6 +30,8 @@ func _on_buy_pressed() -> void:
 	GameManager.money -= item.price
 	GameManager.emit_signal("money_changed", GameManager.money)
 	
+	GameManager.apply_upgrade(item)
+	
 	# Mark as purchased
 	purchased = true
 	
@@ -38,10 +40,3 @@ func _on_buy_pressed() -> void:
 	buy_button.text = "Purchased"
 		#_apply_effect()
 		#queue_free() # remove after purchase
-
-func _apply_effect():
-	match item.effect_type:
-		"ammo":
-			GameManager.ammo += int(item.effect_value)
-		"damage":
-			GameManager.player_damage += item.effect_value

@@ -28,7 +28,7 @@ func _on_game_won() -> void:
 	get_tree().paused = true
 	report_menu.visible = true
 
-	var collected: int = GameManager.ammo - 5
+	var collected: int = GameManager.ammo - GameManager.base_ammo
 	var reward: int = GameManager.calculate_reward()
 
 	GameManager.add_money(reward)

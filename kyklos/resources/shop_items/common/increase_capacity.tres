@@ -7,4 +7,6 @@ script = ExtResource("1_otih8")
 name = "Ammo Reserves"
 description = "Increase the capacity of your starting ammo"
 price = 200
+effect_type = "ammo"
+effect_value = 2.0
 metadata/_custom_type_script = "uid://bktcwkxeh5ogu"
