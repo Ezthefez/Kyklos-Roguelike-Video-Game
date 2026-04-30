@@ -1,7 +1,6 @@
-#orbit_controller_kyklos.gd
-
 extends Node3D
 # Kyklos Orbit Camera + Charge Shot using screen-space crosshair aim + smooth 360 sway
+# Includes projectile type switching for Type 1 Regular and Type 2 Heavy
 
 # cockpit
 @onready var cockpit_scene = $"CameraYaw/CameraPitch/Cockpit_Scene"
@@ -37,10 +36,17 @@ var cockpit_base_rotation: Vector3 = Vector3.ZERO
 @export var max_pitch: float = 18.0
 @export var max_vertical: float = 0.9
 
-# Shooting
-@export var shoot_impulse: float = 25.0
+# Projectile type setup
+@export var regular_projectile_scene: PackedScene
+@export var heavy_projectile_scene: PackedScene
+
+@export var regular_shoot_impulse: float = 25.0
+@export var heavy_shoot_impulse: float = 50.0
+
+@export var projectile_type_label: Label
+
+# General firing settings
 @export var fire_cooldown: float = 0.12
-@export var projectile_scene: PackedScene
 @export var charge_time: float = 1.0
 
 # Charge aim settings
@@ -66,6 +72,9 @@ var is_charging: bool = false
 var charge_timer: float = 0.0
 var charge_ui: TextureProgressBar = null
 
+# 1 = Regular, 2 = Heavy
+var selected_projectile_type: int = 1
+
 # Pointer center in screen coordinates
 var aim_screen_target: Vector2 = Vector2.ZERO
 var aim_screen_current: Vector2 = Vector2.ZERO
@@ -76,21 +85,22 @@ var sway_velocity: Vector2 = Vector2.ZERO
 var last_mouse_delta: Vector2 = Vector2.ZERO
 
 func _ready() -> void:
-	get_tree().paused = false
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	
-	# cockpits starting rotation
+
+	# cockpit starting rotation
 	smooth_yaw = yaw
 	smooth_pitch = pitch
 
 	if aim_pointer != null:
 		aim_pointer.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		aim_pointer.visible = false
+		aim_pointer.visible = true
 		_center_pointer_now()
 
 	if cockpit_scene:
 		cockpit_base_rotation = cockpit_scene.rotation_degrees
-		
+
+	_update_projectile_type_ui()
+
 # Main loop
 func _process(delta: float) -> void:
 	handle_movement(delta)
@@ -117,29 +127,18 @@ func _process(delta: float) -> void:
 	else:
 		if charge_ui != null:
 			charge_ui.value = 0.0
-			
-	# Joystick 
-	var ws_input = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
-	var ad_input = Input.get_action_strength("ui_left") - Input.get_action_strength("ui_right")
-	cockpit_scene.set_joystick_input(ws_input, ad_input)
 
-	var input_x: float = Input.get_action_strength("ui_left") - Input.get_action_strength("ui_right")
-	var input_y: float = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
-
-	var is_moving: bool = abs(input_x) > 0.01 or abs(input_y) > 0.01
-
-	if aim_initialized and not is_charging and is_moving:
 		var center := _get_screen_center()
-		aim_screen_target = aim_screen_target.lerp(
-			center,
-			clamp(charge_aim_smooth_speed * delta, 0.0, 1.0)
-		)
-		aim_screen_current = aim_screen_current.lerp(
-			center,
-			clamp(charge_aim_smooth_speed * delta, 0.0, 1.0)
-		)
+		aim_screen_target = center
+		aim_screen_current = center
 
-	sway_velocity = sway_velocity.lerp(Vector2.ZERO, clamp(sway_drag * delta, 0.0, 1.0))
+		sway_velocity = Vector2.ZERO
+		last_mouse_delta = Vector2.ZERO
+
+	# Joystick 
+	var ws_input: float = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
+	var ad_input: float = Input.get_action_strength("ui_left") - Input.get_action_strength("ui_right")
+	cockpit_scene.set_joystick_input(ws_input, ad_input)
 
 	_update_aim_pointer_ui()
 
@@ -150,6 +149,9 @@ func _input(event: InputEvent) -> void:
 
 	if get_tree().paused:
 		return
+
+	if event.is_action_pressed("next_projectile_type"):
+		_cycle_projectile_type()
 
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		if Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED:
@@ -181,7 +183,7 @@ func _input(event: InputEvent) -> void:
 			yaw -= event.relative.x * look_speed
 			pitch -= event.relative.y * look_speed
 			_apply_circular_camera_clamp()
-			
+
 			# Joystick movement from mouse
 			if cockpit_scene:
 				cockpit_scene.add_mouse_roll(-event.relative.x * 0.08)
@@ -195,7 +197,7 @@ func _input(event: InputEvent) -> void:
 			GameManager.game_over = true
 			GameManager.emit_signal("game_lost")
 			return
-			
+
 		if can_fire:
 			is_charging = true
 			charge_timer = 0.0
@@ -217,6 +219,31 @@ func _input(event: InputEvent) -> void:
 
 	if event.is_action_pressed("open_secondary_screen") and cockpit_scene:
 		cockpit_scene.toggle_secondary_screen()
+
+func _cycle_projectile_type() -> void:
+	selected_projectile_type += 1
+	if selected_projectile_type > 2:
+		selected_projectile_type = 1
+	_update_projectile_type_ui()
+
+func _update_projectile_type_ui() -> void:
+	if projectile_type_label == null:
+		return
+
+	if selected_projectile_type == 1:
+		projectile_type_label.text = "Kyklon Type: Regular"
+	elif selected_projectile_type == 2:
+		projectile_type_label.text = "Kyklon Type: Heavy"
+
+func _get_selected_projectile_scene() -> PackedScene:
+	if selected_projectile_type == 2:
+		return heavy_projectile_scene
+	return regular_projectile_scene
+
+func _get_selected_base_impulse() -> float:
+	if selected_projectile_type == 2:
+		return heavy_shoot_impulse
+	return regular_shoot_impulse
 
 func _apply_charge_sway(delta: float) -> void:
 	# Apply continuous 360-degree drift from the current sway velocity
@@ -255,8 +282,8 @@ func _center_pointer_now() -> void:
 	aim_initialized = true
 
 func _clamp_pointer_to_viewport() -> void:
-	var viewport_size := get_viewport().get_visible_rect().size
-	var half_size := _get_pointer_size() * 0.5
+	var viewport_size: Vector2 = get_viewport().get_visible_rect().size
+	var half_size: Vector2 = _get_pointer_size() * 0.5
 
 	aim_screen_target.x = clamp(aim_screen_target.x, half_size.x, viewport_size.x - half_size.x)
 	aim_screen_target.y = clamp(aim_screen_target.y, half_size.y, viewport_size.y - half_size.y)
@@ -365,14 +392,10 @@ func update_camera(delta: float) -> void:
 		) as float
 
 	update_cockpit_drift_tilt(delta)
-	
+
 func update_cockpit_drift_tilt(delta: float) -> void:
 	if cockpit_scene == null:
 		return
-
-	# Use orbit velocity to determine how much the ship is drifting
-	# This creates a visual "weight" effect for the cockpit
-
 
 	# Tilt forward/back when moving up/down around the cluster
 	var target_tilt_x: float = clamp(
@@ -387,7 +410,7 @@ func update_cockpit_drift_tilt(delta: float) -> void:
 		-drift_tilt_z_amount,
 		drift_tilt_z_amount
 	)
-	
+
 	# Combine tilt with original cockpit rotation
 	var desired_x: float = cockpit_base_rotation.x + target_tilt_x
 	var desired_y: float = cockpit_base_rotation.y
@@ -415,27 +438,34 @@ func update_cockpit_drift_tilt(delta: float) -> void:
 func fire_with_charge(charge_ratio: float) -> void:
 	if not can_fire:
 		return
-	if projectile_scene == null:
-		return
 	if camera == null or muzzle == null:
 		return
 
+	var selected_scene: PackedScene = _get_selected_projectile_scene()
+	if selected_scene == null:
+		can_fire = true
+		return
+
 	can_fire = false
-	
+
 	GameManager.ammo -= 1
 	GameManager.emit_signal("ammo_changed", GameManager.ammo)
 
-	var projectile := projectile_scene.instantiate() as RigidBody3D
+	var projectile: Node = selected_scene.instantiate()
 	get_tree().current_scene.add_child(projectile)
-	projectile.global_transform = muzzle.global_transform
 
-	# Projectile uses the exact same screen point the pointer is using
+	if projectile is Node3D:
+		(projectile as Node3D).global_transform = muzzle.global_transform
+
 	var dir: Vector3 = camera.project_ray_normal(aim_screen_current).normalized()
+	var base_impulse: float = _get_selected_base_impulse()
+	var final_impulse: float = base_impulse * lerp(0.5, 1.5, charge_ratio)
 
-	var final_impulse: float = shoot_impulse * lerp(0.5, 1.5, charge_ratio)
-	projectile.apply_central_impulse(dir * final_impulse)
+	if projectile.has_method("launch"):
+		projectile.call("launch", dir, final_impulse)
+	elif projectile is RigidBody3D:
+		(projectile as RigidBody3D).apply_central_impulse(dir * final_impulse)
 
-	# Reset after firing
 	sway_velocity = Vector2.ZERO
 	last_mouse_delta = Vector2.ZERO
 	_center_pointer_now()
@@ -463,12 +493,9 @@ func _update_aim_pointer_ui() -> void:
 	if aim_pointer == null:
 		return
 
-	aim_pointer.visible = is_charging
+	aim_pointer.visible = true
 
-	if not is_charging:
-		return
-
-	var half_size := _get_pointer_size() * 0.5
+	var half_size: Vector2 = _get_pointer_size() * 0.5
 	aim_pointer.position = aim_screen_current - half_size + pointer_visual_offset
 
 func toggle_pause() -> void:
