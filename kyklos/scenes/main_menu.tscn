@@ -61,49 +61,61 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_06t4h")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=834251267]
+[node name="Title" type="Control" parent="." unique_id=220973941]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayer" unique_id=1531594771]
-anchors_preset = -1
-offset_left = 1045.0
-offset_top = -4.0
-offset_right = 1345.0
-offset_bottom = 296.0
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Title" unique_id=1531594771]
+layout_mode = 0
+offset_left = 1050.0
+offset_top = 21.0
+offset_right = 1350.0
+offset_bottom = 321.0
 
-[node name="SubViewport" type="SubViewport" parent="CanvasLayer/SubViewportContainer" unique_id=454517784]
+[node name="SubViewport" type="SubViewport" parent="Title/SubViewportContainer" unique_id=454517784]
 own_world_3d = true
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(300, 300)
 render_target_update_mode = 4
 
-[node name="Camera3D" type="Camera3D" parent="CanvasLayer/SubViewportContainer/SubViewport" unique_id=1623006434]
+[node name="Camera3D" type="Camera3D" parent="Title/SubViewportContainer/SubViewport" unique_id=1623006434]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.2218529)
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="CanvasLayer/SubViewportContainer/SubViewport" unique_id=576675064]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Title/SubViewportContainer/SubViewport" unique_id=576675064]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.41134405)
 
-[node name="KyklonPreview" parent="CanvasLayer/SubViewportContainer/SubViewport" unique_id=1529538052 instance=ExtResource("6_rtw2f")]
+[node name="KyklonPreview" parent="Title/SubViewportContainer/SubViewport" unique_id=1529538052 instance=ExtResource("6_rtw2f")]
 
-[node name="MainMenuButtons" type="CenterContainer" parent="." unique_id=1598826892]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MainMenuButtons" unique_id=2116762560]
-layout_mode = 2
-theme_override_constants/separation = 30
-
-[node name="KYKLOS" type="Label" parent="MainMenuButtons/VBoxContainer" unique_id=2144058926]
-layout_mode = 2
+[node name="KYKLOS" type="Label" parent="Title" unique_id=2144058926]
+layout_mode = 0
+offset_left = 464.0
+offset_top = 100.0
+offset_right = 1460.0
+offset_bottom = 676.0
 theme_override_font_sizes/font_size = 178
 text = "KYKL  S
 "
 label_settings = SubResource("LabelSettings_oa1go")
-horizontal_alignment = 1
+
+[node name="MainMenuButtons" type="CenterContainer" parent="." unique_id=1598826892]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -373.0
+offset_right = 150.0
+offset_bottom = -73.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenuButtons" unique_id=2116762560]
+layout_mode = 2
+theme_override_constants/separation = 30
 
 [node name="Start" type="Button" parent="MainMenuButtons/VBoxContainer" unique_id=361039482]
 custom_minimum_size = Vector2(300, 80)
