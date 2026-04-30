@@ -1,8 +1,0 @@
-[gd_scene format=3 uid="uid://ce5k3me1ru4ka"]
-
-[ext_resource type="Script" uid="uid://crcgvrxxolom4" path="res://scripts/clusterRework.gd" id="1_q0jbs"]
-[ext_resource type="PackedScene" uid="uid://dkhhfhrnlh70j" path="res://scenes/TargetSphere.tscn" id="2_ynrju"]
-
-[node name="cluster" type="Node3D" unique_id=608683125]
-script = ExtResource("1_q0jbs")
-target_scene = ExtResource("2_ynrju")

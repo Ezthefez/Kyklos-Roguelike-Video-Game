@@ -1,6 +1,6 @@
 extends Node3D
 # Kyklos Orbit Camera + Charge Shot using screen-space crosshair aim + smooth 360 sway
-# Includes projectile type switching for Type 1 Regular and Type 2 Heavy
+# Includes projectile type switching for Type 1 Regular, Type 2 Heavy, Type 3 Explosive, and Type 4 Nuclear
 
 # cockpit
 @onready var cockpit_scene = $"CameraYaw/CameraPitch/Cockpit_Scene"
@@ -30,6 +30,13 @@ var cockpit_base_rotation: Vector3 = Vector3.ZERO
 @export var muzzle: Marker3D
 @export var recenter_speed: float = 5.0
 
+# Nuclear shake
+@export var nuclear_shake_strength: float = 1.2
+@export var nuclear_shake_duration: float = 4.0
+@export var nuclear_shake_speed: float = 35.0
+var _nuclear_shake_active: bool = false
+var _nuclear_shake_timer: float = 0.0
+
 # Normal mouse look when NOT charging
 @export var look_speed: float = 0.02
 @export var max_yaw: float = 30.0
@@ -39,9 +46,13 @@ var cockpit_base_rotation: Vector3 = Vector3.ZERO
 # Projectile type setup
 @export var regular_projectile_scene: PackedScene
 @export var heavy_projectile_scene: PackedScene
+@export var explosive_projectile_scene: PackedScene
+@export var nuclear_projectile_scene: PackedScene
 
 @export var regular_shoot_impulse: float = 25.0
 @export var heavy_shoot_impulse: float = 50.0
+@export var explosive_shoot_impulse: float = 25.0
+@export var nuclear_shoot_impulse: float = 10.0
 
 @export var projectile_type_label: Label
 
@@ -72,7 +83,7 @@ var is_charging: bool = false
 var charge_timer: float = 0.0
 var charge_ui: TextureProgressBar = null
 
-# 1 = Regular, 2 = Heavy
+# 1 = Regular, 2 = Heavy, 3 = Explosive, 4 = Nuclear
 var selected_projectile_type: int = 1
 
 # Pointer center in screen coordinates
@@ -98,6 +109,9 @@ func _ready() -> void:
 
 	if cockpit_scene:
 		cockpit_base_rotation = cockpit_scene.rotation_degrees
+
+	if GameManager != null and not GameManager.is_connected("nuclear_detonated", Callable(self, "_on_nuclear_detonated")):
+		GameManager.connect("nuclear_detonated", Callable(self, "_on_nuclear_detonated"))
 
 	_update_projectile_type_ui()
 
@@ -135,10 +149,11 @@ func _process(delta: float) -> void:
 		sway_velocity = Vector2.ZERO
 		last_mouse_delta = Vector2.ZERO
 
-	# Joystick 
+	# Joystick
 	var ws_input: float = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
 	var ad_input: float = Input.get_action_strength("ui_left") - Input.get_action_strength("ui_right")
-	cockpit_scene.set_joystick_input(ws_input, ad_input)
+	if cockpit_scene:
+		cockpit_scene.set_joystick_input(ws_input, ad_input)
 
 	_update_aim_pointer_ui()
 
@@ -193,10 +208,15 @@ func _input(event: InputEvent) -> void:
 		if GameManager.game_over:
 			return
 
-		if GameManager.ammo <= 0:
-			GameManager.game_over = true
-			GameManager.emit_signal("game_lost")
-			return
+		# Nuclear uses its own one-per-round ammo
+		if selected_projectile_type == 4:
+			if GameManager.nuclear_ammo <= 0:
+				return
+		else:
+			if GameManager.ammo <= 0:
+				GameManager.game_over = true
+				GameManager.emit_signal("game_lost")
+				return
 
 		if can_fire:
 			is_charging = true
@@ -220,9 +240,13 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("open_secondary_screen") and cockpit_scene:
 		cockpit_scene.toggle_secondary_screen()
 
+func _on_nuclear_detonated(_world_position: Vector3) -> void:
+	_nuclear_shake_active = true
+	_nuclear_shake_timer = 0.0
+
 func _cycle_projectile_type() -> void:
 	selected_projectile_type += 1
-	if selected_projectile_type > 2:
+	if selected_projectile_type > 4:
 		selected_projectile_type = 1
 	_update_projectile_type_ui()
 
@@ -234,15 +258,27 @@ func _update_projectile_type_ui() -> void:
 		projectile_type_label.text = "Kyklon Type: Regular"
 	elif selected_projectile_type == 2:
 		projectile_type_label.text = "Kyklon Type: Heavy"
+	elif selected_projectile_type == 3:
+		projectile_type_label.text = "Kyklon Type: Explosive"
+	elif selected_projectile_type == 4:
+		projectile_type_label.text = "Kyklon Type: Nuclear"
 
 func _get_selected_projectile_scene() -> PackedScene:
 	if selected_projectile_type == 2:
 		return heavy_projectile_scene
+	elif selected_projectile_type == 3:
+		return explosive_projectile_scene
+	elif selected_projectile_type == 4:
+		return nuclear_projectile_scene
 	return regular_projectile_scene
 
 func _get_selected_base_impulse() -> float:
 	if selected_projectile_type == 2:
 		return heavy_shoot_impulse
+	elif selected_projectile_type == 3:
+		return explosive_shoot_impulse
+	elif selected_projectile_type == 4:
+		return nuclear_shoot_impulse
 	return regular_shoot_impulse
 
 func _apply_charge_sway(delta: float) -> void:
@@ -372,22 +408,36 @@ func update_camera(delta: float) -> void:
 		pitch = lerp(pitch, 0.0, recenter_speed * delta) as float
 
 	# Smooth the camera movement so it doesn't snap instantly to mouse input
-	# yaw/pitch = target values, smooth_yaw/pitch = actual displayed values
 	smooth_yaw = lerp(smooth_yaw, yaw, mouse_look_smoothness * delta) as float
 	smooth_pitch = lerp(smooth_pitch, pitch, mouse_look_smoothness * delta) as float
 
-	# Apply smoothed camera movement
+	var shake_yaw: float = 0.0
+	var shake_pitch: float = 0.0
+
+	if _nuclear_shake_active:
+		_nuclear_shake_timer += delta
+		var t: float = clamp(_nuclear_shake_timer / nuclear_shake_duration, 0.0, 1.0)
+		var falloff: float = 1.0 - t
+		var time_value: float = Time.get_ticks_msec() * 0.001
+
+		shake_yaw = sin(time_value * nuclear_shake_speed * 0.91) * nuclear_shake_strength * falloff
+		shake_pitch = cos(time_value * nuclear_shake_speed * 1.13) * nuclear_shake_strength * falloff
+
+		if _nuclear_shake_timer >= nuclear_shake_duration:
+			_nuclear_shake_active = false
+
+	# Apply smoothed camera movement + shake without accumulating forever
 	if camera_yaw != null:
 		camera_yaw.rotation_degrees.y = lerp(
 			camera_yaw.rotation_degrees.y,
-			smooth_yaw,
+			smooth_yaw + shake_yaw,
 			mouse_look_smoothness * delta
 		) as float
 
 	if camera_pitch != null:
 		camera_pitch.rotation_degrees.x = lerp(
 			camera_pitch.rotation_degrees.x,
-			smooth_pitch,
+			smooth_pitch + shake_pitch,
 			mouse_look_smoothness * delta
 		) as float
 
@@ -397,26 +447,22 @@ func update_cockpit_drift_tilt(delta: float) -> void:
 	if cockpit_scene == null:
 		return
 
-	# Tilt forward/back when moving up/down around the cluster
 	var target_tilt_x: float = clamp(
 		orbit_velocity.y * drift_tilt_x_amount,
 		-drift_tilt_x_amount,
 		drift_tilt_x_amount
 	)
 
-	# Roll left/right when moving sideways
 	var target_tilt_z: float = clamp(
 		-orbit_velocity.x * drift_tilt_z_amount,
 		-drift_tilt_z_amount,
 		drift_tilt_z_amount
 	)
 
-	# Combine tilt with original cockpit rotation
 	var desired_x: float = cockpit_base_rotation.x + target_tilt_x
 	var desired_y: float = cockpit_base_rotation.y
 	var desired_z: float = cockpit_base_rotation.z + target_tilt_z
 
-	# Smoothly apply tilt so it feels like inertia instead of snapping
 	cockpit_scene.rotation_degrees.x = lerp(
 		cockpit_scene.rotation_degrees.x,
 		desired_x,
@@ -448,8 +494,12 @@ func fire_with_charge(charge_ratio: float) -> void:
 
 	can_fire = false
 
-	GameManager.ammo -= 1
-	GameManager.emit_signal("ammo_changed", GameManager.ammo)
+	if selected_projectile_type == 4:
+		GameManager.nuclear_ammo -= 1
+		GameManager.emit_signal("nuclear_ammo_changed", GameManager.nuclear_ammo)
+	else:
+		GameManager.ammo -= 1
+		GameManager.emit_signal("ammo_changed", GameManager.ammo)
 
 	var projectile: Node = selected_scene.instantiate()
 	get_tree().current_scene.add_child(projectile)
@@ -477,16 +527,12 @@ func _get_charge_ratio() -> float:
 	if charge_time <= 0.0:
 		return 1.0
 
-	# One full cycle is:
-	# charge up to 100%, then charge back down to 0%
 	var full_cycle: float = charge_time * 2.0
 	var t: float = fposmod(charge_timer, full_cycle)
 
 	if t <= charge_time:
-		# Charging up: 0 -> 1
 		return t / charge_time
 	else:
-		# Charging down: 1 -> 0
 		return 1.0 - ((t - charge_time) / charge_time)
 
 func _update_aim_pointer_ui() -> void:

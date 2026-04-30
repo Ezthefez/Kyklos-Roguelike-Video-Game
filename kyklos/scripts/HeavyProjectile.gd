@@ -1,3 +1,5 @@
+# Heavy Projectile
+
 extends RigidBody3D
 
 @export var target_group_name: StringName = &"targetspheres"

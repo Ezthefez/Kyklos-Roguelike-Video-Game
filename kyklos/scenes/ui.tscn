@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://8ip8klr3e1nq"]
 
 [ext_resource type="Texture2D" uid="uid://c8vxtax11mmkd" path="res://assets/Crosshair.png" id="1_tdwok"]
-[ext_resource type="Script" uid="uid://ds56cqio2ajh" path="res://scripts/ui.gd" id="1_wm3ai"]
+[ext_resource type="Script" uid="uid://ckb4pau4l6ktk" path="res://scripts/ui.gd" id="1_wm3ai"]
 [ext_resource type="Texture2D" uid="uid://ur1txf8kwdju" path="res://assets/CircularProgressBar.png" id="2_x4jx1"]
 [ext_resource type="PackedScene" uid="uid://cgyfa2f5jjphr" path="res://scenes/pause_menu.tscn" id="3_yev5y"]
 [ext_resource type="FontFile" uid="uid://c2i144h4pryop" path="res://assets/star-shield-2-font/StarShieldV2-9M52K.ttf" id="5_wm3ai"]
@@ -227,6 +227,14 @@ text = "NEW RUN"
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "QUIT TO MENU"
+
+[node name="NuclearFlash" type="ColorRect" parent="CanvasLayer" unique_id=740589691]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [connection signal="pressed" from="CanvasLayer/ReportMenu/Panel/ButtonContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/LoseScreen/Panel/HBoxContainer/NewRunButton" to="." method="_on_new_run_button_pressed"]
