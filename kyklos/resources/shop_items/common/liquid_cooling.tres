@@ -1,10 +1,11 @@
 [gd_resource type="Resource" script_class="ShopItem" format=3 uid="uid://1fycye6g2huo"]
 
-[ext_resource type="Script" uid="uid://bktcwkxeh5ogu" path="res://scripts/shop/shop_item.gd" id="1_y340x"]
+[ext_resource type="Script" uid="uid://dh6pa8ri8ky4h" path="res://scripts/shop/shop_item.gd" id="1_y340x"]
 
 [resource]
 script = ExtResource("1_y340x")
 name = "Liquid Cooling"
 description = "Increase charge rate"
 price = 100
-metadata/_custom_type_script = "uid://bktcwkxeh5ogu"
+effect_type = "charge_time"
+effect_value = -0.25

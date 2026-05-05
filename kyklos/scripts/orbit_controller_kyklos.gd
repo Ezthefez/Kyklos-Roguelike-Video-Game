@@ -58,7 +58,7 @@ var _nuclear_shake_timer: float = 0.0
 
 # General firing settings
 @export var fire_cooldown: float = 0.12
-@export var charge_time: float = 1.0
+#@export var charge_time: float = GameManager.charge_time
 
 # Charge aim settings
 @export var charge_aim_pixels_per_mouse_unit: float = 2.0
@@ -524,16 +524,16 @@ func fire_with_charge(charge_ratio: float) -> void:
 	can_fire = true
 
 func _get_charge_ratio() -> float:
-	if charge_time <= 0.0:
+	if GameManager.charge_time <= 0.0:
 		return 1.0
 
-	var full_cycle: float = charge_time * 2.0
+	var full_cycle: float = GameManager.charge_time * 2.0
 	var t: float = fposmod(charge_timer, full_cycle)
 
-	if t <= charge_time:
-		return t / charge_time
+	if t <= GameManager.charge_time:
+		return t / GameManager.charge_time
 	else:
-		return 1.0 - ((t - charge_time) / charge_time)
+		return 1.0 - ((t - GameManager.charge_time) / GameManager.charge_time)
 
 func _update_aim_pointer_ui() -> void:
 	if aim_pointer == null:

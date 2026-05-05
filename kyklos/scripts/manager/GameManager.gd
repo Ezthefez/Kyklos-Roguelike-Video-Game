@@ -9,6 +9,7 @@ var money: int = 0
 var targets_collected: int = 0
 var nuclear_ammo: int = 1
 var _nuclear_win_scheduled: bool = false
+var charge_time: float = 1.0
 
 signal ammo_changed(new_ammo)
 signal nuclear_ammo_changed(value: int)
@@ -16,6 +17,7 @@ signal game_won
 signal game_lost
 signal nuclear_detonated(world_position: Vector3)
 signal money_changed(new_amount: int)
+signal charge_time_changed
 
 func reset_all() -> void:
 	money = 0
@@ -68,6 +70,17 @@ func apply_upgrade(item: ShopItem) -> void:
 			print("Bought ammo upgrade:", item.effect_value)
 			print("Ammo now:", ammo)
 			print("Base ammo now:", base_ammo)
+			
+		"charge_time":
+			var amount := float(item.effect_value)
+			
+			charge_time += amount
+			emit_signal("charge_time_changed", charge_time)
+			
+			print("Bought charge time upgrade:", item.effect_value)
+			print("Charge time changed:", charge_time)
+			
+			
 
 func spend_nuclear_ammo() -> bool:
 	if nuclear_ammo <= 0:

@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://2517e738hdg7"]
 
 [ext_resource type="Script" uid="uid://ccifvlkyyoivs" path="res://scripts/orbit_controller_kyklos.gd" id="1_g2els"]
-[ext_resource type="PackedScene" uid="uid://eio0xsavupt2" path="res://scenes/Projectile.tscn" id="2_qhqgy"]
 [ext_resource type="PackedScene" uid="uid://cesdusnacd20p" path="res://scenes/cockpit_scene.tscn" id="3_qhqgy"]
 
 [node name="OrbitRoot" type="Node3D" unique_id=1720029618 node_paths=PackedStringArray("camera_yaw", "camera_pitch", "camera", "muzzle")]
@@ -10,7 +9,6 @@ camera_yaw = NodePath("CameraYaw")
 camera_pitch = NodePath("CameraYaw/CameraPitch")
 camera = NodePath("CameraYaw/CameraPitch/Camera3D")
 muzzle = NodePath("CameraYaw/CameraPitch/Camera3D/Muzzle")
-projectile_scene = ExtResource("2_qhqgy")
 
 [node name="CameraYaw" type="Node3D" parent="." unique_id=1564312777]
 
