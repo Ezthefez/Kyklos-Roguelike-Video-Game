@@ -1,7 +1,7 @@
-[gd_scene format=3 uid="uid://c78pswuk4irjp"]
+[gd_scene format=3 uid="uid://b0d5wkxcng4e3"]
 
-[ext_resource type="Texture2D" uid="uid://cj6tlby6pdkhu" path="res://assets/kyklonTextures/cosmic.jpg" id="1_dprbf"]
-[ext_resource type="Script" uid="uid://nvbs7r1qgeg5" path="res://scripts/projectile_physics.gd" id="1_vihyi"]
+[ext_resource type="Script" uid="uid://cfgvf1oqlcb6e" path="res://scripts/nuclear_projectile.gd" id="1_lntyr"]
+[ext_resource type="Texture2D" uid="uid://cj6tlby6pdkhu" path="res://assets/kyklonTextures/cosmic.jpg" id="2_is4b0"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_dprbf"]
 friction = 0.05
@@ -10,15 +10,21 @@ bounce = 0.85
 [sub_resource type="SphereMesh" id="SphereMesh_6ku62"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vihyi"]
-albedo_texture = ExtResource("1_dprbf")
+albedo_texture = ExtResource("2_is4b0")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_dprbf"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_lntyr"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lntyr"]
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
 
 [node name="Projectile" type="RigidBody3D" unique_id=662892976 groups=["projectiles"]]
 physics_material_override = SubResource("PhysicsMaterial_dprbf")
 gravity_scale = 0.0
 continuous_cd = true
-script = ExtResource("1_vihyi")
+script = ExtResource("1_lntyr")
 
 [node name="Mesh" type="MeshInstance3D" parent="." unique_id=1020596865]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
@@ -28,3 +34,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_vihyi")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1885122246]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
 shape = SubResource("SphereShape3D_dprbf")
+
+[node name="NuclearVisual" type="MeshInstance3D" parent="." unique_id=1465049234]
+mesh = SubResource("SphereMesh_lntyr")
+surface_material_override/0 = SubResource("StandardMaterial3D_lntyr")

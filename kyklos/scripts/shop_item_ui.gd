@@ -27,8 +27,9 @@ func _on_buy_pressed() -> void:
 		return
 
 	# Deduct money
-	GameManager.money -= item.price
-	GameManager.emit_signal("money_changed", GameManager.money)
+	GameManager.add_money(-item.price)
+	#GameManager.money -= item.price
+	#GameManager.emit_signal("money_changed", GameManager.money)
 	
 	GameManager.apply_upgrade(item)
 	
@@ -38,5 +39,3 @@ func _on_buy_pressed() -> void:
 	# Disable button
 	buy_button.disabled = true
 	buy_button.text = "Purchased"
-		#_apply_effect()
-		#queue_free() # remove after purchase

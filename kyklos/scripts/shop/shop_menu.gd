@@ -9,9 +9,14 @@ extends Control
 @onready var current_money_label: Label = $CanvasLayer/Money/Amount
 
 func _ready() -> void:
+	print("SHOP READY")
+	
 	_update_money(GameManager.money) # set initial value
 
-	GameManager.connect("money_changed", _on_money_changed)
+	if not GameManager.money_changed.is_connected(_on_money_changed):
+		GameManager.money_changed.connect(_on_money_changed)
+		print("Connected to GameManager signal")
+		
 	generate_shop()
 
 func _on_next_round_button_pressed() -> void:
@@ -35,6 +40,7 @@ func generate_shop():
 		ui.setup(item_data)
 		
 func _on_money_changed(new_amount: int) -> void:
+	print("SHOP RECEIVED:", new_amount)
 	_update_money(new_amount)
 
 func _update_money(value: int) -> void:

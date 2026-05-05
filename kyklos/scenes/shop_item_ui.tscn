@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://c7h6ks1qniuqf" path="res://scripts/shop_item_ui.gd" id="1_ris3v"]
 
 [node name="shop_item_ui" type="Control" unique_id=1823730448]
+process_mode = 3
 custom_minimum_size = Vector2(200, 150)
 layout_mode = 3
 anchors_preset = 0

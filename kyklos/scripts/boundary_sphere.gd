@@ -48,18 +48,18 @@ func _begin_harvest(body: RigidBody3D) -> void:
 
 	harvested[body] = true
 
-	#GAME LOGIC
+	# GAME LOGIC
 	GameManager.targets_remaining -= 1
 	GameManager.targets_collected += 1
 	GameManager.ammo += 1
 	GameManager.emit_signal("ammo_changed", GameManager.ammo)
 
-	#WIN CHECK (IMPORTANT: check BEFORE lose)
+	# WIN CHECK
 	if GameManager.targets_remaining <= 0 and not GameManager.game_over:
 		GameManager.game_over = true
 		GameManager.emit_signal("game_won")
 
-	#Turn off collisions
+	# Turn off collisions
 	body.collision_layer = 0
 	body.collision_mask = 0
 	body.freeze = true
