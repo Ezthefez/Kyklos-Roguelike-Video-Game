@@ -1,0 +1,32 @@
+# Blender 3.6.0 MTL File: 'None'
+# www.blender.org
+
+newmtl Material_1
+Ns 569.338867
+Ka 0.731818 0.731818 0.731818
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd C:/Material_1.png
+
+newmtl Material_2
+Ns 676.880249
+Ka 0.740909 0.740909 0.740909
+Ks 0.431818 0.431818 0.431818
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd C:/Material_2.png
+
+newmtl Material_3
+Ns 458.698395
+Ka 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd C:/Material_3.png

@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://cg4r8cpl0ldkw"]
+
+[ext_resource type="Script" uid="uid://8yygsli8piks" path="res://scripts/barrier_cage_model.gd" id="1_w35v1"]
+[ext_resource type="PackedScene" uid="uid://d0swsgc1wbyji" path="res://assets/TruncatedIcosahedron.glb" id="2_gv63y"]
+
+[node name="BarrierCageModel" type="Node3D" unique_id=118089198]
+script = ExtResource("1_w35v1")
+
+[node name="TruncatedIcosahedron" parent="." unique_id=1457427864 instance=ExtResource("2_gv63y")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0.015117645, 0, 14.844257)

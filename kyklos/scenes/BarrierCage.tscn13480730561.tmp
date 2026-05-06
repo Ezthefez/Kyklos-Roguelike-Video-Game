@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://b1dlq0ib25v26"]
+
+[ext_resource type="Script" uid="uid://cq3yyqfumlvjt" path="res://scripts/barrier_cage.gd" id="1_3gdnu"]
+
+[node name="BarrierCage" type="AnimatableBody3D" unique_id=1519034823]
+collision_layer = 143
+collision_mask = 143
+script = ExtResource("1_3gdnu")

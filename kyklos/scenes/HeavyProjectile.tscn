@@ -1,20 +1,29 @@
 [gd_scene format=3 uid="uid://d1so6ir5fgu78"]
 
 [ext_resource type="Script" uid="uid://ber1lkr215upp" path="res://scripts/HeavyProjectile.gd" id="1_svdy6"]
-[ext_resource type="Texture2D" uid="uid://er4y05ck5rt6" path="res://assets/kyklonTextures/HeavyRedTexture.jpg" id="2_41p7m"]
-[ext_resource type="Texture2D" uid="uid://cj6tlby6pdkhu" path="res://assets/kyklonTextures/cosmic.jpg" id="2_svdy6"]
+[ext_resource type="Shader" uid="uid://ccpnxmlx3q82k" path="res://assets/red_smile_projectile.gdshader" id="2_26r1h"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_dprbf"]
 friction = 0.05
 bounce = 0.85
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cg23a"]
-albedo_texture = ExtResource("2_41p7m")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_svdy6"]
+render_priority = 0
+shader = ExtResource("2_26r1h")
+shader_parameter/base_red = Color(0.55, 0.03, 0.03, 1)
+shader_parameter/bright_red = Color(1, 0.18, 0.14, 1)
+shader_parameter/dark_red = Color(0.14, 0, 0, 1)
+shader_parameter/rim_color = Color(1, 0.25, 0.2, 1)
+shader_parameter/slime_speed = 1.3
+shader_parameter/line_scale = 18.0
+shader_parameter/blob_scale = 7.0
+shader_parameter/wobble_strength = 0.08
+shader_parameter/glow_strength = 1.4
+shader_parameter/alpha_strength = 0.82
+shader_parameter/roughness_amount = 0.24
+shader_parameter/metallic_amount = 0.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_6ku62"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vihyi"]
-albedo_texture = ExtResource("2_svdy6")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_dprbf"]
 
@@ -32,9 +41,8 @@ script = ExtResource("1_svdy6")
 
 [node name="Mesh" type="MeshInstance3D" parent="." unique_id=1020596865]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
-material_override = SubResource("StandardMaterial3D_cg23a")
+material_override = SubResource("ShaderMaterial_svdy6")
 mesh = SubResource("SphereMesh_6ku62")
-surface_material_override/0 = SubResource("StandardMaterial3D_vihyi")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1885122246]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)

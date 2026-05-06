@@ -1,3 +1,5 @@
+#cockpit_scene.gd
+
 extends Node3D
 
 # References to cockpit parts

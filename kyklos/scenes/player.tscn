@@ -3,12 +3,12 @@
 [ext_resource type="Script" uid="uid://ccifvlkyyoivs" path="res://scripts/orbit_controller_kyklos.gd" id="1_g2els"]
 [ext_resource type="PackedScene" uid="uid://cesdusnacd20p" path="res://scenes/cockpit_scene.tscn" id="3_qhqgy"]
 
-[node name="OrbitRoot" type="Node3D" unique_id=1720029618 node_paths=PackedStringArray("camera_yaw", "camera_pitch", "camera", "muzzle")]
+[node name="OrbitRoot" type="Node3D" unique_id=1720029618 node_paths=PackedStringArray("camera_yaw", "camera_pitch", "camera", "projectile_spawn_point")]
 script = ExtResource("1_g2els")
 camera_yaw = NodePath("CameraYaw")
 camera_pitch = NodePath("CameraYaw/CameraPitch")
 camera = NodePath("CameraYaw/CameraPitch/Camera3D")
-muzzle = NodePath("CameraYaw/CameraPitch/Camera3D/Muzzle")
+projectile_spawn_point = NodePath("CameraYaw/CameraPitch/Cockpit_Scene/ProjectileSpawnPoint")
 
 [node name="CameraYaw" type="Node3D" parent="." unique_id=1564312777]
 
@@ -27,3 +27,6 @@ light_energy = 0.4
 
 [node name="Cockpit_Scene" parent="CameraYaw/CameraPitch" unique_id=1962816754 instance=ExtResource("3_qhqgy")]
 transform = Transform3D(-1, -8.8360174e-16, 8.742278e-08, 8.271261e-09, 0.9955142, 0.0946122, -8.7030614e-08, 0.0946122, -0.9955142, -0.0061501265, -0.9827974, -2.8666348)
+
+[node name="ProjectileSpawnPoint" type="Marker3D" parent="CameraYaw/CameraPitch/Cockpit_Scene" unique_id=1859862070]
+transform = Transform3D(1, 7.993606e-15, 0, 0, 1, 0, 0, 0, 1, 1.359731e-07, 0.47745574, 1.5842545)

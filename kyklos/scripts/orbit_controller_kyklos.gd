@@ -1,3 +1,5 @@
+# orbit_controller_kyklos.gd
+
 extends Node3D
 # Kyklos Orbit Camera + Charge Shot using screen-space crosshair aim + smooth 360 sway
 # Includes projectile type switching for Type 1 Regular, Type 2 Heavy, Type 3 Explosive, and Type 4 Nuclear
@@ -27,7 +29,8 @@ var cockpit_base_rotation: Vector3 = Vector3.ZERO
 @export var camera_yaw: Node3D
 @export var camera_pitch: Node3D
 @export var camera: Camera3D
-@export var muzzle: Marker3D
+@export var projectile_spawn_point: Marker3D
+@export var spawn_forward_offset: float = 0.35
 @export var recenter_speed: float = 5.0
 
 # Nuclear shake
@@ -58,7 +61,7 @@ var _nuclear_shake_timer: float = 0.0
 
 # General firing settings
 @export var fire_cooldown: float = 0.12
-#@export var charge_time: float = GameManager.charge_time
+@export var charge_time: float = 1.0
 
 # Charge aim settings
 @export var charge_aim_pixels_per_mouse_unit: float = 2.0
@@ -484,7 +487,7 @@ func update_cockpit_drift_tilt(delta: float) -> void:
 func fire_with_charge(charge_ratio: float) -> void:
 	if not can_fire:
 		return
-	if camera == null or muzzle == null:
+	if camera == null or projectile_spawn_point == null:
 		return
 
 	var selected_scene: PackedScene = _get_selected_projectile_scene()
@@ -504,10 +507,14 @@ func fire_with_charge(charge_ratio: float) -> void:
 	var projectile: Node = selected_scene.instantiate()
 	get_tree().current_scene.add_child(projectile)
 
-	if projectile is Node3D:
-		(projectile as Node3D).global_transform = muzzle.global_transform
-
 	var dir: Vector3 = camera.project_ray_normal(aim_screen_current).normalized()
+	var spawn_pos: Vector3 = projectile_spawn_point.global_position + dir * spawn_forward_offset
+
+	if projectile is Node3D:
+		var projectile_node := projectile as Node3D
+		projectile_node.global_position = spawn_pos
+		projectile_node.look_at(spawn_pos + dir, Vector3.UP)
+
 	var base_impulse: float = _get_selected_base_impulse()
 	var final_impulse: float = base_impulse * lerp(0.5, 1.5, charge_ratio)
 
@@ -524,16 +531,16 @@ func fire_with_charge(charge_ratio: float) -> void:
 	can_fire = true
 
 func _get_charge_ratio() -> float:
-	if GameManager.charge_time <= 0.0:
+	if charge_time <= 0.0:
 		return 1.0
 
-	var full_cycle: float = GameManager.charge_time * 2.0
+	var full_cycle: float = charge_time * 2.0
 	var t: float = fposmod(charge_timer, full_cycle)
 
-	if t <= GameManager.charge_time:
-		return t / GameManager.charge_time
+	if t <= charge_time:
+		return t / charge_time
 	else:
-		return 1.0 - ((t - GameManager.charge_time) / GameManager.charge_time)
+		return 1.0 - ((t - charge_time) / charge_time)
 
 func _update_aim_pointer_ui() -> void:
 	if aim_pointer == null:

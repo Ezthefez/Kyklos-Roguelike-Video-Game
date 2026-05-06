@@ -1,3 +1,5 @@
+#ui.gd
+
 extends Node
 
 @onready var ammo_label: Label = $CanvasLayer/AmmoLabel

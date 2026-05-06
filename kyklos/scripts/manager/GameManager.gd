@@ -9,7 +9,8 @@ var money: int = 0
 var targets_collected: int = 0
 var nuclear_ammo: int = 1
 var _nuclear_win_scheduled: bool = false
-var charge_time: float = 1.0
+
+var barrier_enabled: bool = false
 
 signal ammo_changed(new_ammo)
 signal nuclear_ammo_changed(value: int)
@@ -17,17 +18,18 @@ signal game_won
 signal game_lost
 signal nuclear_detonated(world_position: Vector3)
 signal money_changed(new_amount: int)
-signal charge_time_changed
 
 func reset_all() -> void:
 	money = 0
 	ammo = 5
+	base_ammo = 5
 	nuclear_ammo = 1
 	game_over = false
 	selected_seed = 0
 	targets_remaining = 0
 	targets_collected = 0
 	_nuclear_win_scheduled = false
+	barrier_enabled = false
 
 	emit_signal("ammo_changed", ammo)
 	emit_signal("nuclear_ammo_changed", nuclear_ammo)
@@ -39,6 +41,7 @@ func reset_for_new_round() -> void:
 	targets_remaining = 0
 	targets_collected = 0
 	_nuclear_win_scheduled = false
+	barrier_enabled = false
 
 	emit_signal("ammo_changed", ammo)
 	emit_signal("nuclear_ammo_changed", nuclear_ammo)
@@ -49,9 +52,11 @@ func reset_run() -> void:
 func set_selected_seed(seed_value: int) -> void:
 	selected_seed = seed_value
 
+func set_barrier_enabled(value: bool) -> void:
+	barrier_enabled = value
+
 func add_money(amount: int) -> void:
 	money += amount
-	print("SIGNAL EMITTED:", money)
 	emit_signal("money_changed", money)
 
 func calculate_reward() -> int:
@@ -61,26 +66,9 @@ func apply_upgrade(item: ShopItem) -> void:
 	match item.effect_type:
 		"ammo":
 			var amount := int(item.effect_value)
-			
 			base_ammo += amount
-
 			ammo += amount
 			emit_signal("ammo_changed", ammo)
-			
-			print("Bought ammo upgrade:", item.effect_value)
-			print("Ammo now:", ammo)
-			print("Base ammo now:", base_ammo)
-			
-		"charge_time":
-			var amount := float(item.effect_value)
-			
-			charge_time += amount
-			emit_signal("charge_time_changed", charge_time)
-			
-			print("Bought charge time upgrade:", item.effect_value)
-			print("Charge time changed:", charge_time)
-			
-			
 
 func spend_nuclear_ammo() -> bool:
 	if nuclear_ammo <= 0:

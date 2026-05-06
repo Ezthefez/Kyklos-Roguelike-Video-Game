@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dkhhfhrnlh70j"]
 
-[ext_resource type="Script" path="res://scripts/targetsphere_boundary_harvest.gd" id="1_xr8e2"]
-[ext_resource type="Texture2D" uid="uid://esp4wt8ecgpb" path="res://assets/kyklonTextures/BlueRockTexture-1.jpg" id="2_47k3f"]
+[ext_resource type="Script" uid="uid://cpvr7gluhggoh" path="res://scripts/targetsphere_boundary_harvest.gd" id="1_xr8e2"]
+[ext_resource type="Shader" uid="uid://cilmrwvdn35g" path="res://assets/TargetSphere.gdshader" id="2_xr8e2"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_kf1o2"]
 friction = 0.05
@@ -9,8 +9,26 @@ bounce = 0.85
 
 [sub_resource type="SphereMesh" id="SphereMesh_47k3f"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cflii"]
-albedo_texture = ExtResource("2_47k3f")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kf1o2"]
+render_priority = 0
+shader = ExtResource("2_xr8e2")
+shader_parameter/base_color = Color(0.03, 0.04, 0.07, 1)
+shader_parameter/blue_color = Color(0.18, 0.65, 1, 1)
+shader_parameter/orange_color = Color(1, 0.45, 0.08, 1)
+shader_parameter/blue_line_count = 10
+shader_parameter/orange_line_count = 10
+shader_parameter/blue_line_width = 0.18
+shader_parameter/orange_line_width = 0.18
+shader_parameter/line_softness = 0.03
+shader_parameter/pulse_speed = 2.0
+shader_parameter/hot_emission = 4.5
+shader_parameter/cool_emission = 0.45
+shader_parameter/object_half_size = 0.5
+shader_parameter/blue_cap_radius = 0.16
+shader_parameter/orange_cap_radius = 0.16
+shader_parameter/cap_softness = 0.02
+shader_parameter/metallic_amount = 0.05
+shader_parameter/roughness_amount = 0.35
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_cflii"]
 
@@ -21,8 +39,9 @@ gravity_scale = 0.0
 script = ExtResource("1_xr8e2")
 
 [node name="mesh" type="MeshInstance3D" parent="." unique_id=957664965]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.012804121, 0.004334092, 0.0026524514)
 mesh = SubResource("SphereMesh_47k3f")
-surface_material_override/0 = SubResource("StandardMaterial3D_cflii")
+surface_material_override/0 = SubResource("ShaderMaterial_kf1o2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1402803662]
 shape = SubResource("SphereShape3D_cflii")

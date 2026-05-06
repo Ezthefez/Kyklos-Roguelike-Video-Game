@@ -147,6 +147,7 @@ func _set(p_key: StringName, value):
 func _init():
 	material = ShaderMaterial.new()
 	material.shader = shader
+	material.render_priority = 10
 
 	var quad = QuadMesh.new()
 	quad.orientation = PlaneMesh.FACE_Z

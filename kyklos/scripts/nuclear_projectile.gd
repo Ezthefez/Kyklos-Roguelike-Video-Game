@@ -6,6 +6,9 @@ extends RigidBody3D
 @export var max_lifetime: float = 10.0
 @export var win_delay_after_hit: float = 7.0
 
+@export var detonation_probe_radius: float = 0.9
+@export var detonation_collision_mask: int = 0
+
 var _launch_direction: Vector3 = Vector3.ZERO
 var _launch_speed: float = 0.0
 var _life_timer: float = 0.0
@@ -24,7 +27,7 @@ func _ready() -> void:
 	angular_damp = 0.0
 	continuous_cd = true
 	contact_monitor = true
-	max_contacts_reported = 8
+	max_contacts_reported = 32
 	add_to_group("projectiles")
 
 	if not body_entered.is_connected(_on_body_entered):
@@ -45,32 +48,78 @@ func _physics_process(delta: float) -> void:
 		queue_free()
 		return
 
+	if not _has_detonated:
+		_fail_safe_overlap_detonation()
+
 	if _has_detonated:
 		_update_detonation(delta)
+
+func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
+	if _has_detonated:
+		return
+
+	if state.get_contact_count() > 0:
+		_trigger_detonation()
 
 func _on_body_entered(body: Node) -> void:
 	if _has_detonated:
 		return
 	if body == null:
 		return
-	if not body.is_in_group(target_group_name):
-		return
 
 	_trigger_detonation()
 
+func _fail_safe_overlap_detonation() -> void:
+	if _has_detonated:
+		return
+
+	var sphere := SphereShape3D.new()
+	sphere.radius = detonation_probe_radius
+
+	var query := PhysicsShapeQueryParameters3D.new()
+	query.shape = sphere
+	query.transform = Transform3D(Basis(), global_position)
+	query.exclude = [self]
+	query.collide_with_bodies = true
+	query.collide_with_areas = false
+
+	if detonation_collision_mask != 0:
+		query.collision_mask = detonation_collision_mask
+
+	var results := get_world_3d().direct_space_state.intersect_shape(query, 64)
+
+	for result in results:
+		var collider: Object = result.get("collider")
+		if collider == null:
+			continue
+		if collider == self:
+			continue
+		if collider is Node and (collider as Node).is_in_group("projectiles"):
+			continue
+
+		_trigger_detonation()
+		return
+
 func _trigger_detonation() -> void:
+	if _has_detonated:
+		return
+
 	_has_detonated = true
 	_detonation_timer = 0.0
 
 	linear_velocity = Vector3.ZERO
 	angular_velocity = Vector3.ZERO
 	freeze = true
+	sleeping = true
 
 	if projectile_mesh != null:
 		projectile_mesh.visible = false
 
 	if projectile_collision != null:
 		projectile_collision.disabled = true
+
+	collision_layer = 0
+	collision_mask = 0
 
 	if nuclear_visual != null:
 		nuclear_visual.visible = true
@@ -95,7 +144,7 @@ func _resolve_all_remaining_targets() -> void:
 	for node in targets:
 		if node == null:
 			continue
-		if not node is RigidBody3D:
+		if not (node is RigidBody3D):
 			continue
 
 		var target := node as RigidBody3D

@@ -1,0 +1,163 @@
+[gd_scene format=3 uid="uid://b1dlq0ib25v26"]
+
+[sub_resource type="GDScript" id="GDScript_b4wx4"]
+script/source = "extends AnimatableBody3D
+
+@export var cage_radius: float = 8.25
+
+@export var latitude_bands: int = 8
+@export var pentagons_at_equator: int = 14
+
+@export var pentagon_size: float = 0.85
+
+@export var line_width: float = 0.42
+@export var line_depth: float = 0.16
+
+@export var overlap_scale: float = 1.12
+
+@export var spin_speed_x_deg: float = 8.0
+@export var spin_speed_y_deg: float = 11.0
+@export var spin_dir_x: float = 1.0
+@export var spin_dir_y: float = 1.0
+
+@export var ash_light: Color = Color(0.68, 0.66, 0.63, 1.0)
+@export var ash_dark: Color = Color(0.36, 0.35, 0.33, 1.0)
+@export var roughness_value: float = 1.0
+
+var _visual_root: Node3D
+var _collision_root: Node3D
+var _mat: StandardMaterial3D
+
+func _ready() -> void:
+	collision_layer = 1
+	collision_mask = 1
+
+	var phys: PhysicsMaterial = PhysicsMaterial.new()
+	phys.bounce = 1.0
+	phys.friction = 0.05
+	physics_material_override = phys
+
+	_visual_root = Node3D.new()
+	_visual_root.name = \"VisualRoot\"
+	add_child(_visual_root)
+
+	_collision_root = Node3D.new()
+	_collision_root.name = \"CollisionRoot\"
+	add_child(_collision_root)
+
+	_build_material()
+	_build_shell()
+
+func _physics_process(delta: float) -> void:
+	rotation.x += deg_to_rad(spin_speed_x_deg * spin_dir_x) * delta
+	rotation.y += deg_to_rad(spin_speed_y_deg * spin_dir_y) * delta
+
+func _build_material() -> void:
+	var noise: FastNoiseLite = FastNoiseLite.new()
+	noise.noise_type = FastNoiseLite.TYPE_SIMPLEX
+	noise.frequency = 0.45
+	noise.fractal_octaves = 5
+	noise.fractal_gain = 0.55
+
+	var noise_tex: NoiseTexture2D = NoiseTexture2D.new()
+	noise_tex.width = 512
+	noise_tex.height = 512
+	noise_tex.seamless = true
+	noise_tex.noise = noise
+
+	_mat = StandardMaterial3D.new()
+	_mat.albedo_color = ash_light
+	_mat.albedo_texture = noise_tex
+	_mat.roughness = roughness_value
+	_mat.metallic = 0.0
+	_mat.uv1_triplanar = true
+	_mat.uv1_scale = Vector3(4.0, 4.0, 4.0)
+
+func _build_shell() -> void:
+	for child: Node in _visual_root.get_children():
+		child.queue_free()
+	for child: Node in _collision_root.get_children():
+		child.queue_free()
+
+	_create_pentagon_on_sphere(Vector3.UP, pentagon_size * 0.92, 0.0)
+
+	for band: int in range(latitude_bands):
+		var v: float = float(band + 1) / float(latitude_bands + 1)
+		var phi: float = lerp(-PI * 0.5 + 0.22, PI * 0.5 - 0.22, v)
+
+		var ring_scale: float = cos(phi)
+		var count: int = maxi(5, int(round(float(pentagons_at_equator) * abs(ring_scale))))
+
+		var row_offset: float = 0.0
+		if band % 2 == 1:
+			row_offset = PI / float(count)
+
+		for i: int in range(count):
+			var theta: float = TAU * float(i) / float(count) + row_offset
+
+			var dir: Vector3 = Vector3(
+				cos(phi) * cos(theta),
+				sin(phi),
+				cos(phi) * sin(theta)
+			).normalized()
+
+			var size_mul: float = lerp(0.88, 1.08, abs(ring_scale))
+			_create_pentagon_on_sphere(dir, pentagon_size * size_mul * overlap_scale, theta * 0.35)
+
+	_create_pentagon_on_sphere(Vector3.DOWN, pentagon_size * 0.92, PI * 0.2)
+
+func _create_pentagon_on_sphere(normal: Vector3, size: float, roll: float) -> void:
+	var tangent_a: Vector3 = normal.cross(Vector3.UP)
+	if tangent_a.length() < 0.001:
+		tangent_a = normal.cross(Vector3.RIGHT)
+	tangent_a = tangent_a.normalized()
+
+	var tangent_b: Vector3 = normal.cross(tangent_a).normalized()
+
+	var points: Array[Vector3] = []
+
+	for s: int in range(5):
+		var ang: float = roll + TAU * float(s) / 5.0
+		var local_dir: Vector3 = tangent_a * cos(ang) + tangent_b * sin(ang)
+		var p: Vector3 = (normal * cage_radius + local_dir * size).normalized() * cage_radius
+		points.append(p)
+
+	for s: int in range(5):
+		var a: Vector3 = points[s]
+		var b: Vector3 = points[(s + 1) % 5]
+		_create_bar(a, b)
+
+func _create_bar(a: Vector3, b: Vector3) -> void:
+	var mid: Vector3 = (a + b) * 0.5
+	var y_axis: Vector3 = (b - a).normalized()
+	var z_axis: Vector3 = mid.normalized()
+	var x_axis: Vector3 = y_axis.cross(z_axis).normalized()
+
+	if x_axis.length() < 0.001:
+		x_axis = Vector3.RIGHT
+
+	z_axis = x_axis.cross(y_axis).normalized()
+
+	var basis: Basis = Basis(x_axis, y_axis, z_axis)
+	var length: float = a.distance_to(b)
+
+	var mesh_instance: MeshInstance3D = MeshInstance3D.new()
+	var box: BoxMesh = BoxMesh.new()
+	box.size = Vector3(line_width, length, line_depth)
+	mesh_instance.mesh = box
+	mesh_instance.material_override = _mat
+	mesh_instance.transform = Transform3D(basis, mid)
+	_visual_root.add_child(mesh_instance)
+
+	var collision: CollisionShape3D = CollisionShape3D.new()
+	var shape: BoxShape3D = BoxShape3D.new()
+	shape.size = Vector3(line_width, length, line_depth)
+	collision.shape = shape
+	collision.transform = Transform3D(basis, mid)
+	_collision_root.add_child(collision)
+"
+
+[node name="BarrierCage" type="AnimatableBody3D" unique_id=1519034823]
+collision_layer = 143
+collision_mask = 143
+script = SubResource("GDScript_b4wx4")

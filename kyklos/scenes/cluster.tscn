@@ -2,7 +2,9 @@
 
 [ext_resource type="Script" uid="uid://crcgvrxxolom4" path="res://scripts/clusterRework.gd" id="1_q0jbs"]
 [ext_resource type="PackedScene" uid="uid://dkhhfhrnlh70j" path="res://scenes/TargetSphere.tscn" id="2_ynrju"]
+[ext_resource type="PackedScene" uid="uid://cg4r8cpl0ldkw" path="res://scenes/BarrierCageModel.tscn" id="3_dtidu"]
 
 [node name="cluster" type="Node3D" unique_id=608683125]
 script = ExtResource("1_q0jbs")
 target_scene = ExtResource("2_ynrju")
+barrier_cage_scene = ExtResource("3_dtidu")
