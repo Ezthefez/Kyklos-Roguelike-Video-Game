@@ -12,6 +12,12 @@
 [ext_resource type="PackedScene" uid="uid://b0d5wkxcng4e3" path="res://scenes/NuclearProjectile.tscn" id="7_eb6dy"]
 [ext_resource type="PackedScene" uid="uid://cgyfa2f5jjphr" path="res://scenes/pause_menu.tscn" id="7_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://de4mlhorhwsyp" path="res://scenes/BoundarySphere.tscn" id="8_tipki"]
+[ext_resource type="AudioStream" uid="uid://cjrbwsdfipqak" path="res://assets/audio/charge.wav" id="8_trceg"]
+[ext_resource type="AudioStream" uid="uid://de1v152r573dl" path="res://assets/audio/fire.wav" id="9_a8y0u"]
+[ext_resource type="AudioStream" uid="uid://cfyabkj5qdia2" path="res://assets/audio/spaceship_hum2.wav" id="15_jkv2x"]
+[ext_resource type="AudioStream" uid="uid://cnc703ck5vgct" path="res://assets/audio/moving.wav" id="16_dp3eg"]
+[ext_resource type="AudioStream" uid="uid://bq57yxtl8oy8b" path="res://assets/audio/engine_takeoff.wav" id="17_0ld40"]
+[ext_resource type="AudioStream" uid="uid://bur2rjao32u7e" path="res://assets/audio/stopping.wav" id="18_gqmmt"]
 
 [sub_resource type="Environment" id="Environment_sgp6g"]
 background_mode = 1
@@ -37,6 +43,26 @@ nuclear_projectile_scene = ExtResource("7_eb6dy")
 [node name="OrbitCenter" type="Node3D" parent="player" unique_id=1587045669]
 transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -20.024359)
 
+[node name="ChargeSound" type="AudioStreamPlayer" parent="player" unique_id=1241548228]
+stream = ExtResource("8_trceg")
+bus = &"Shoot"
+
+[node name="ShootSound" type="AudioStreamPlayer" parent="player" unique_id=1242790100]
+stream = ExtResource("9_a8y0u")
+bus = &"Shoot"
+
+[node name="MovingSound" type="AudioStreamPlayer" parent="player" unique_id=1608459239]
+stream = ExtResource("16_dp3eg")
+bus = &"Ship"
+
+[node name="TakeoffSound" type="AudioStreamPlayer" parent="player" unique_id=899453585]
+stream = ExtResource("17_0ld40")
+bus = &"Ship"
+
+[node name="StoppingSound" type="AudioStreamPlayer" parent="player" unique_id=920277250]
+stream = ExtResource("18_gqmmt")
+bus = &"Ship"
+
 [node name="Stars" parent="." unique_id=997801600 instance=ExtResource("4_tbgi4")]
 script = ExtResource("5_tefeu")
 size = 2000.0
@@ -55,3 +81,8 @@ layout_mode = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.45876, -0.0023007393, 25.590424)
 light_color = Color(1, 0.8672408, 0.8447085, 1)
 light_energy = 0.75
+
+[node name="ShipAmbience" type="AudioStreamPlayer" parent="." unique_id=1528880411]
+stream = ExtResource("15_jkv2x")
+autoplay = true
+bus = &"Ambience"

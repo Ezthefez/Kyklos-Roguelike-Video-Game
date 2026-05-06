@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://c2ld5rc03tert"]
+
+[ext_resource type="AudioStream" uid="uid://bgp3gi7a86lb5" path="res://assets/audio/sPACE.wav" id="1_0rulj"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" unique_id=362427785]
+process_mode = 3
+stream = ExtResource("1_0rulj")
+autoplay = true
+bus = &"Music"

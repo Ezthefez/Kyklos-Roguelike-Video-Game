@@ -2,6 +2,16 @@ extends Node3D
 # Kyklos Orbit Camera + Charge Shot using screen-space crosshair aim + smooth 360 sway
 # Includes projectile type switching for Type 1 Regular, Type 2 Heavy, Type 3 Explosive, and Type 4 Nuclear
 
+@onready var charge_sound: AudioStreamPlayer = $ChargeSound
+@onready var shoot_sound: AudioStreamPlayer = $ShootSound
+@onready var move_start: AudioStreamPlayer = $TakeoffSound
+@onready var move_loop: AudioStreamPlayer = $MovingSound
+@onready var move_stop: AudioStreamPlayer = $StoppingSound
+
+var was_moving: bool = false
+var move_loop_delay: float = 0.0
+var waiting_for_loop: bool = false
+
 # cockpit
 @onready var cockpit_scene = $"CameraYaw/CameraPitch/Cockpit_Scene"
 
@@ -95,6 +105,8 @@ var aim_initialized: bool = false
 var sway_velocity: Vector2 = Vector2.ZERO
 var last_mouse_delta: Vector2 = Vector2.ZERO
 
+var seek_timer: float = 0.0
+
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
@@ -125,6 +137,20 @@ func _process(delta: float) -> void:
 			_center_pointer_now()
 
 		charge_timer += delta
+		
+		if is_charging and charge_sound.playing and charge_sound.stream:
+			seek_timer += delta
+
+			if seek_timer > 0.03:
+				seek_timer = 0.0
+				
+				var ratio := _get_charge_ratio()
+				var length := charge_sound.stream.get_length()
+				
+				var target := ratio * length
+				var current := charge_sound.get_playback_position()
+				
+				charge_sound.seek(lerp(current, target, 0.1))
 
 		if charge_ui != null:
 			charge_ui.min_value = 0.0
@@ -221,15 +247,18 @@ func _input(event: InputEvent) -> void:
 		if can_fire:
 			is_charging = true
 			charge_timer = 0.0
+			charge_sound.play()
 			sway_velocity = Vector2.ZERO
 			last_mouse_delta = Vector2.ZERO
 			_center_pointer_now()
 
 	if event.is_action_released("shoot"):
 		if is_charging:
+			charge_sound.stop()
 			var charge_ratio: float = _get_charge_ratio()
 			is_charging = false
 			fire_with_charge(charge_ratio)
+			shoot_sound.play()
 
 	if event.is_action_pressed("open_canopy") and cockpit_scene:
 		cockpit_scene.toggle_canopy()
@@ -339,6 +368,37 @@ func _apply_circular_camera_clamp() -> void:
 func handle_movement(delta: float) -> void:
 	var input_x: float = Input.get_action_strength("ui_left") - Input.get_action_strength("ui_right")
 	var input_y: float = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
+	
+	var is_moving: bool = abs(input_x) > 0.01 or abs(input_y) > 0.01
+	
+# ===== MOVEMENT AUDIO SYSTEM WITH DELAY =====
+
+	# Movement STARTED
+	if is_moving and not was_moving:
+		move_start.play()
+		move_loop.stop() # ensures clean restart
+		move_loop_delay = 0.12   # <-- tweak this (0.08–0.2 feels good)
+		waiting_for_loop = true
+
+	# Handle delayed loop start
+	if waiting_for_loop:
+		move_loop_delay -= delta
+		if move_loop_delay <= 0.0:
+			if is_moving and not move_loop.playing:
+				move_loop.play()
+			waiting_for_loop = false
+
+	# Movement STOPPED
+	elif not is_moving and was_moving:
+		move_loop.stop()
+		move_stop.play()
+		waiting_for_loop = false
+
+	# Safety: keep loop alive if somehow stopped
+	if is_moving and not move_loop.playing and not waiting_for_loop:
+		move_loop.play()
+
+	was_moving = is_moving
 
 	if orbit_center == null:
 		return

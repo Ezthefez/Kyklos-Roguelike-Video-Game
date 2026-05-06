@@ -5,6 +5,7 @@ extends Control
 @onready var price_label = $Panel/Price
 @onready var description_label = $Panel/Description
 @onready var buy_button = $Panel/Buy
+@onready var button_sound: AudioStreamPlayer = $ButtonSound
 
 var item: ShopItem
 var purchased := false
@@ -19,6 +20,7 @@ func setup(data: ShopItem) -> void:
 	buy_button.pressed.connect(_on_buy_pressed)
 
 func _on_buy_pressed() -> void:
+	button_sound.play()
 	if purchased:
 		return
 		

@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dhdbykrbh4q5o"]
 
-[ext_resource type="Script" uid="uid://gerfvbh08n7q" path="res://scripts/shop_item_ui.gd" id="1_ris3v"]
+[ext_resource type="Script" uid="uid://c7h6ks1qniuqf" path="res://scripts/shop_item_ui.gd" id="1_ris3v"]
+[ext_resource type="AudioStream" uid="uid://d28hf2dulguq4" path="res://assets/audio/button_click.wav" id="2_jtu3a"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_c7rq3"]
 font_size = 40
@@ -70,3 +71,6 @@ text = "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum 
 label_settings = SubResource("LabelSettings_olt7t")
 horizontal_alignment = 1
 autowrap_mode = 3
+
+[node name="ButtonSound" type="AudioStreamPlayer" parent="." unique_id=1962055827]
+stream = ExtResource("2_jtu3a")

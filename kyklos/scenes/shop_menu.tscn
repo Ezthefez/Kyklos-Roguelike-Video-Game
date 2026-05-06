@@ -1,13 +1,14 @@
 [gd_scene format=3 uid="uid://ce2203af8nd0i"]
 
-[ext_resource type="Script" uid="uid://cwuwmldkqv2cx" path="res://scripts/shop/shop_menu.gd" id="1_5pe57"]
+[ext_resource type="Script" uid="uid://cxdfounxl6o24" path="res://scripts/shop/shop_menu.gd" id="1_5pe57"]
 [ext_resource type="PackedScene" uid="uid://dhdbykrbh4q5o" path="res://scenes/shop_item_ui.tscn" id="2_1ltno"]
-[ext_resource type="Script" uid="uid://dh6pa8ri8ky4h" path="res://scripts/shop/shop_item.gd" id="2_76m3e"]
+[ext_resource type="Script" uid="uid://bktcwkxeh5ogu" path="res://scripts/shop/shop_item.gd" id="2_76m3e"]
 [ext_resource type="PackedScene" uid="uid://bnn6l1t55skiv" path="res://scenes/KyklonPreview.tscn" id="3_76m3e"]
 [ext_resource type="Resource" uid="uid://1fycye6g2huo" path="res://resources/shop_items/common/liquid_cooling.tres" id="3_lngpu"]
 [ext_resource type="Resource" uid="uid://cibggx45qfy7w" path="res://resources/shop_items/rare/mega_shot.tres" id="4_hgolc"]
 [ext_resource type="Resource" uid="uid://cghrhkeotijqd" path="res://resources/shop_items/common/increase_charge.tres" id="5_amlfo"]
 [ext_resource type="Resource" uid="uid://bku532vx264vs" path="res://resources/shop_items/common/increase_capacity.tres" id="6_tnh3q"]
+[ext_resource type="AudioStream" uid="uid://d28hf2dulguq4" path="res://assets/audio/button_click.wav" id="9_hgolc"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_1ltno"]
 font_size = 240
@@ -293,5 +294,8 @@ offset_bottom = 110.0
 text = "$ "
 label_settings = SubResource("LabelSettings_76m3e")
 horizontal_alignment = 1
+
+[node name="ButtonSound" type="AudioStreamPlayer" parent="." unique_id=2108418709]
+stream = ExtResource("9_hgolc")
 
 [connection signal="pressed" from="CanvasLayer/NextRoundButton" to="." method="_on_next_round_button_pressed"]
