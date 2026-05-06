@@ -7,6 +7,7 @@ extends Control
 @export var items_to_show: int = 2
 
 @onready var current_money_label: Label = $CanvasLayer/Money/Amount
+@onready var button_sound: AudioStreamPlayer = $ButtonSound
 
 func _ready() -> void:
 	print("SHOP READY")
@@ -20,7 +21,8 @@ func _ready() -> void:
 	generate_shop()
 
 func _on_next_round_button_pressed() -> void:
-		get_tree().change_scene_to_file("res://scenes/LevelSelect.tscn")
+	button_sound.play()
+	get_tree().change_scene_to_file("res://scenes/LevelSelect.tscn")
 
 func generate_shop():
 	# Clear old items

@@ -1,6 +1,17 @@
 [gd_scene format=3 uid="uid://dhdbykrbh4q5o"]
 
 [ext_resource type="Script" uid="uid://c7h6ks1qniuqf" path="res://scripts/shop_item_ui.gd" id="1_ris3v"]
+[ext_resource type="AudioStream" uid="uid://d28hf2dulguq4" path="res://assets/audio/button_click.wav" id="2_jtu3a"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_c7rq3"]
+font_size = 40
+
+[sub_resource type="LabelSettings" id="LabelSettings_jtu3a"]
+font_size = 40
+font_color = Color(1, 0.78039217, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_olt7t"]
+font_size = 24
 
 [node name="shop_item_ui" type="Control" unique_id=1823730448]
 process_mode = 3
@@ -46,6 +57,14 @@ text = "BUY"
 
 [node name="Description" type="Label" parent="Panel" unique_id=975290650]
 layout_mode = 0
-offset_top = 96.0
-offset_right = 266.0
-offset_bottom = 212.0
+offset_left = 2.0
+offset_top = 97.0
+offset_right = 268.0
+offset_bottom = 213.0
+text = "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum "
+label_settings = SubResource("LabelSettings_olt7t")
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="ButtonSound" type="AudioStreamPlayer" parent="." unique_id=1962055827]
+stream = ExtResource("2_jtu3a")
