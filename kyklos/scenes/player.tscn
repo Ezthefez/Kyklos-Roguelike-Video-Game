@@ -28,5 +28,15 @@ light_energy = 0.4
 [node name="Cockpit_Scene" parent="CameraYaw/CameraPitch" unique_id=1962816754 instance=ExtResource("3_qhqgy")]
 transform = Transform3D(-1, -8.8360174e-16, 8.742278e-08, 8.271261e-09, 0.9955142, 0.0946122, -8.7030614e-08, 0.0946122, -0.9955142, -0.0061501265, -0.9827974, -2.8666348)
 
+[node name="Cockpit_Laptop" parent="CameraYaw/CameraPitch/Cockpit_Scene/Sketchfab_model/VA_Scifi_Cockpit_7_FBX/Object_2/RootNode/CockpitBody/CentralConsole/Laptop_Position" parent_id_path=PackedInt32Array(1962816754, 1254180230) index="0" unique_id=1906991387 node_paths=PackedStringArray("player_camera", "laptop_zoom_point", "cockpit_scene")]
+player_camera = NodePath("../../../../../../../../../Camera3D")
+laptop_zoom_point = NodePath("../../../../../../../../LaptopZoomPoint")
+cockpit_scene = NodePath("../../../../../../../..")
+
 [node name="ProjectileSpawnPoint" type="Marker3D" parent="CameraYaw/CameraPitch/Cockpit_Scene" unique_id=1859862070]
 transform = Transform3D(1, 7.993606e-15, 0, 0, 1, 0, 0, 0, 1, 1.359731e-07, 0.47745574, 1.5842545)
+
+[node name="LaptopZoomPoint" type="Marker3D" parent="CameraYaw/CameraPitch/Cockpit_Scene" unique_id=431326138]
+transform = Transform3D(-1, -2.990035e-08, 8.215052e-08, 0, 0.93969315, 0.3420203, -8.742278e-08, 0.3420203, -0.93969315, 0, 0.575, 0.375)
+
+[editable path="CameraYaw/CameraPitch/Cockpit_Scene"]

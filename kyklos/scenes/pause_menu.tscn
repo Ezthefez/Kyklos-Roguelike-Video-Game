@@ -1,6 +1,10 @@
 [gd_scene format=3 uid="uid://cgyfa2f5jjphr"]
 
 [ext_resource type="Script" uid="uid://cafel4xk1yc0j" path="res://scripts/pause_menu.gd" id="1_n87rw"]
+[ext_resource type="Texture2D" uid="uid://x2ydd5k6c3st" path="res://assets/UI/MenuUI/ava_resume_button.png" id="2_7l7mv"]
+[ext_resource type="Texture2D" uid="uid://c17r3adfomlwh" path="res://assets/UI/MenuUI/hover_ava_resume_button.png" id="3_v4r4p"]
+[ext_resource type="Texture2D" uid="uid://jpf0i2i82l65" path="res://assets/UI/MenuUI/main_menu_button.png" id="4_7l7mv"]
+[ext_resource type="Texture2D" uid="uid://bpxigwgbn2gu5" path="res://assets/UI/MenuUI/hover_main_menu_button.png" id="5_v4r4p"]
 
 [node name="PauseMenu" type="Control" unique_id=1210719568]
 process_mode = 2
@@ -12,25 +16,29 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_n87rw")
 
-[node name="CenterContainer" type="CenterContainer" parent="." unique_id=557186482]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="resume_button" type="TextureButton" parent="." unique_id=1790645043]
+layout_mode = 0
+offset_left = 261.0
+offset_top = 432.0
+offset_right = 713.0
+offset_bottom = 522.0
+texture_normal = ExtResource("2_7l7mv")
+texture_pressed = ExtResource("3_v4r4p")
+texture_hover = ExtResource("3_v4r4p")
+ignore_texture_size = true
+stretch_mode = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=507866600]
-layout_mode = 2
+[node name="main_menu_button" type="TextureButton" parent="." unique_id=2077740293]
+layout_mode = 0
+offset_left = 261.0
+offset_top = 336.0
+offset_right = 713.0
+offset_bottom = 426.0
+texture_normal = ExtResource("4_7l7mv")
+texture_pressed = ExtResource("5_v4r4p")
+texture_hover = ExtResource("5_v4r4p")
+ignore_texture_size = true
+stretch_mode = 0
 
-[node name="ResumeButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1877572385]
-custom_minimum_size = Vector2(300, 80)
-layout_mode = 2
-theme_override_font_sizes/font_size = 33
-text = "RESUME GAME"
-
-[node name="QuitButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1984051631]
-custom_minimum_size = Vector2(300, 80)
-layout_mode = 2
-theme_override_font_sizes/font_size = 33
-text = "QUIT TO MENU"
+[connection signal="pressed" from="resume_button" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="main_menu_button" to="." method="_on_main_menu_button_pressed"]

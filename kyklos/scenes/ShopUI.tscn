@@ -1,9 +1,8 @@
 [gd_scene format=3 uid="uid://chlosgicy1fhw"]
 
 [ext_resource type="Script" uid="uid://dqjvpyhxwowjp" path="res://scripts/shop_ui.gd" id="1_duxfn"]
-[ext_resource type="Texture2D" uid="uid://cbye0qtqc0lfu" path="res://assets/UI/pause_background.png" id="1_owitj"]
-[ext_resource type="Texture2D" uid="uid://bmnm78haautn8" path="res://assets/UI/shop_background2.png" id="3_duxfn"]
-[ext_resource type="Texture2D" uid="uid://cxjcb3j8flk74" path="res://assets/UI/ShopUI/template.png" id="3_km6jy"]
+[ext_resource type="Texture2D" uid="uid://dh4o6r1qvnyrh" path="res://assets/UI/MenuUI/pause_background.png" id="2_5k0ui"]
+[ext_resource type="Texture2D" uid="uid://bq7oqashse58m" path="res://assets/UI/ShopUI/shop_background2.png" id="3_5k0ui"]
 [ext_resource type="Texture2D" uid="uid://8bmyhu4qnd5q" path="res://assets/UI/ShopUI/ava_nextround_button.png" id="5_ugt30"]
 [ext_resource type="Texture2D" uid="uid://cx3t8tpuncks0" path="res://assets/UI/ShopUI/mod_list_panel.png" id="6_jgmex"]
 [ext_resource type="Texture2D" uid="uid://ntl7mijproxk" path="res://assets/UI/ShopUI/hover_nextround.png" id="6_ri7w3"]
@@ -26,7 +25,7 @@
 [ext_resource type="Texture2D" uid="uid://ni0wb4cxfne6" path="res://assets/UI/ShopUI/hover_reset_button.png" id="19_jgmex"]
 [ext_resource type="FontFile" uid="uid://chi1vtuu8ffyq" path="res://assets/UI/AVA - font/AVA.otf" id="24_5k0ui"]
 
-[node name="ShopUI" type="Control" unique_id=36481685]
+[node name="ShopUI" type="Control" unique_id=36481685 groups=["shop_ui"]]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -51,11 +50,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_owitj")
+texture = ExtResource("2_5k0ui")
 expand_mode = 1
 stretch_mode = 5
 
 [node name="ShopWindow" type="Control" parent="." unique_id=949691066]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -64,18 +64,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="template" type="TextureRect" parent="ShopWindow" unique_id=1065659238]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("3_km6jy")
-expand_mode = 1
-stretch_mode = 5
-
 [node name="shop_background" type="TextureRect" parent="ShopWindow" unique_id=1616801087]
 layout_mode = 1
 anchors_preset = 15
@@ -83,7 +71,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_duxfn")
+texture = ExtResource("3_5k0ui")
 expand_mode = 1
 stretch_mode = 5
 

@@ -108,10 +108,22 @@ func _on_game_lost() -> void:
 	lose_menu.visible = true
 
 func _on_continue_button_pressed() -> void:
-	get_tree().paused = false
+	report_menu.visible = false
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	get_viewport().gui_disable_input = false
-	get_tree().change_scene_to_file("res://scenes/Shop.tscn")
+
+	var shop_ui = get_tree().get_first_node_in_group("shop_ui")
+	if shop_ui and shop_ui.has_method("show_shop_window"):
+		shop_ui.show_shop_window()
+
+	GameManager.open_shop_window_on_load = true
+
+	var laptop = get_tree().get_first_node_in_group("cockpit_laptop")
+	if laptop:
+		await laptop.zoom_into_laptop(false)
+
+	get_tree().paused = false
+	get_tree().change_scene_to_file("res://scenes/ShopUI.tscn")
 
 func _on_new_run_button_pressed() -> void:
 	if _gm != null:
