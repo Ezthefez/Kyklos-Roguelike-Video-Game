@@ -1,3 +1,5 @@
+#barrier_cage_model.gd
+
 extends Node3D
 
 @export var spin_speed_x_deg: float = 8.0
