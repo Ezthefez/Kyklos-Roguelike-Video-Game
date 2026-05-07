@@ -149,26 +149,41 @@ func toggle_canopy() -> void:
 
 # --- LAPTOP ---
 
+var laptop_open := false
+
 func toggle_laptop() -> void:
 	if laptop_anim == null:
 		return
-	if laptop_anim.is_playing():
-		return
 
 	var anim_name := "Take 001"
-	var length: float = laptop_anim.get_animation(anim_name).length
-	var pos: float = laptop_anim.current_animation_position
 
-	# Decide whether to open or close based on current position
-	if pos >= length - 0.01:
-		laptop_anim.play_backwards(anim_name)
-	elif pos <= 0.01:
-		laptop_anim.play(anim_name)
+	if not laptop_anim.has_animation(anim_name):
+		return
+
+	if laptop_open:
+		close_laptop()
 	else:
-		if pos > length * 0.5:
-			laptop_anim.play_backwards(anim_name)
-		else:
-			laptop_anim.play(anim_name)
+		open_laptop()
+
+
+func open_laptop() -> void:
+	var anim_name := "Take 001"
+
+	if laptop_anim == null:
+		return
+
+	laptop_anim.play(anim_name)
+	laptop_open = true
+
+
+func close_laptop() -> void:
+	var anim_name := "Take 001"
+
+	if laptop_anim == null:
+		return
+
+	laptop_anim.play_backwards(anim_name)
+	laptop_open = false
 
 
 # --- SECONDARY SCREEN ---

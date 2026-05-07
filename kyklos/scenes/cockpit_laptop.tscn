@@ -3,7 +3,6 @@
 [ext_resource type="PackedScene" uid="uid://c6stbcu6x371r" path="res://assets/cockpit/VA_Scifi_Cockpit_7_Laptop.FBX" id="1_d2yjk"]
 [ext_resource type="Script" uid="uid://c1rtybc24ssx7" path="res://scripts/cockpit_laptop.gd" id="2_htthj"]
 [ext_resource type="Texture2D" uid="uid://cmk7mwrulqx2w" path="res://assets/cockpit/Textures/Cockpit/Clean/VA_Scifi_Cockpit7_Body_Clean_Albedo.png" id="2_jq211"]
-[ext_resource type="Texture2D" uid="uid://cdcdesjwoa7s0" path="res://assets/cockpit/Textures/Screen/1bc8ffe3ab723ce013f6c22aebcb7b37.jpg" id="3_myirb"]
 [ext_resource type="PackedScene" uid="uid://chlosgicy1fhw" path="res://scenes/ShopUI.tscn" id="4_myirb"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_htthj"]
@@ -12,14 +11,12 @@ albedo_texture = ExtResource("2_jq211")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7ik2s"]
 albedo_texture = ExtResource("2_jq211")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_7ik2s"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_myirb"]
 viewport_path = NodePath("SubViewport")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hsdtp"]
 resource_local_to_scene = true
-albedo_texture = SubResource("ViewportTexture_7ik2s")
-emission_energy_multiplier = 1.5
-emission_texture = ExtResource("3_myirb")
+albedo_texture = SubResource("ViewportTexture_myirb")
 
 [node name="Cockpit_Laptop" unique_id=1906991387 instance=ExtResource("1_d2yjk")]
 script = ExtResource("2_htthj")

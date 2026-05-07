@@ -41,11 +41,10 @@ func zoom_into_laptop(show_pause: bool = true) -> void:
 	laptop_busy = true
 
 	get_tree().paused = true
-
 	original_camera_transform = player_camera.global_transform
 
-	if cockpit_scene.has_method("toggle_laptop"):
-		cockpit_scene.toggle_laptop()
+	if cockpit_scene.has_method("open_laptop"):
+		cockpit_scene.open_laptop()
 
 	await get_tree().create_timer(laptop_anim_wait, true).timeout
 
@@ -53,13 +52,7 @@ func zoom_into_laptop(show_pause: bool = true) -> void:
 	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	tween.set_trans(Tween.TRANS_CUBIC)
 	tween.set_ease(Tween.EASE_IN_OUT)
-
-	tween.tween_property(
-		player_camera,
-		"global_transform",
-		laptop_zoom_point.global_transform,
-		zoom_time
-	)
+	tween.tween_property(player_camera, "global_transform", laptop_zoom_point.global_transform, zoom_time)
 
 	await tween.finished
 
@@ -85,6 +78,9 @@ func zoom_out_of_laptop() -> void:
 	if pause_menu:
 		pause_menu.visible = false
 
+	if cockpit_scene.has_method("close_laptop"):
+		cockpit_scene.close_laptop()
+
 	var tween := create_tween()
 	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	tween.set_trans(Tween.TRANS_CUBIC)
@@ -98,11 +94,6 @@ func zoom_out_of_laptop() -> void:
 	)
 
 	await tween.finished
-
-	if cockpit_scene.has_method("toggle_laptop"):
-		cockpit_scene.toggle_laptop()
-
-	await get_tree().create_timer(laptop_anim_wait, true).timeout
 
 	laptop_zoomed = false
 	get_tree().paused = false

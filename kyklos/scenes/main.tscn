@@ -13,7 +13,6 @@
 [ext_resource type="PackedScene" uid="uid://cgyfa2f5jjphr" path="res://scenes/pause_menu.tscn" id="7_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://de4mlhorhwsyp" path="res://scenes/BoundarySphere.tscn" id="8_tipki"]
 [ext_resource type="AudioStream" uid="uid://cjrbwsdfipqak" path="res://assets/audio/charge.wav" id="8_trceg"]
-[ext_resource type="Texture2D" uid="uid://cdcdesjwoa7s0" path="res://assets/cockpit/Textures/Screen/1bc8ffe3ab723ce013f6c22aebcb7b37.jpg" id="8_yc10j"]
 [ext_resource type="AudioStream" uid="uid://de1v152r573dl" path="res://assets/audio/fire.wav" id="9_a8y0u"]
 [ext_resource type="Shader" uid="uid://bmwmngip4u0lq" path="res://assets/milky_way_nebula.gdshader" id="13_trceg"]
 [ext_resource type="Script" uid="uid://bys737qjyskgw" path="res://scripts/milky_way_nebula.gd" id="14_a8y0u"]
@@ -26,14 +25,12 @@
 background_mode = 1
 background_color = Color(0, 0, 0.078431375, 1)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_jscy8"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_gqmmt"]
 viewport_path = NodePath("SubViewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pm3ni"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jscy8"]
 resource_local_to_scene = true
-albedo_texture = SubResource("ViewportTexture_jscy8")
-emission_energy_multiplier = 1.5
-emission_texture = ExtResource("8_yc10j")
+albedo_texture = SubResource("ViewportTexture_gqmmt")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_a8y0u"]
 render_priority = 0
@@ -76,7 +73,7 @@ nuclear_projectile_scene = ExtResource("7_eb6dy")
 pause_menu = NodePath("../../../../../../../../../../../../UI/PauseMenu")
 
 [node name="LaptopDisplay" parent="player/CameraYaw/CameraPitch/Cockpit_Scene/Sketchfab_model/VA_Scifi_Cockpit_7_FBX/Object_2/RootNode/CockpitBody/CentralConsole/Laptop_Position/Cockpit_Laptop/LaptopBody/LaptopScreen" parent_id_path=PackedInt32Array(1720029618, 1962816754, 1906991387, 51962947) index="0" unique_id=1910549585]
-surface_material_override/0 = SubResource("StandardMaterial3D_pm3ni")
+surface_material_override/0 = SubResource("StandardMaterial3D_jscy8")
 
 [node name="OrbitCenter" type="Node3D" parent="player" unique_id=1587045669]
 transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -20.024359)
