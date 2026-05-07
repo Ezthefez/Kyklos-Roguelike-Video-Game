@@ -12,6 +12,17 @@ extends RigidBody3D
 @export var min_speed_after_bounce: float = 3.0
 @export var hit_skin: float = 0.04
 
+@export var trail_scene: PackedScene = preload("res://scenes/ProjectileTrailHelix.tscn")
+@export var trail_color: Color = Color(1.0, 0.1, 0.1, 1.0)
+@export var trail_visible_seconds: float = 1.00
+@export var trail_absolute_max_seconds: float = 25.0
+@export var trail_helix_radius: float = 0.09
+@export var trail_turns_per_unit: float = 2.2
+@export var trail_width: float = 0.05
+@export var trail_fade_speed_multiplier: float = 0.9
+
+var _trail_instance: Node = null
+
 var _launch_direction: Vector3 = Vector3.ZERO
 var _launch_speed: float = 0.0
 var _life_timer: float = 0.0
@@ -26,6 +37,7 @@ func _ready() -> void:
 	max_contacts_reported = 8
 	sleeping = false
 	add_to_group("projectiles")
+	_spawn_trail()
 
 func launch(direction: Vector3, base_impulse: float) -> void:
 	_launch_direction = direction.normalized()
@@ -120,3 +132,23 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 			_launch_direction = v.normalized()
 			_launch_speed = max(v.length(), min_speed_after_bounce)
 		return
+
+func _spawn_trail() -> void:
+	if trail_scene == null:
+		return
+	if _trail_instance != null:
+		return
+
+	_trail_instance = trail_scene.instantiate()
+	get_tree().current_scene.add_child(_trail_instance)
+
+	if _trail_instance.has_method("attach_to_target"):
+		_trail_instance.call("attach_to_target", self)
+
+	_trail_instance.set("trail_color", trail_color)
+	_trail_instance.set("visible_seconds", trail_visible_seconds)
+	_trail_instance.set("absolute_max_seconds", trail_absolute_max_seconds)
+	_trail_instance.set("helix_radius", trail_helix_radius)
+	_trail_instance.set("helix_turns_per_unit", trail_turns_per_unit)
+	_trail_instance.set("helix_width", trail_width)
+	_trail_instance.set("fade_speed_multiplier", trail_fade_speed_multiplier)

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="AmmoItem" format=3 uid="uid://du8addkpn1fxv"]
+
+[ext_resource type="Texture2D" uid="uid://bj5d5wit82nd" path="res://assets/kyklonTextures/cosmic.jpg" id="1_fyfj1"]
+[ext_resource type="Script" uid="uid://wf86c88shfsx" path="res://scripts/shop/ammo_item.gd" id="1_xyxbn"]
+
+[resource]
+script = ExtResource("1_xyxbn")
+name = "NORMAL"
+price = 150
+icon = ExtResource("1_fyfj1")
+effect_type = "normal_ammo"
+effect_value = 1.0
+metadata/_custom_type_script = "uid://wf86c88shfsx"

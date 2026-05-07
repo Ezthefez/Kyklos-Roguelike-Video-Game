@@ -1,8 +1,8 @@
 shader_type spatial;
 render_mode unshaded, cull_disabled, blend_add, depth_draw_never;
 
-uniform vec4 energy_color : source_color = vec4(0.3, 0.8, 1.0, 0.35);
-uniform vec4 edge_color : source_color = vec4(1.0, 1.0, 1.0, 0.9);
+uniform vec4 energy_color : source_color = vec4(1.0, 0.08, 0.72, 0.38);
+uniform vec4 edge_color : source_color = vec4(1.0, 0.72, 0.92, 0.95);
 uniform float edge_power = 3.0;
 uniform float pulse_speed = 4.0;
 uniform float pulse_strength = 0.15;
@@ -15,6 +15,6 @@ void fragment() {
 	float final_alpha = mix(energy_color.a, edge_color.a, fresnel) * pulse;
 
 	ALBEDO = final_color;
-	EMISSION = final_color * 2.0;
+	EMISSION = final_color * 2.4;
 	ALPHA = final_alpha;
 }

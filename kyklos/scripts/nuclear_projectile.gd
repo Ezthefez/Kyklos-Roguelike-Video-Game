@@ -9,6 +9,17 @@ extends RigidBody3D
 @export var detonation_probe_radius: float = 0.9
 @export var detonation_collision_mask: int = 0
 
+@export var trail_scene: PackedScene = preload("res://scenes/ProjectileTrailHelix.tscn")
+@export var trail_color: Color = Color(1.0, 1.0, 1.0, 1.0)
+@export var trail_visible_seconds: float = 1.10
+@export var trail_absolute_max_seconds: float = 25.0
+@export var trail_helix_radius: float = 0.11
+@export var trail_turns_per_unit: float = 2.0
+@export var trail_width: float = 0.055
+@export var trail_fade_speed_multiplier: float = 0.85
+
+var _trail_instance: Node = null
+
 var _launch_direction: Vector3 = Vector3.ZERO
 var _launch_speed: float = 0.0
 var _life_timer: float = 0.0
@@ -29,6 +40,7 @@ func _ready() -> void:
 	contact_monitor = true
 	max_contacts_reported = 32
 	add_to_group("projectiles")
+	_spawn_trail()
 
 	if not body_entered.is_connected(_on_body_entered):
 		body_entered.connect(_on_body_entered)
@@ -177,3 +189,23 @@ func _update_detonation(delta: float) -> void:
 
 	if _detonation_timer >= explosion_duration:
 		queue_free()
+
+func _spawn_trail() -> void:
+	if trail_scene == null:
+		return
+	if _trail_instance != null:
+		return
+
+	_trail_instance = trail_scene.instantiate()
+	get_tree().current_scene.add_child(_trail_instance)
+
+	if _trail_instance.has_method("attach_to_target"):
+		_trail_instance.call("attach_to_target", self)
+
+	_trail_instance.set("trail_color", trail_color)
+	_trail_instance.set("visible_seconds", trail_visible_seconds)
+	_trail_instance.set("absolute_max_seconds", trail_absolute_max_seconds)
+	_trail_instance.set("helix_radius", trail_helix_radius)
+	_trail_instance.set("helix_turns_per_unit", trail_turns_per_unit)
+	_trail_instance.set("helix_width", trail_width)
+	_trail_instance.set("fade_speed_multiplier", trail_fade_speed_multiplier)

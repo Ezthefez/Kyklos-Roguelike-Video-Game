@@ -1,3 +1,5 @@
+#clusterRework
+
 extends Node3D
 
 @export var cluster_seed: int = 0
@@ -7,8 +9,8 @@ extends Node3D
 @export var extra_hit_margin: float = 0.05
 
 @export var target_scene: PackedScene
-@export var min_spawn_count: int = 10
-@export var max_spawn_count: int = 25
+@export var min_spawn_count: int = 5 * GameManager.player_level
+@export var max_spawn_count: int = 10 * GameManager.player_level
 @export var spawn_radius: float = 3.0
 
 @export var gravity_strength: float = 1.5

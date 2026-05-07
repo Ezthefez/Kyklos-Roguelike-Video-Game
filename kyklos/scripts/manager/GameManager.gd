@@ -1,5 +1,6 @@
 extends Node
 
+var player_level: int = 1
 var selected_seed: int = 0
 var ammo: int = 5
 var base_ammo: int = 5
@@ -22,6 +23,7 @@ signal money_changed(new_amount: int)
 var open_shop_window_on_load: bool = false
 
 func reset_all() -> void:
+	player_level = 1
 	money = 0
 	ammo = 5
 	base_ammo = 5
@@ -37,6 +39,8 @@ func reset_all() -> void:
 	emit_signal("nuclear_ammo_changed", nuclear_ammo)
 
 func reset_for_new_round() -> void:
+	player_level += 1
+	selected_seed = 0
 	ammo = base_ammo
 	nuclear_ammo = 1
 	game_over = false
@@ -47,6 +51,8 @@ func reset_for_new_round() -> void:
 
 	emit_signal("ammo_changed", ammo)
 	emit_signal("nuclear_ammo_changed", nuclear_ammo)
+	
+	print("player level:", player_level) 
 
 func reset_run() -> void:
 	reset_for_new_round()
@@ -70,6 +76,15 @@ func apply_upgrade(item: ShopItem) -> void:
 			var amount := int(item.effect_value)
 			base_ammo += amount
 			ammo += amount
+			emit_signal("ammo_changed", ammo)
+			
+func apply_ammo(item: AmmoItem) -> void:
+	match item.effect_type:
+		"normal_ammo":
+			print("Normal Ammo Purchased")
+			var amount := int(item.effect_value)
+			ammo += amount
+			print(ammo)
 			emit_signal("ammo_changed", ammo)
 
 func spend_nuclear_ammo() -> bool:

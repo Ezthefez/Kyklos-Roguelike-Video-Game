@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="AmmoItem" format=3 uid="uid://2kbgje0v080f"]
+
+[ext_resource type="Script" uid="uid://wf86c88shfsx" path="res://scripts/shop/ammo_item.gd" id="1_eerh1"]
+[ext_resource type="Texture2D" uid="uid://b35p7vpvmdcsb" path="res://assets/psf-textures/jwst.png" id="1_ufk8w"]
+
+[resource]
+script = ExtResource("1_eerh1")
+name = "NUKE"
+price = 2500
+icon = ExtResource("1_ufk8w")
+effect_type = "nuke_ammo"
+effect_value = 1.0
+metadata/_custom_type_script = "uid://wf86c88shfsx"

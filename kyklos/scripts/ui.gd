@@ -109,6 +109,8 @@ func _on_game_lost() -> void:
 
 func _on_continue_button_pressed() -> void:
 	report_menu.visible = false
+	GameManager.reset_run()
+	get_tree().paused = false
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	get_viewport().gui_disable_input = false
 

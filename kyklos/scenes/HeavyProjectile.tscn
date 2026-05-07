@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://d1so6ir5fgu78"]
 
 [ext_resource type="Script" uid="uid://ber1lkr215upp" path="res://scripts/HeavyProjectile.gd" id="1_svdy6"]
-[ext_resource type="Shader" uid="uid://ccpnxmlx3q82k" path="res://assets/red_smile_projectile.gdshader" id="2_26r1h"]
+[ext_resource type="Shader" uid="uid://c42bw4rn8rmua" path="res://assets/red_smile_projectile.gdshader" id="2_26r1h"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_dprbf"]
 friction = 0.05

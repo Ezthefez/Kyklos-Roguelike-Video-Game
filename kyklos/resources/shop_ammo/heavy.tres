@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="AmmoItem" format=3 uid="uid://c77m8f1o5joqd"]
+
+[ext_resource type="Texture2D" uid="uid://er4y05ck5rt6" path="res://assets/kyklonTextures/HeavyRedTexture.jpg" id="1_8lfen"]
+[ext_resource type="Script" uid="uid://wf86c88shfsx" path="res://scripts/shop/ammo_item.gd" id="1_rmq7u"]
+
+[resource]
+script = ExtResource("1_rmq7u")
+name = "HEAVY"
+price = 300
+icon = ExtResource("1_8lfen")
+effect_type = "heavy_ammo"
+effect_value = 1.0
+metadata/_custom_type_script = "uid://wf86c88shfsx"

@@ -40,3 +40,4 @@ transform = Transform3D(1, 7.993606e-15, 0, 0, 1, 0, 0, 0, 1, 1.359731e-07, 0.47
 transform = Transform3D(-1, -2.990035e-08, 8.215052e-08, 0, 0.93969315, 0.3420203, -8.742278e-08, 0.3420203, -0.93969315, 0, 0.575, 0.375)
 
 [editable path="CameraYaw/CameraPitch/Cockpit_Scene"]
+transform = Transform3D(1, 9.769963e-15, 0, 0, 1, 0, 0, 0, 1, 1.5320256e-07, 0.41849136, 1.7824357)

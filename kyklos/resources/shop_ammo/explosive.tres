@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="AmmoItem" format=3 uid="uid://cm6y1bi3f8g75"]
+
+[ext_resource type="Script" uid="uid://wf86c88shfsx" path="res://scripts/shop/ammo_item.gd" id="1_l4w7l"]
+[ext_resource type="Texture2D" uid="uid://uok1kl7fjcef" path="res://assets/plasma.png" id="1_tc668"]
+
+[resource]
+script = ExtResource("1_l4w7l")
+name = "EXPLOSIVE"
+price = 600
+icon = ExtResource("1_tc668")
+effect_type = "explosive_ammo"
+effect_value = 1.0
+metadata/_custom_type_script = "uid://wf86c88shfsx"
