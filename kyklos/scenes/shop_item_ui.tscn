@@ -1,14 +1,19 @@
 [gd_scene format=3 uid="uid://dhdbykrbh4q5o"]
 
-[ext_resource type="Script" uid="uid://c7h6ks1qniuqf" path="res://scripts/shop_item_ui.gd" id="1_ris3v"]
+[ext_resource type="Script" uid="uid://c7h6ks1qniuqf" path="res://scripts/shop/shop_item_ui.gd" id="1_ris3v"]
 [ext_resource type="AudioStream" uid="uid://d28hf2dulguq4" path="res://assets/audio/button_click.wav" id="2_jtu3a"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_c7rq3"]
-font_size = 40
-
 [sub_resource type="LabelSettings" id="LabelSettings_jtu3a"]
-font_size = 40
-font_color = Color(1, 0.78039217, 0, 1)
+font_size = 29
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 12
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_kitfe"]
+font_size = 38
+font_color = Color(1, 0.83137256, 0, 1)
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_olt7t"]
 font_size = 24
@@ -28,6 +33,19 @@ layout_mode = 0
 offset_right = 270.0
 offset_bottom = 270.0
 
+[node name="Panel" type="Panel" parent="Panel" unique_id=422711866]
+layout_mode = 0
+offset_top = 41.0
+offset_right = 270.0
+offset_bottom = 81.0
+
+[node name="Panel2" type="Panel" parent="Panel" unique_id=662307316]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 87.0
+offset_right = 269.0
+offset_bottom = 210.0
+
 [node name="Icon" type="TextureRect" parent="Panel" unique_id=760031881]
 layout_mode = 0
 offset_right = 40.0
@@ -39,12 +57,18 @@ offset_left = 1.0
 offset_top = 43.0
 offset_right = 269.0
 offset_bottom = 75.0
+text = "LOREM IPSUM LOREM IPSUM"
+label_settings = SubResource("LabelSettings_jtu3a")
+horizontal_alignment = 1
 
 [node name="Price" type="Label" parent="Panel" unique_id=374574277]
 layout_mode = 0
 offset_left = 23.0
 offset_right = 246.0
 offset_bottom = 36.0
+text = "$"
+label_settings = SubResource("LabelSettings_kitfe")
+horizontal_alignment = 1
 
 [node name="Buy" type="Button" parent="Panel" unique_id=1388758864]
 layout_mode = 0
@@ -57,13 +81,13 @@ text = "BUY"
 
 [node name="Description" type="Label" parent="Panel" unique_id=975290650]
 layout_mode = 0
-offset_left = 2.0
-offset_top = 97.0
-offset_right = 268.0
-offset_bottom = 213.0
-text = "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum "
+offset_top = 83.0
+offset_right = 266.0
+offset_bottom = 211.0
+text = "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum "
 label_settings = SubResource("LabelSettings_olt7t")
 horizontal_alignment = 1
+vertical_alignment = 1
 autowrap_mode = 3
 
 [node name="ButtonSound" type="AudioStreamPlayer" parent="." unique_id=1962055827]

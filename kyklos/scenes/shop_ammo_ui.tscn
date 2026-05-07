@@ -1,0 +1,77 @@
+[gd_scene format=3 uid="uid://d30g3616nc2xq"]
+
+[ext_resource type="Script" uid="uid://wvfwk7nllbon" path="res://scripts/shop/shop_ammo_ui.gd" id="1_8okj8"]
+[ext_resource type="AudioStream" uid="uid://d28hf2dulguq4" path="res://assets/audio/button_click.wav" id="2_rwm6j"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_8okj8"]
+font_size = 48
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_rwm6j"]
+font_size = 58
+font_color = Color(1, 0.83137256, 0, 1)
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[node name="shop_ammo_ui" type="Control" unique_id=2018929980]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+script = ExtResource("1_8okj8")
+
+[node name="Panel" type="Panel" parent="." unique_id=1789918193]
+layout_mode = 0
+offset_right = 281.0
+offset_bottom = 438.0
+
+[node name="Name" type="Label" parent="Panel" unique_id=662399970]
+layout_mode = 0
+offset_right = 280.0
+offset_bottom = 74.0
+text = "LOREM IPSUM"
+label_settings = SubResource("LabelSettings_8okj8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Price" type="Label" parent="Panel" unique_id=1879233197]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 367.0
+offset_right = 168.0
+offset_bottom = 432.0
+text = "$999"
+label_settings = SubResource("LabelSettings_rwm6j")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Icon" type="TextureRect" parent="Panel" unique_id=1705621600]
+custom_minimum_size = Vector2(265, 294)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -132.5
+offset_top = -147.0
+offset_right = 132.5
+offset_bottom = 147.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+
+[node name="Buy" type="Button" parent="Panel" unique_id=1091988301]
+layout_mode = 0
+offset_left = 170.0
+offset_top = 370.0
+offset_right = 267.0
+offset_bottom = 428.0
+text = "BUY"
+
+[node name="ButtonSound" type="AudioStreamPlayer" parent="." unique_id=2110509693]
+stream = ExtResource("2_rwm6j")

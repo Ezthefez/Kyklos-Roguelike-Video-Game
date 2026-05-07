@@ -20,7 +20,6 @@ var _preview_barriers: Array[Node3D] = []
 func _on_zoom_finished() -> void:
 	is_zooming = false
 
-	GameManager.reset_run()
 	GameManager.set_selected_seed(selected_seed)
 	GameManager.set_barrier_enabled(selected_barrier_enabled)
 

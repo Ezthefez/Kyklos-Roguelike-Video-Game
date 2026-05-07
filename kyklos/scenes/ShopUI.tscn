@@ -1,22 +1,19 @@
 [gd_scene format=3 uid="uid://chlosgicy1fhw"]
 
-[ext_resource type="Script" uid="uid://dqjvpyhxwowjp" path="res://scripts/shop_ui.gd" id="1_duxfn"]
-[ext_resource type="Texture2D" uid="uid://cbye0qtqc0lfu" path="res://assets/UI/pause_background.png" id="1_owitj"]
-[ext_resource type="Texture2D" uid="uid://bmnm78haautn8" path="res://assets/UI/shop_background2.png" id="3_duxfn"]
+[ext_resource type="Script" uid="uid://cjke8nq3ryqs8" path="res://scripts/shop_ui.gd" id="1_duxfn"]
+[ext_resource type="Texture2D" uid="uid://bthivht06vk88" path="res://assets/UI/ShopUI/shop_background2.png" id="3_22bd1"]
 [ext_resource type="Texture2D" uid="uid://cxjcb3j8flk74" path="res://assets/UI/ShopUI/template.png" id="3_km6jy"]
-[ext_resource type="Texture2D" uid="uid://b2w8tphnnll2s" path="res://assets/UI/next_round_button2.png" id="4_0ove6"]
 [ext_resource type="Texture2D" uid="uid://cx3t8tpuncks0" path="res://assets/UI/ShopUI/mod_list_panel.png" id="6_jgmex"]
 [ext_resource type="Texture2D" uid="uid://cvqsskh1616vs" path="res://assets/UI/ShopUI/sell_button.png" id="8_aaffn"]
 [ext_resource type="Texture2D" uid="uid://bi08qto5llukd" path="res://assets/UI/ShopUI/upgrades_panel.png" id="8_l6rfk"]
-[ext_resource type="Texture2D" uid="uid://dnvil3a6wd8ao" path="res://assets/UI/modifier_pressed.png" id="8_vkgig"]
 [ext_resource type="Texture2D" uid="uid://x6x0q27a62qk" path="res://assets/UI/ShopUI/hover_sell_button.png" id="9_5k0ui"]
 [ext_resource type="Texture2D" uid="uid://imawae57d4es" path="res://assets/UI/ShopUI/upgrade_slot_1.png" id="9_uvrld"]
 [ext_resource type="Texture2D" uid="uid://b1gra5jkrqk67" path="res://assets/UI/ShopUI/upgrade_slot_2.png" id="10_hrnbg"]
-[ext_resource type="Texture2D" uid="uid://cr7f7xtpx3aeh" path="res://assets/UI/ShopUI/mod_01_button.png" id="11_hrnbg"]
+[ext_resource type="Texture2D" uid="uid://cd3od4ur5b0cl" path="res://assets/UI/ShopUI/mod_01_button.png" id="11_hrnbg"]
 [ext_resource type="Texture2D" uid="uid://d3pxe0hb1re8d" path="res://assets/UI/ShopUI/hover_mod_01_button.png" id="12_mkp2j"]
 [ext_resource type="Texture2D" uid="uid://bnwj2twwvw251" path="res://assets/UI/ShopUI/mod_02_button.png" id="12_rmper"]
 [ext_resource type="Texture2D" uid="uid://ce8h6obpr1fxs" path="res://assets/UI/ShopUI/hover_mod_02_button.png" id="13_mkp2j"]
-[ext_resource type="Texture2D" uid="uid://dfgtf2y34lmuc" path="res://assets/UI/ShopUI/buy_button.png" id="14_mkp2j"]
+[ext_resource type="Texture2D" uid="uid://b30wbi5pfvr6t" path="res://assets/UI/ShopUI/buy_button.png" id="14_mkp2j"]
 [ext_resource type="Texture2D" uid="uid://d0lqvibkv5cld" path="res://assets/UI/ShopUI/info_button.png" id="15_xtjtn"]
 [ext_resource type="Texture2D" uid="uid://cudk8bwur1a2r" path="res://assets/UI/ShopUI/hover_info_button.png" id="16_ytc6s"]
 [ext_resource type="Texture2D" uid="uid://jrab52e7afme" path="res://assets/UI/ShopUI/scroll_up_button.png" id="17_ytc6s"]
@@ -49,7 +46,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_owitj")
 expand_mode = 1
 stretch_mode = 5
 
@@ -63,6 +59,7 @@ grow_vertical = 2
 mouse_filter = 1
 
 [node name="template" type="TextureRect" parent="ShopWindow" unique_id=1065659238]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -80,7 +77,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_duxfn")
+texture = ExtResource("3_22bd1")
 expand_mode = 1
 stretch_mode = 5
 
@@ -90,7 +87,6 @@ offset_left = 275.0
 offset_top = 902.0
 offset_right = 454.0
 offset_bottom = 951.0
-texture_normal = ExtResource("4_0ove6")
 ignore_texture_size = true
 stretch_mode = 0
 
@@ -115,8 +111,6 @@ offset_left = 406.0
 offset_top = 71.0
 offset_right = 540.0
 offset_bottom = 177.0
-texture_pressed = ExtResource("8_vkgig")
-texture_hover = ExtResource("8_vkgig")
 ignore_texture_size = true
 stretch_mode = 0
 
@@ -126,8 +120,6 @@ offset_left = 546.0
 offset_top = 71.0
 offset_right = 680.0
 offset_bottom = 177.0
-texture_pressed = ExtResource("8_vkgig")
-texture_hover = ExtResource("8_vkgig")
 ignore_texture_size = true
 stretch_mode = 0
 
@@ -137,8 +129,6 @@ offset_left = 685.0
 offset_top = 71.0
 offset_right = 819.0
 offset_bottom = 177.0
-texture_pressed = ExtResource("8_vkgig")
-texture_hover = ExtResource("8_vkgig")
 ignore_texture_size = true
 stretch_mode = 0
 
@@ -148,8 +138,6 @@ offset_left = 825.0
 offset_top = 71.0
 offset_right = 959.0
 offset_bottom = 177.0
-texture_pressed = ExtResource("8_vkgig")
-texture_hover = ExtResource("8_vkgig")
 ignore_texture_size = true
 stretch_mode = 0
 
@@ -281,8 +269,6 @@ offset_left = 133.0
 offset_top = 98.0
 offset_right = 313.0
 offset_bottom = 240.0
-texture_pressed = ExtResource("8_vkgig")
-texture_hover = ExtResource("8_vkgig")
 ignore_texture_size = true
 stretch_mode = 0
 
@@ -292,8 +278,6 @@ offset_left = 133.0
 offset_top = 270.0
 offset_right = 313.0
 offset_bottom = 411.0
-texture_pressed = ExtResource("8_vkgig")
-texture_hover = ExtResource("8_vkgig")
 ignore_texture_size = true
 stretch_mode = 0
 
