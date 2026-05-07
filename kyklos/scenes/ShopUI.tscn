@@ -4,8 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://cbye0qtqc0lfu" path="res://assets/UI/pause_background.png" id="1_owitj"]
 [ext_resource type="Texture2D" uid="uid://bmnm78haautn8" path="res://assets/UI/shop_background2.png" id="3_duxfn"]
 [ext_resource type="Texture2D" uid="uid://cxjcb3j8flk74" path="res://assets/UI/ShopUI/template.png" id="3_km6jy"]
-[ext_resource type="Texture2D" uid="uid://b2w8tphnnll2s" path="res://assets/UI/next_round_button2.png" id="4_0ove6"]
+[ext_resource type="Texture2D" uid="uid://8bmyhu4qnd5q" path="res://assets/UI/ShopUI/ava_nextround_button.png" id="5_ugt30"]
 [ext_resource type="Texture2D" uid="uid://cx3t8tpuncks0" path="res://assets/UI/ShopUI/mod_list_panel.png" id="6_jgmex"]
+[ext_resource type="Texture2D" uid="uid://ntl7mijproxk" path="res://assets/UI/ShopUI/hover_nextround.png" id="6_ri7w3"]
 [ext_resource type="Texture2D" uid="uid://cvqsskh1616vs" path="res://assets/UI/ShopUI/sell_button.png" id="8_aaffn"]
 [ext_resource type="Texture2D" uid="uid://bi08qto5llukd" path="res://assets/UI/ShopUI/upgrades_panel.png" id="8_l6rfk"]
 [ext_resource type="Texture2D" uid="uid://dnvil3a6wd8ao" path="res://assets/UI/modifier_pressed.png" id="8_vkgig"]
@@ -23,6 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://b2ycy3i673rxt" path="res://assets/UI/ShopUI/reset_button.png" id="18_kdb8x"]
 [ext_resource type="Texture2D" uid="uid://nvcyvks85fws" path="res://assets/UI/ShopUI/scroll_down_button.png" id="19_22bd1"]
 [ext_resource type="Texture2D" uid="uid://ni0wb4cxfne6" path="res://assets/UI/ShopUI/hover_reset_button.png" id="19_jgmex"]
+[ext_resource type="FontFile" uid="uid://chi1vtuu8ffyq" path="res://assets/UI/AVA - font/AVA.otf" id="24_5k0ui"]
 
 [node name="ShopUI" type="Control" unique_id=36481685]
 layout_mode = 3
@@ -63,6 +65,7 @@ grow_vertical = 2
 mouse_filter = 1
 
 [node name="template" type="TextureRect" parent="ShopWindow" unique_id=1065659238]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -90,7 +93,8 @@ offset_left = 275.0
 offset_top = 902.0
 offset_right = 454.0
 offset_bottom = 951.0
-texture_normal = ExtResource("4_0ove6")
+texture_normal = ExtResource("5_ugt30")
+texture_hover = ExtResource("6_ri7w3")
 ignore_texture_size = true
 stretch_mode = 0
 
@@ -296,5 +300,15 @@ texture_pressed = ExtResource("8_vkgig")
 texture_hover = ExtResource("8_vkgig")
 ignore_texture_size = true
 stretch_mode = 0
+
+[node name="Label" type="Label" parent="ShopWindow/upgrades_panel" unique_id=396211333]
+layout_mode = 0
+offset_left = 261.66666
+offset_top = 245.0
+offset_right = 300.66666
+offset_bottom = 266.0
+theme_override_fonts/font = ExtResource("24_5k0ui")
+theme_override_font_sizes/font_size = 18
+text = "$200"
 
 [connection signal="pressed" from="ShopWindow/next_round_button" to="." method="_on_next_round_button_pressed"]
