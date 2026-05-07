@@ -20,6 +20,8 @@ signal game_lost
 signal nuclear_detonated(world_position: Vector3)
 signal money_changed(new_amount: int)
 
+var open_shop_window_on_load: bool = false
+
 func reset_all() -> void:
 	player_level = 1
 	money = 0

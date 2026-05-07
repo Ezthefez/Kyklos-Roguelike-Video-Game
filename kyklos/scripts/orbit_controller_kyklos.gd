@@ -187,10 +187,6 @@ func _process(delta: float) -> void:
 	_update_aim_pointer_ui()
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"):
-		toggle_pause()
-		return
-
 	if get_tree().paused:
 		return
 
@@ -265,9 +261,6 @@ func _input(event: InputEvent) -> void:
 
 	if event.is_action_pressed("open_canopy") and cockpit_scene:
 		cockpit_scene.toggle_canopy()
-
-	if event.is_action_pressed("open_laptop") and cockpit_scene:
-		cockpit_scene.toggle_laptop()
 
 	if event.is_action_pressed("open_secondary_screen") and cockpit_scene:
 		cockpit_scene.toggle_secondary_screen()

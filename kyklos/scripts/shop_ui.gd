@@ -1,5 +1,12 @@
 extends Control
 
+func _ready() -> void:
+	if GameManager.open_shop_window_on_load:
+		show_shop_window()
+		GameManager.open_shop_window_on_load = false
+	else:
+		show_pause_window()
+
 func show_pause_window() -> void:
 	$PauseWindow.visible = true
 	$ShopWindow.visible = false

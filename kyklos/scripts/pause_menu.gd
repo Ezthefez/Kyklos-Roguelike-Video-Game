@@ -1,21 +1,15 @@
 extends Control
 
-@onready var resume_button = $CenterContainer/VBoxContainer/ResumeButton
-@onready var quit_button = $CenterContainer/VBoxContainer/QuitButton
 
 func _ready():
 	visible = false
 
-	resume_button.pressed.connect(_on_resume_pressed)
-	quit_button.pressed.connect(_on_quit_pressed)
+func _on_resume_button_pressed() -> void:
+	var laptop = get_tree().get_first_node_in_group("cockpit_laptop")
+	if laptop:
+		await laptop.zoom_out_of_laptop()
 
-func _on_resume_pressed():
-	print("resume clicked")
+func _on_main_menu_button_pressed() -> void:
 	get_tree().paused = false
-	visible = false
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-
-func _on_quit_pressed():
-	get_tree().paused = false
-	GameManager.reset_all()
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")

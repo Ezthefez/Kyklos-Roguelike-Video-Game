@@ -45,3 +45,8 @@ transform = Transform3D(100, 0, -1.7484555e-05, -1.7484555e-05, 2.220446e-14, -1
 
 [node name="SecondaryScreen" parent="Sketchfab_model/VA_Scifi_Cockpit_7_FBX/Object_2/RootNode/CockpitBody/CentralConsole" index="3" unique_id=1916227785]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6.2243805, 32.502964)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." index="2" unique_id=395042955]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.74133295, 0)
+light_color = Color(0.33793783, 0.35401556, 0.37007445, 1)
+omni_range = 3.0

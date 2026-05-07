@@ -12,10 +12,10 @@
 [ext_resource type="PackedScene" uid="uid://b0d5wkxcng4e3" path="res://scenes/NuclearProjectile.tscn" id="7_eb6dy"]
 [ext_resource type="PackedScene" uid="uid://cgyfa2f5jjphr" path="res://scenes/pause_menu.tscn" id="7_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://de4mlhorhwsyp" path="res://scenes/BoundarySphere.tscn" id="8_tipki"]
-[ext_resource type="Shader" uid="uid://cp8nv1x0nc2kc" path="res://assets/milky_way_nebula.gdshader" id="13_trceg"]
-[ext_resource type="Script" uid="uid://2n280lj7qb35" path="res://scripts/milky_way_nebula.gd" id="14_a8y0u"]
 [ext_resource type="AudioStream" uid="uid://cjrbwsdfipqak" path="res://assets/audio/charge.wav" id="8_trceg"]
 [ext_resource type="AudioStream" uid="uid://de1v152r573dl" path="res://assets/audio/fire.wav" id="9_a8y0u"]
+[ext_resource type="Shader" uid="uid://bmwmngip4u0lq" path="res://assets/milky_way_nebula.gdshader" id="13_trceg"]
+[ext_resource type="Script" uid="uid://bys737qjyskgw" path="res://scripts/milky_way_nebula.gd" id="14_a8y0u"]
 [ext_resource type="AudioStream" uid="uid://cfyabkj5qdia2" path="res://assets/audio/spaceship_hum2.wav" id="15_jkv2x"]
 [ext_resource type="AudioStream" uid="uid://cnc703ck5vgct" path="res://assets/audio/moving.wav" id="16_dp3eg"]
 [ext_resource type="AudioStream" uid="uid://bq57yxtl8oy8b" path="res://assets/audio/engine_takeoff.wav" id="17_0ld40"]
@@ -24,6 +24,13 @@
 [sub_resource type="Environment" id="Environment_sgp6g"]
 background_mode = 1
 background_color = Color(0, 0, 0.078431375, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_gqmmt"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jscy8"]
+resource_local_to_scene = true
+albedo_texture = SubResource("ViewportTexture_gqmmt")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_a8y0u"]
 render_priority = 0
@@ -61,6 +68,12 @@ regular_projectile_scene = ExtResource("4_choun")
 heavy_projectile_scene = ExtResource("5_ya4ey")
 explosive_projectile_scene = ExtResource("6_ya4ey")
 nuclear_projectile_scene = ExtResource("7_eb6dy")
+
+[node name="Cockpit_Laptop" parent="player/CameraYaw/CameraPitch/Cockpit_Scene/Sketchfab_model/VA_Scifi_Cockpit_7_FBX/Object_2/RootNode/CockpitBody/CentralConsole/Laptop_Position" parent_id_path=PackedInt32Array(1720029618, 1962816754, 1254180230) index="0" unique_id=1906991387 node_paths=PackedStringArray("pause_menu") groups=["cockpit_laptop"]]
+pause_menu = NodePath("../../../../../../../../../../../../UI/PauseMenu")
+
+[node name="LaptopDisplay" parent="player/CameraYaw/CameraPitch/Cockpit_Scene/Sketchfab_model/VA_Scifi_Cockpit_7_FBX/Object_2/RootNode/CockpitBody/CentralConsole/Laptop_Position/Cockpit_Laptop/LaptopBody/LaptopScreen" parent_id_path=PackedInt32Array(1720029618, 1962816754, 1906991387, 51962947) index="0" unique_id=1910549585]
+surface_material_override/0 = SubResource("StandardMaterial3D_jscy8")
 
 [node name="OrbitCenter" type="Node3D" parent="player" unique_id=1587045669]
 transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -20.024359)
@@ -109,7 +122,12 @@ transform = Transform3D(3000, 0, 0, 0, 3000, 0, 0, 0, 6000, 0, 0, 0)
 material_override = SubResource("ShaderMaterial_a8y0u")
 mesh = SubResource("SphereMesh_eb6dy")
 script = ExtResource("14_a8y0u")
+
 [node name="ShipAmbience" type="AudioStreamPlayer" parent="." unique_id=1528880411]
 stream = ExtResource("15_jkv2x")
 autoplay = true
 bus = &"Ambience"
+
+[editable path="player"]
+[editable path="player/CameraYaw/CameraPitch/Cockpit_Scene"]
+[editable path="player/CameraYaw/CameraPitch/Cockpit_Scene/Sketchfab_model/VA_Scifi_Cockpit_7_FBX/Object_2/RootNode/CockpitBody/CentralConsole/Laptop_Position/Cockpit_Laptop"]
