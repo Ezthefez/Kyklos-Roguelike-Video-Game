@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://d3eu3kxkrqge3"]
+
+[ext_resource type="Script" uid="uid://bp5ket7awojse" path="res://scripts/ring_barrier.gd" id="1_it4ao"]
+[ext_resource type="PackedScene" uid="uid://diu8jsav2wptb" path="res://assets/rusty_mechanical_ring.glb" id="2_lqwga"]
+
+[node name="RingBarrier" type="Node3D" unique_id=1528592814]
+script = ExtResource("1_it4ao")
+spin_speed_x_deg = 20.0
+spin_speed_y_deg = 23.0
+
+[node name="RingModel" parent="." unique_id=1565150702 instance=ExtResource("2_lqwga")]
