@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cgy6ttvpicdbu"]
 
-[ext_resource type="Script" uid="uid://c80ldf7ekjcwg" path="res://scripts/explosive_projectile.gd" id="1_637db"]
-[ext_resource type="Shader" uid="uid://d0wgsb5yka0wu" path="res://assets/ExplosiveSkin.gdshader" id="2_hh0uh"]
+[ext_resource type="Script" uid="uid://1vjdj7465el2" path="res://scripts/explosive_projectile.gd" id="1_637db"]
+[ext_resource type="Shader" uid="uid://xclpgrgysfct" path="res://assets/ExplosiveSkin.gdshader" id="2_hh0uh"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_dprbf"]
 friction = 0.05
@@ -62,7 +62,7 @@ physics_material_override = SubResource("PhysicsMaterial_dprbf")
 gravity_scale = 0.0
 continuous_cd = true
 script = ExtResource("1_637db")
-max_explosion_radius = 5.0
+max_explosion_radius = 4.5
 explosion_duration = 0.5
 explosion_force = 450.0
 

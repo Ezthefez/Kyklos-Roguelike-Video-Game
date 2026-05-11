@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c78pswuk4irjp"]
 
-[ext_resource type="Texture2D" uid="uid://cj6tlby6pdkhu" path="res://assets/kyklonTextures/cosmic.jpg" id="1_dprbf"]
 [ext_resource type="Script" uid="uid://nvbs7r1qgeg5" path="res://scripts/projectile_physics.gd" id="1_vihyi"]
+[ext_resource type="Shader" uid="uid://ty6bdtbpxpfi" path="res://assets/projectile_water.gdshader" id="2_vihyi"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_dprbf"]
 friction = 0.05
@@ -9,8 +9,22 @@ bounce = 0.85
 
 [sub_resource type="SphereMesh" id="SphereMesh_6ku62"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vihyi"]
-albedo_texture = ExtResource("1_dprbf")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kdm4f"]
+render_priority = 0
+shader = ExtResource("2_vihyi")
+shader_parameter/deep_water_color = Color(0.02, 0.2, 0.85, 1)
+shader_parameter/shallow_water_color = Color(0.12, 0.55, 1, 1)
+shader_parameter/wave_color = Color(1, 1, 1, 1)
+shader_parameter/metallic_amount = 0.0
+shader_parameter/roughness_amount = 0.18
+shader_parameter/wave_scale = 12.0
+shader_parameter/wave_speed = 1.8
+shader_parameter/wave_strength = 0.22
+shader_parameter/foam_threshold = 0.72
+shader_parameter/foam_softness = 0.08
+shader_parameter/glow_strength = 0.55
+shader_parameter/fresnel_strength = 0.65
+shader_parameter/fresnel_power = 3.2
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_dprbf"]
 
@@ -23,7 +37,7 @@ script = ExtResource("1_vihyi")
 [node name="Mesh" type="MeshInstance3D" parent="." unique_id=1020596865]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
 mesh = SubResource("SphereMesh_6ku62")
-surface_material_override/0 = SubResource("StandardMaterial3D_vihyi")
+surface_material_override/0 = SubResource("ShaderMaterial_kdm4f")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1885122246]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)

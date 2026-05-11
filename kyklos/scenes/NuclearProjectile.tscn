@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b0d5wkxcng4e3"]
 
-[ext_resource type="Script" uid="uid://cgcela6fdb5ri" path="res://scripts/nuclear_projectile.gd" id="1_lntyr"]
-[ext_resource type="Texture2D" uid="uid://cj6tlby6pdkhu" path="res://assets/kyklonTextures/cosmic.jpg" id="2_is4b0"]
+[ext_resource type="Script" uid="uid://bqaimgjk0n0na" path="res://scripts/nuclear_projectile.gd" id="1_lntyr"]
+[ext_resource type="Shader" uid="uid://q2nhm1kwxkse" path="res://assets/nuclear_projectile_pulse.gdshader" id="2_lntyr"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_dprbf"]
 friction = 0.05
@@ -9,8 +9,21 @@ bounce = 0.85
 
 [sub_resource type="SphereMesh" id="SphereMesh_6ku62"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vihyi"]
-albedo_texture = ExtResource("2_is4b0")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_is4b0"]
+render_priority = 0
+shader = ExtResource("2_lntyr")
+shader_parameter/base_white = Color(0.96, 0.98, 1, 1)
+shader_parameter/edge_white = Color(1, 1, 1, 1)
+shader_parameter/radioactive_green = Color(0.45, 1, 0.22, 1)
+shader_parameter/roughness_amount = 0.12
+shader_parameter/metallic_amount = 0.0
+shader_parameter/base_glow_strength = 0.75
+shader_parameter/fresnel_strength = 1.2
+shader_parameter/fresnel_power = 3.4
+shader_parameter/pulse_interval = 1.0
+shader_parameter/pulse_duration = 0.2
+shader_parameter/green_pulse_strength = 2.4
+shader_parameter/green_pulse_edge_strength = 1.35
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_dprbf"]
 
@@ -29,7 +42,7 @@ script = ExtResource("1_lntyr")
 [node name="Mesh" type="MeshInstance3D" parent="." unique_id=1020596865]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
 mesh = SubResource("SphereMesh_6ku62")
-surface_material_override/0 = SubResource("StandardMaterial3D_vihyi")
+surface_material_override/0 = SubResource("ShaderMaterial_is4b0")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1885122246]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)

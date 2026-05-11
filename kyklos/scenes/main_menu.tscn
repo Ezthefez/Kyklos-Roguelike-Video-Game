@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dsxeeylotlhgy"]
 
 [ext_resource type="Script" uid="uid://dwkqou2m8t7v8" path="res://scripts/main_menu.gd" id="1_06t4h"]
-[ext_resource type="Script" uid="uid://dlk73167og0l4" path="res://scripts/background_2.gd" id="3_8ln24"]
+[ext_resource type="Script" uid="uid://be4yjukjhgx26" path="res://scripts/background_2.gd" id="3_8ln24"]
 [ext_resource type="PackedScene" uid="uid://b0nt4n13a6448" path="res://scenes/Stars.tscn" id="3_bqqt6"]
 [ext_resource type="FontFile" uid="uid://d4g88siqw8xvv" path="res://assets/sterion-font/Sterion-BLLld.ttf" id="3_rtw2f"]
 [ext_resource type="Script" uid="uid://d3a2tscxy35qr" path="res://scripts/StarGenerator.gd" id="4_wu84c"]

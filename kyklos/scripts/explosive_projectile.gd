@@ -1,11 +1,16 @@
+#explosive_projectile.gd
+
 extends RigidBody3D
 
 @export var target_group_name: StringName = &"targetspheres"
 
-@export var max_explosion_radius: float = 2.5
+@export var max_explosion_radius: float = 1.1
 @export var explosion_duration: float = 0.18
 @export var explosion_force: float = 35.0
 @export var max_lifetime: float = 8.0
+
+@export var detonation_probe_radius: float = 0.42
+@export var detonation_collision_mask: int = 0
 
 @export var trail_scene: PackedScene = preload("res://scenes/ProjectileTrailHelix.tscn")
 @export var trail_color: Color = Color(1.0, 0.1, 0.75, 1.0)
@@ -40,7 +45,7 @@ func _ready() -> void:
 	angular_damp = 0.0
 	continuous_cd = true
 	contact_monitor = true
-	max_contacts_reported = 8
+	max_contacts_reported = 16
 	add_to_group("projectiles")
 	_spawn_trail()
 
@@ -62,6 +67,9 @@ func _physics_process(delta: float) -> void:
 		queue_free()
 		return
 
+	if not _has_exploded:
+		_fail_safe_overlap_detonation()
+
 	if _has_exploded:
 		global_position = _locked_explosion_position
 		linear_velocity = Vector3.ZERO
@@ -69,12 +77,15 @@ func _physics_process(delta: float) -> void:
 		_update_explosion(delta)
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
-	if not _has_exploded:
+	if _has_exploded:
+		state.transform.origin = _locked_explosion_position
+		state.linear_velocity = Vector3.ZERO
+		state.angular_velocity = Vector3.ZERO
 		return
 
-	state.transform.origin = _locked_explosion_position
-	state.linear_velocity = Vector3.ZERO
-	state.angular_velocity = Vector3.ZERO
+	if state.get_contact_count() > 0:
+		_locked_explosion_position = state.transform.origin
+		_trigger_explosion()
 
 func _on_body_entered(body: Node) -> void:
 	if _has_exploded:
@@ -86,6 +97,39 @@ func _on_body_entered(body: Node) -> void:
 
 	_trigger_explosion()
 
+func _fail_safe_overlap_detonation() -> void:
+	if _has_exploded:
+		return
+
+	var sphere := SphereShape3D.new()
+	sphere.radius = detonation_probe_radius
+
+	var query := PhysicsShapeQueryParameters3D.new()
+	query.shape = sphere
+	query.transform = Transform3D(Basis(), global_position)
+	query.exclude = [self]
+	query.collide_with_bodies = true
+	query.collide_with_areas = false
+
+	if detonation_collision_mask != 0:
+		query.collision_mask = detonation_collision_mask
+
+	var results := get_world_3d().direct_space_state.intersect_shape(query, 64)
+
+	for result in results:
+		var collider: Object = result.get("collider")
+		if collider == null:
+			continue
+		if collider == self:
+			continue
+		if collider is Node and (collider as Node).is_in_group("projectiles"):
+			continue
+		if collider is Node and not (collider as Node).is_in_group(target_group_name):
+			continue
+
+		_trigger_explosion()
+		return
+
 func _trigger_explosion() -> void:
 	if _has_exploded:
 		return
@@ -95,7 +139,9 @@ func _trigger_explosion() -> void:
 	_current_radius = 0.01
 	_last_radius = 0.01
 	_blasted_ids.clear()
-	_locked_explosion_position = global_position
+
+	if _locked_explosion_position == Vector3.ZERO:
+		_locked_explosion_position = global_position
 
 	global_position = _locked_explosion_position
 	linear_velocity = Vector3.ZERO

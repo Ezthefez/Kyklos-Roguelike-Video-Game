@@ -12,6 +12,9 @@ var nuclear_ammo: int = 1
 var _nuclear_win_scheduled: bool = false
 
 var barrier_enabled: bool = false
+var ring_barrier_enabled: bool = false
+
+var payment_multiplier_bonus_percent: int = 0
 
 signal ammo_changed(new_ammo)
 signal nuclear_ammo_changed(value: int)
@@ -33,7 +36,10 @@ func reset_all() -> void:
 	targets_remaining = 0
 	targets_collected = 0
 	_nuclear_win_scheduled = false
+
 	barrier_enabled = false
+	ring_barrier_enabled = false
+	payment_multiplier_bonus_percent = 0
 
 	emit_signal("ammo_changed", ammo)
 	emit_signal("nuclear_ammo_changed", nuclear_ammo)
@@ -47,12 +53,15 @@ func reset_for_new_round() -> void:
 	targets_remaining = 0
 	targets_collected = 0
 	_nuclear_win_scheduled = false
+
 	barrier_enabled = false
+	ring_barrier_enabled = false
+	payment_multiplier_bonus_percent = 0
 
 	emit_signal("ammo_changed", ammo)
 	emit_signal("nuclear_ammo_changed", nuclear_ammo)
-	
-	print("player level:", player_level) 
+
+	print("player level:", player_level)
 
 func reset_run() -> void:
 	reset_for_new_round()
@@ -63,12 +72,20 @@ func set_selected_seed(seed_value: int) -> void:
 func set_barrier_enabled(value: bool) -> void:
 	barrier_enabled = value
 
+func set_ring_barrier_enabled(value: bool) -> void:
+	ring_barrier_enabled = value
+
+func set_payment_multiplier_bonus_percent(value: int) -> void:
+	payment_multiplier_bonus_percent = max(value, 0)
+
 func add_money(amount: int) -> void:
 	money += amount
 	emit_signal("money_changed", money)
 
 func calculate_reward() -> int:
-	return max((ammo - base_ammo) * 50, 0)
+	var base_reward: int = max((ammo - base_ammo) * 50, 0)
+	var multiplier: float = 1.0 + float(payment_multiplier_bonus_percent) / 100.0
+	return int(round(base_reward * multiplier))
 
 func apply_upgrade(item: ShopItem) -> void:
 	match item.effect_type:
@@ -77,7 +94,7 @@ func apply_upgrade(item: ShopItem) -> void:
 			base_ammo += amount
 			ammo += amount
 			emit_signal("ammo_changed", ammo)
-			
+
 func apply_ammo(item: AmmoItem) -> void:
 	match item.effect_type:
 		"normal_ammo":

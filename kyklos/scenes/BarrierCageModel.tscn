@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cg4r8cpl0ldkw"]
 
-[ext_resource type="Script" uid="uid://bdctvipqakbqh" path="res://scripts/barrier_cage_model.gd" id="1_w35v1"]
+[ext_resource type="Script" uid="uid://drwh8ut86fvo3" path="res://scripts/barrier_cage_model.gd" id="1_w35v1"]
 [ext_resource type="PackedScene" uid="uid://d0swsgc1wbyji" path="res://assets/TruncatedIcosahedron.glb" id="2_gv63y"]
 
 [node name="BarrierCageModel" type="Node3D" unique_id=118089198]

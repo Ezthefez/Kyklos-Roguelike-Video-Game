@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://b55dqrt5tiqb1" path="res://scripts/level_select.gd" id="1_ibarm"]
 [ext_resource type="Script" uid="uid://d3a2tscxy35qr" path="res://scripts/StarGenerator.gd" id="2_ibarm"]
 [ext_resource type="PackedScene" uid="uid://ce5k3me1ru4ka" path="res://scenes/cluster.tscn" id="3_fmuyb"]
+[ext_resource type="PackedScene" uid="uid://d3eu3kxkrqge3" path="res://scenes/RingBarrier.tscn" id="5_fmuyb"]
 
 [sub_resource type="Environment" id="Environment_r77uv"]
 background_mode = 1
@@ -29,6 +30,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 3.861495)
 
 [node name="cluster3" parent="." unique_id=608683125 instance=ExtResource("3_fmuyb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, -16)
+ring_barrier_scene = ExtResource("5_fmuyb")
 
 [node name="HoverArea3" type="Area3D" parent="cluster3" unique_id=2117885579]
 

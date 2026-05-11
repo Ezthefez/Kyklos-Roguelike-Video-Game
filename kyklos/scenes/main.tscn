@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bco72goguugix" path="res://scripts/main.gd" id="1_tefeu"]
 [ext_resource type="PackedScene" uid="uid://ce5k3me1ru4ka" path="res://scenes/cluster.tscn" id="2_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://2517e738hdg7" path="res://scenes/player.tscn" id="2_sugp2"]
+[ext_resource type="PackedScene" uid="uid://d3eu3kxkrqge3" path="res://scenes/RingBarrier.tscn" id="3_yc10j"]
 [ext_resource type="PackedScene" uid="uid://c78pswuk4irjp" path="res://scenes/Projectile.tscn" id="4_choun"]
 [ext_resource type="PackedScene" uid="uid://b0nt4n13a6448" path="res://scenes/Stars.tscn" id="4_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://8ip8klr3e1nq" path="res://scenes/ui.tscn" id="5_tbgi4"]
@@ -25,12 +26,12 @@
 background_mode = 1
 background_color = Color(0, 0, 0.078431375, 1)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_gqmmt"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_jscy8"]
 viewport_path = NodePath("SubViewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jscy8"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pm3ni"]
 resource_local_to_scene = true
-albedo_texture = SubResource("ViewportTexture_gqmmt")
+albedo_texture = SubResource("ViewportTexture_jscy8")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_a8y0u"]
 render_priority = 0
@@ -60,6 +61,8 @@ environment = SubResource("Environment_sgp6g")
 
 [node name="cluster" parent="." unique_id=608683125 instance=ExtResource("2_0wfyh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.07976532, 0, 0)
+ring_barrier_scene = ExtResource("3_yc10j")
+ring_barrier_scale = Vector3(0.18, 0.18, 0.18)
 
 [node name="player" parent="." unique_id=1720029618 node_paths=PackedStringArray("orbit_center") instance=ExtResource("2_sugp2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 20.024359)
@@ -69,11 +72,11 @@ heavy_projectile_scene = ExtResource("5_ya4ey")
 explosive_projectile_scene = ExtResource("6_ya4ey")
 nuclear_projectile_scene = ExtResource("7_eb6dy")
 
-[node name="Cockpit_Laptop" parent="player/CameraYaw/CameraPitch/Cockpit_Scene/Sketchfab_model/VA_Scifi_Cockpit_7_FBX/Object_2/RootNode/CockpitBody/CentralConsole/Laptop_Position" parent_id_path=PackedInt32Array(1720029618, 1962816754, 1254180230) index="0" unique_id=1906991387 node_paths=PackedStringArray("pause_menu") groups=["cockpit_laptop"]]
+[node name="Cockpit_Laptop" parent="player/CameraYaw/CameraPitch/Cockpit_Scene/Sketchfab_model/VA_Scifi_Cockpit_7_FBX/Object_2/RootNode/CockpitBody/CentralConsole/Laptop_Position" parent_id_path=PackedInt32Array(1720029618, 1962816754, 262560001) index="0" unique_id=1906991387 node_paths=PackedStringArray("pause_menu") groups=["cockpit_laptop"]]
 pause_menu = NodePath("../../../../../../../../../../../../UI/PauseMenu")
 
-[node name="LaptopDisplay" parent="player/CameraYaw/CameraPitch/Cockpit_Scene/Sketchfab_model/VA_Scifi_Cockpit_7_FBX/Object_2/RootNode/CockpitBody/CentralConsole/Laptop_Position/Cockpit_Laptop/LaptopBody/LaptopScreen" parent_id_path=PackedInt32Array(1720029618, 1962816754, 1906991387, 51962947) index="0" unique_id=1910549585]
-surface_material_override/0 = SubResource("StandardMaterial3D_jscy8")
+[node name="LaptopDisplay" parent="player/CameraYaw/CameraPitch/Cockpit_Scene/Sketchfab_model/VA_Scifi_Cockpit_7_FBX/Object_2/RootNode/CockpitBody/CentralConsole/Laptop_Position/Cockpit_Laptop/LaptopBody/LaptopScreen" parent_id_path=PackedInt32Array(1720029618, 1962816754, 1906991387, 1225207549) index="0" unique_id=830107411]
+surface_material_override/0 = SubResource("StandardMaterial3D_pm3ni")
 
 [node name="OrbitCenter" type="Node3D" parent="player" unique_id=1587045669]
 transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -20.024359)
