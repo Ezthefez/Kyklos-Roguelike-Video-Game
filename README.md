@@ -51,13 +51,6 @@ Each projectile changes gameplay strategy and projectile physics.
 
 ![IMAGE](media/shop_menu.png)
 
-### Interactive Cockpit
-- Animated canopy
-- Functional secondary displays
-- Dynamic cockpit movement tied to player input
-
-[GIF]
-
 ---
 
 ## Technical Highlights
