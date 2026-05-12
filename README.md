@@ -1,10 +1,6 @@
 # Kyklos
 ### A Physics-Based Roguelike in Space!
 
-
-https://github.com/user-attachments/assets/bcf22e00-2ac2-4507-be30-4283cc146497
-
-
 ![Gameplay GIF HERE](media/main_menu.gif)
 
 ## Overview
