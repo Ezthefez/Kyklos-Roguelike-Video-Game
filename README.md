@@ -128,7 +128,7 @@ Potential future improvements:
 ## Credits
 
 ### Team Members
-- Ezra Lovett — Gameplay Systems / Physics / UI
+- Ezra Lovett — Gameplay Systems / Physics / UI / Audio
 - Augusto Penzo Jara — Gameplay Systems / Physics
 - Aaron Escalera - UI / Art
 
