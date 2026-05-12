@@ -187,6 +187,10 @@ func _process(delta: float) -> void:
 	_update_aim_pointer_ui()
 
 func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		toggle_pause()
+		return
+
 	if get_tree().paused:
 		return
 
@@ -233,15 +237,8 @@ func _input(event: InputEvent) -> void:
 		if GameManager.game_over:
 			return
 
-		# Nuclear uses its own one-per-round ammo
-		if selected_projectile_type == 4:
-			if GameManager.nuclear_ammo <= 0:
-				return
-		else:
-			if GameManager.ammo <= 0:
-				GameManager.game_over = true
-				GameManager.emit_signal("game_lost")
-				return
+		if GameManager.get_ammo_count(selected_projectile_type) <= 0:
+			return
 
 		if can_fire:
 			is_charging = true
@@ -276,17 +273,25 @@ func _cycle_projectile_type() -> void:
 	_update_projectile_type_ui()
 
 func _update_projectile_type_ui() -> void:
-	if projectile_type_label == null:
-		return
+
+	var type_name := "Regular"
 
 	if selected_projectile_type == 1:
-		projectile_type_label.text = "Kyklon Type: Regular"
+		type_name = "Regular"
 	elif selected_projectile_type == 2:
-		projectile_type_label.text = "Kyklon Type: Heavy"
+		type_name = "Heavy"
 	elif selected_projectile_type == 3:
-		projectile_type_label.text = "Kyklon Type: Explosive"
+		type_name = "Explosive"
 	elif selected_projectile_type == 4:
-		projectile_type_label.text = "Kyklon Type: Nuclear"
+		type_name = "Nuclear"
+
+	if projectile_type_label != null:
+		projectile_type_label.text = "Kyklon Type: " + type_name
+
+	if GameManager != null:
+		GameManager.current_projectile_type_name = type_name
+		print("EMITTING TYPE:", type_name)
+		GameManager.emit_signal("projectile_type_changed", type_name)
 
 func _get_selected_projectile_scene() -> PackedScene:
 	if selected_projectile_type == 2:
@@ -550,12 +555,9 @@ func fire_with_charge(charge_ratio: float) -> void:
 
 	can_fire = false
 
-	if selected_projectile_type == 4:
-		GameManager.nuclear_ammo -= 1
-		GameManager.emit_signal("nuclear_ammo_changed", GameManager.nuclear_ammo)
-	else:
-		GameManager.ammo -= 1
-		GameManager.emit_signal("ammo_changed", GameManager.ammo)
+	if not GameManager.consume_ammo(selected_projectile_type):
+		can_fire = true
+		return
 
 	var projectile: Node = selected_scene.instantiate()
 	get_tree().current_scene.add_child(projectile)
@@ -569,7 +571,8 @@ func fire_with_charge(charge_ratio: float) -> void:
 		projectile_node.look_at(spawn_pos + dir, Vector3.UP)
 
 	var base_impulse: float = _get_selected_base_impulse()
-	var final_impulse: float = base_impulse * lerp(0.5, 1.5, charge_ratio)
+	var charge_multiplier: float = (lerp(0.5, 1.5, charge_ratio) * GameManager.charge_power_multiplier)
+	var final_impulse: float = (base_impulse * charge_multiplier)
 
 	if projectile.has_method("launch"):
 		projectile.call("launch", dir, final_impulse)
@@ -584,16 +587,20 @@ func fire_with_charge(charge_ratio: float) -> void:
 	can_fire = true
 
 func _get_charge_ratio() -> float:
-	if charge_time <= 0.0:
+	var adjusted_charge_time: float = (
+	charge_time / GameManager.charge_speed_multiplier
+	)
+	
+	if adjusted_charge_time <= 0.0:
 		return 1.0
 
-	var full_cycle: float = charge_time * 2.0
+	var full_cycle: float = adjusted_charge_time * 2.0
 	var t: float = fposmod(charge_timer, full_cycle)
 
-	if t <= charge_time:
-		return t / charge_time
+	if t <= adjusted_charge_time:
+		return t / adjusted_charge_time
 	else:
-		return 1.0 - ((t - charge_time) / charge_time)
+		return 1.0 - ((t - adjusted_charge_time) / adjusted_charge_time)
 
 func _update_aim_pointer_ui() -> void:
 	if aim_pointer == null:

@@ -18,10 +18,10 @@ script = ExtResource("1_n87rw")
 
 [node name="resume_button" type="TextureButton" parent="." unique_id=1790645043]
 layout_mode = 0
-offset_left = 261.0
-offset_top = 432.0
-offset_right = 713.0
-offset_bottom = 522.0
+offset_left = 260.0
+offset_top = 350.0
+offset_right = 712.0
+offset_bottom = 440.0
 texture_normal = ExtResource("2_7l7mv")
 texture_pressed = ExtResource("3_v4r4p")
 texture_hover = ExtResource("3_v4r4p")
@@ -30,10 +30,10 @@ stretch_mode = 0
 
 [node name="main_menu_button" type="TextureButton" parent="." unique_id=2077740293]
 layout_mode = 0
-offset_left = 261.0
-offset_top = 336.0
-offset_right = 713.0
-offset_bottom = 426.0
+offset_left = 260.0
+offset_top = 435.0
+offset_right = 712.0
+offset_bottom = 525.0
 texture_normal = ExtResource("4_7l7mv")
 texture_pressed = ExtResource("5_v4r4p")
 texture_hover = ExtResource("5_v4r4p")

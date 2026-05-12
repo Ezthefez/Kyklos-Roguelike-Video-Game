@@ -175,8 +175,10 @@ func _resolve_all_remaining_targets() -> void:
 	if GameManager != null:
 		GameManager.targets_collected += collected_now
 		GameManager.targets_remaining = 0
-		GameManager.ammo += collected_now
-		GameManager.emit_signal("ammo_changed", GameManager.ammo)
+
+		# Nuclear harvest rewards NORMAL ammo
+		GameManager.normal_ammo += collected_now
+		GameManager.emit_ammo_changed()
 
 func _update_detonation(delta: float) -> void:
 	_detonation_timer += delta

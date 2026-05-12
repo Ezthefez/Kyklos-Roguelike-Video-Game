@@ -7,4 +7,6 @@ script = ExtResource("1_cko8n")
 name = "Larger Battery"
 description = "Increases the max charge of your cannon"
 price = 300
+effect_type = "max_charge"
+effect_value = 0.15
 metadata/_custom_type_script = "uid://bktcwkxeh5ogu"

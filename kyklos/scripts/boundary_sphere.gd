@@ -78,13 +78,12 @@ func _begin_harvest(body: RigidBody3D) -> void:
 	# GAME LOGIC
 	GameManager.targets_remaining -= 1
 	GameManager.targets_collected += 1
-	GameManager.ammo += 1
-	GameManager.emit_signal("ammo_changed", GameManager.ammo)
+	GameManager.normal_ammo += 1
+	GameManager.emit_ammo_changed()
 
 	# WIN CHECK
 	if GameManager.targets_remaining <= 0 and not GameManager.game_over:
-		GameManager.game_over = true
-		GameManager.emit_signal("game_won")
+		GameManager.trigger_game_won()
 
 	# Visual resource transfer effect
 	_spawn_harvest_effect(start_position)

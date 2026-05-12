@@ -38,11 +38,19 @@ func _ready() -> void:
 func _spawn_trail() -> void:
 	if trail_scene == null:
 		return
+
 	if _trail_instance != null:
 		return
 
 	_trail_instance = trail_scene.instantiate()
-	get_tree().current_scene.add_child(_trail_instance)
+
+	get_tree().current_scene.call_deferred("add_child", _trail_instance)
+
+	# Wait until the node is ACTUALLY inside the scene tree
+	await _trail_instance.tree_entered
+
+	if not is_instance_valid(_trail_instance):
+		return
 
 	if _trail_instance.has_method("attach_to_target"):
 		_trail_instance.call("attach_to_target", self)

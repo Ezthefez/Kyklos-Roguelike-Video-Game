@@ -10,6 +10,7 @@ extends Node
 @onready var collected_label: Label = $CanvasLayer/ReportMenu/Panel/StatsContainer/CollectedLabel
 @onready var bonus_label: Label = $CanvasLayer/ReportMenu/Panel/StatsContainer/BonusLabel
 @onready var total_money_label: Label = $CanvasLayer/ReportMenu/Panel/StatsContainer/TotalMoneyLabel
+@onready var selected_ammo_label: Label = $CanvasLayer/SelectedAmmoLabel
 
 var _gm: Node = null
 
@@ -32,10 +33,15 @@ func _ready() -> void:
 
 	if _gm == null:
 		push_error("GameManager autoload is missing or has no valid path.")
-		_update_ammo(0)
+		_update_ammo(0, 0, 0, 0)
 		return
 
-	_update_ammo(_gm.ammo)
+	_update_ammo(
+		_gm.normal_ammo,
+		_gm.heavy_ammo,
+		_gm.explosive_ammo,
+		_gm.nuclear_ammo
+	)
 
 	if not _gm.is_connected("ammo_changed", Callable(self, "_on_ammo_changed")):
 		_gm.connect("ammo_changed", Callable(self, "_on_ammo_changed"))
@@ -48,6 +54,11 @@ func _ready() -> void:
 
 	if not _gm.is_connected("nuclear_detonated", Callable(self, "_on_nuclear_detonated")):
 		_gm.connect("nuclear_detonated", Callable(self, "_on_nuclear_detonated"))
+	
+	if not _gm.is_connected("projectile_type_changed", Callable(self, "_on_projectile_type_changed")):
+		_gm.connect("projectile_type_changed", Callable(self, "_on_projectile_type_changed"))
+	
+	_on_projectile_type_changed(GameManager.current_projectile_type_name)
 
 func _process(delta: float) -> void:
 	if _nuclear_flash_active:
@@ -70,12 +81,27 @@ func _process(delta: float) -> void:
 			if nuclear_flash != null:
 				nuclear_flash.color.a = 0.0
 
-func _on_ammo_changed(value: int) -> void:
-	_update_ammo(value)
+func _on_ammo_changed(
+	normal: int,
+	heavy: int,
+	explosive: int,
+	nuclear: int
+) -> void:
+	_update_ammo(normal, heavy, explosive, nuclear)
 
-func _update_ammo(value: int) -> void:
+func _update_ammo(
+	normal: int,
+	heavy: int,
+	explosive: int,
+	nuclear: int
+) -> void:
 	if ammo_label != null:
-		ammo_label.text = "Ammo: " + str(value)
+		ammo_label.text = (
+			"Normal: " + str(normal) +
+			"\nHeavy: " + str(heavy) +
+			"\nExplosive: " + str(explosive) +
+			"\nNuke: " + str(nuclear)
+		)
 
 func _on_nuclear_detonated(_world_position: Vector3) -> void:
 	_nuclear_flash_active = true
@@ -92,7 +118,7 @@ func _on_game_won() -> void:
 	get_tree().paused = true
 	report_menu.visible = true
 
-	var collected: int = GameManager.ammo - GameManager.base_ammo
+	var collected: int = (GameManager.normal_ammo - GameManager.base_normal_ammo)
 	var reward: int = GameManager.calculate_reward()
 
 	_gm.add_money(reward)
@@ -125,7 +151,7 @@ func _on_continue_button_pressed() -> void:
 		await laptop.zoom_into_laptop(false)
 
 	get_tree().paused = false
-	get_tree().change_scene_to_file("res://scenes/ShopUI.tscn")
+	get_tree().change_scene_to_file("res://scenes/Shop.tscn")
 
 func _on_new_run_button_pressed() -> void:
 	if _gm != null:
@@ -144,3 +170,13 @@ func _on_quit_to_main_menu_button_pressed() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	get_viewport().gui_disable_input = false
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+
+func update_selected_ammo(ammo_name: String) -> void:
+	if selected_ammo_label != null:
+		selected_ammo_label.text = (
+			"Selected: " + ammo_name
+		)
+
+func _on_projectile_type_changed(type_name: String) -> void:
+	print("UI RECEIVED:", type_name)
+	selected_ammo_label.text = "Selected: " + type_name

@@ -12,15 +12,20 @@ extends Control
 
 @onready var current_money_label: Label = $CanvasLayer/Money/Amount
 @onready var button_sound: AudioStreamPlayer = $ButtonSound
+@onready var ammo_inventory_label: Label = $CanvasLayer/Inventory/Inventory
 
 func _ready() -> void:
 	print("SHOP READY")
 	
 	_update_money(GameManager.money) # set initial value
+	_update_ammo_display()
 
 	if not GameManager.money_changed.is_connected(_on_money_changed):
 		GameManager.money_changed.connect(_on_money_changed)
 		print("Connected to GameManager signal")
+	
+	if not GameManager.ammo_changed.is_connected(_on_ammo_changed):
+		GameManager.ammo_changed.connect(_on_ammo_changed)
 		
 	generate_shop_items()
 	generate_shop_ammo()
@@ -69,3 +74,19 @@ func _on_money_changed(new_amount: int) -> void:
 
 func _update_money(value: int) -> void:
 	current_money_label.text = "$ " + str(value)
+
+func _on_ammo_changed(
+	normal: int,
+	heavy: int,
+	explosive: int,
+	nuclear: int
+) -> void:
+	_update_ammo_display()
+	
+func _update_ammo_display() -> void:
+	ammo_inventory_label.text = (
+		"Normal: " + str(GameManager.normal_ammo) +
+		"\nHeavy: " + str(GameManager.heavy_ammo) +
+		"\nExplosive: " + str(GameManager.explosive_ammo) +
+		"\nNuke: " + str(GameManager.nuclear_ammo)
+	)

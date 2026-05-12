@@ -5,7 +5,6 @@
 [ext_resource type="Script" uid="uid://bktcwkxeh5ogu" path="res://scripts/shop/shop_item.gd" id="2_76m3e"]
 [ext_resource type="PackedScene" uid="uid://bnn6l1t55skiv" path="res://scenes/KyklonPreview.tscn" id="3_76m3e"]
 [ext_resource type="Resource" uid="uid://1fycye6g2huo" path="res://resources/shop_items/common/liquid_cooling.tres" id="3_lngpu"]
-[ext_resource type="Resource" uid="uid://cibggx45qfy7w" path="res://resources/shop_items/rare/mega_shot.tres" id="4_hgolc"]
 [ext_resource type="Resource" uid="uid://cghrhkeotijqd" path="res://resources/shop_items/common/increase_charge.tres" id="5_amlfo"]
 [ext_resource type="Resource" uid="uid://bku532vx264vs" path="res://resources/shop_items/common/increase_capacity.tres" id="6_tnh3q"]
 [ext_resource type="Script" uid="uid://wf86c88shfsx" path="res://scripts/shop/ammo_item.gd" id="7_h4m6t"]
@@ -21,6 +20,14 @@ font_size = 240
 
 [sub_resource type="LabelSettings" id="LabelSettings_5pe57"]
 font_size = 70
+
+[sub_resource type="LabelSettings" id="LabelSettings_eqtrt"]
+font_size = 55
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_h4m6t"]
+font_size = 45
 
 [sub_resource type="LabelSettings" id="LabelSettings_cql4u"]
 font_size = 75
@@ -42,7 +49,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_5pe57")
-item_pool = Array[ExtResource("2_76m3e")]([ExtResource("3_lngpu"), ExtResource("4_hgolc"), ExtResource("5_amlfo"), ExtResource("6_tnh3q")])
+item_pool = Array[ExtResource("2_76m3e")]([ExtResource("3_lngpu"), ExtResource("5_amlfo"), ExtResource("6_tnh3q")])
 ammo_pool = Array[ExtResource("7_h4m6t")]([ExtResource("8_47k2f"), ExtResource("9_vjlef"), ExtResource("10_wruk4"), ExtResource("11_3frqh")])
 item_scene = ExtResource("2_1ltno")
 ammo_scene = ExtResource("13_62ijh")
@@ -80,10 +87,10 @@ Round"
 
 [node name="Upgrades" type="Panel" parent="CanvasLayer" unique_id=286385131]
 custom_minimum_size = Vector2(200, 120)
-offset_left = 592.0
-offset_top = 209.0
-offset_right = 1210.0
-offset_bottom = 585.0
+offset_left = 579.0
+offset_top = 257.0
+offset_right = 1197.0
+offset_bottom = 633.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Upgrades" unique_id=1495491748]
 layout_mode = 0
@@ -101,45 +108,31 @@ offset_bottom = 75.0
 text = "SHIP UPGRADES"
 label_settings = SubResource("LabelSettings_5pe57")
 
-[node name="Equipped" type="Panel" parent="CanvasLayer" unique_id=1776305605]
+[node name="Inventory" type="Panel" parent="CanvasLayer" unique_id=1776305605]
 modulate = Color(1, 1, 1, 0.78431374)
 custom_minimum_size = Vector2(500, 200)
-offset_left = 592.0
-offset_top = 776.0
-offset_right = 1596.0
-offset_bottom = 1047.0
+offset_left = 1270.0
+offset_top = 686.0
+offset_right = 1888.0
+offset_bottom = 1041.0
 
-[node name="Equip1" type="Button" parent="CanvasLayer/Equipped" unique_id=1619578611]
-custom_minimum_size = Vector2(150, 150)
+[node name="Title" type="Label" parent="CanvasLayer/Inventory" unique_id=1681218775]
 layout_mode = 0
-offset_left = 34.0
-offset_top = 38.0
-offset_right = 250.0
-offset_bottom = 239.0
+offset_left = 206.0
+offset_top = -1.0
+offset_right = 387.0
+offset_bottom = 60.0
+text = "INVENTORY"
+label_settings = SubResource("LabelSettings_eqtrt")
 
-[node name="Equip2" type="Button" parent="CanvasLayer/Equipped" unique_id=1000341349]
-custom_minimum_size = Vector2(150, 150)
+[node name="Inventory" type="Label" parent="CanvasLayer/Inventory" unique_id=2115016216]
 layout_mode = 0
-offset_left = 753.0
-offset_top = 38.0
-offset_right = 969.0
-offset_bottom = 239.0
-
-[node name="Equip3" type="Button" parent="CanvasLayer/Equipped" unique_id=540222666]
-custom_minimum_size = Vector2(150, 150)
-layout_mode = 0
-offset_left = 516.0
-offset_top = 38.0
-offset_right = 732.0
-offset_bottom = 239.0
-
-[node name="Equip4" type="Button" parent="CanvasLayer/Equipped" unique_id=352614996]
-custom_minimum_size = Vector2(150, 150)
-layout_mode = 0
-offset_left = 272.0
-offset_top = 38.0
-offset_right = 488.0
-offset_bottom = 239.0
+offset_left = -2.0
+offset_top = 86.0
+offset_right = 614.0
+offset_bottom = 386.0
+label_settings = SubResource("LabelSettings_h4m6t")
+horizontal_alignment = 1
 
 [node name="Ammo" type="Panel" parent="CanvasLayer" unique_id=1594610089]
 custom_minimum_size = Vector2(500, 500)

@@ -4,6 +4,10 @@
 [ext_resource type="PackedScene" uid="uid://b0nt4n13a6448" path="res://scenes/Stars.tscn" id="1_t4md6"]
 [ext_resource type="Script" uid="uid://d3a2tscxy35qr" path="res://scripts/StarGenerator.gd" id="2_cimqq"]
 [ext_resource type="PackedScene" uid="uid://ce2203af8nd0i" path="res://scenes/shop_menu.tscn" id="4_cimqq"]
+[ext_resource type="Script" uid="uid://bktcwkxeh5ogu" path="res://scripts/shop/shop_item.gd" id="5_ht580"]
+[ext_resource type="Resource" uid="uid://bku532vx264vs" path="res://resources/shop_items/common/increase_capacity.tres" id="6_skkvx"]
+[ext_resource type="Resource" uid="uid://cghrhkeotijqd" path="res://resources/shop_items/common/increase_charge.tres" id="7_eo1la"]
+[ext_resource type="Resource" uid="uid://1fycye6g2huo" path="res://resources/shop_items/common/liquid_cooling.tres" id="8_toxd1"]
 
 [sub_resource type="Environment" id="Environment_fpbbi"]
 background_mode = 1
@@ -25,3 +29,4 @@ generate_at_origin = false
 [node name="Camera3D" type="Camera3D" parent="." unique_id=722982166]
 
 [node name="ShopMenu" parent="." unique_id=739052369 instance=ExtResource("4_cimqq")]
+item_pool = Array[ExtResource("5_ht580")]([ExtResource("6_skkvx"), ExtResource("7_eo1la"), ExtResource("8_toxd1")])

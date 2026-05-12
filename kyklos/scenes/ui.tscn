@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://8ip8klr3e1nq"]
 
 [ext_resource type="Texture2D" uid="uid://c8vxtax11mmkd" path="res://assets/Crosshair.png" id="1_tdwok"]
-[ext_resource type="Script" uid="uid://c45esnseb2h6s" path="res://scripts/ui.gd" id="1_wm3ai"]
+[ext_resource type="Script" uid="uid://ds56cqio2ajh" path="res://scripts/ui.gd" id="1_wm3ai"]
 [ext_resource type="Texture2D" uid="uid://ur1txf8kwdju" path="res://assets/CircularProgressBar.png" id="2_x4jx1"]
 [ext_resource type="PackedScene" uid="uid://cgyfa2f5jjphr" path="res://scenes/pause_menu.tscn" id="3_yev5y"]
 [ext_resource type="FontFile" uid="uid://c2i144h4pryop" path="res://assets/star-shield-2-font/StarShieldV2-9M52K.ttf" id="5_wm3ai"]
@@ -24,6 +24,9 @@ font_size = 33
 
 [sub_resource type="LabelSettings" id="LabelSettings_cgfq5"]
 font_size = 66
+
+[sub_resource type="LabelSettings" id="LabelSettings_7dvkv"]
+font_size = 60
 
 [node name="UI" type="Control" unique_id=143402949]
 layout_mode = 3
@@ -226,6 +229,7 @@ theme_override_font_sizes/font_size = 50
 text = "QUIT TO MENU"
 
 [node name="NuclearFlash" type="ColorRect" parent="CanvasLayer" unique_id=740589691]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -236,6 +240,15 @@ mouse_filter = 2
 [node name="PauseMenu" parent="CanvasLayer" unique_id=1210719568 instance=ExtResource("3_yev5y")]
 process_mode = 3
 visible = false
+
+[node name="SelectedAmmoLabel" type="Label" parent="CanvasLayer" unique_id=1709695250]
+offset_left = 21.0
+offset_top = 245.0
+offset_right = 172.0
+offset_bottom = 311.0
+text = "SAMPLE"
+label_settings = SubResource("LabelSettings_7dvkv")
+horizontal_alignment = 1
 
 [connection signal="pressed" from="CanvasLayer/ReportMenu/Panel/ButtonContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/LoseScreen/Panel/HBoxContainer/NewRunButton" to="." method="_on_new_run_button_pressed"]

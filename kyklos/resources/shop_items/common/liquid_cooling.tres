@@ -5,6 +5,8 @@
 [resource]
 script = ExtResource("1_y340x")
 name = "Liquid Cooling"
-description = "Increase charge rate"
+description = "Decrease charge rate"
 price = 100
+effect_type = "charge_rate"
+effect_value = -0.15
 metadata/_custom_type_script = "uid://bktcwkxeh5ogu"
