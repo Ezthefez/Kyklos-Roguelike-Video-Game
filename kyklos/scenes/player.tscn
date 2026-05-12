@@ -28,7 +28,7 @@ light_energy = 0.4
 [node name="Cockpit_Scene" parent="CameraYaw/CameraPitch" unique_id=1962816754 instance=ExtResource("3_qhqgy")]
 transform = Transform3D(-1, -8.8360174e-16, 8.742278e-08, 8.271261e-09, 0.9955142, 0.0946122, -8.7030614e-08, 0.0946122, -0.9955142, -0.0061501265, -0.9827974, -2.8666348)
 
-[node name="Cockpit_Laptop" parent="CameraYaw/CameraPitch/Cockpit_Scene/Sketchfab_model/VA_Scifi_Cockpit_7_FBX/Object_2/RootNode/CockpitBody/CentralConsole/Laptop_Position" index="0" unique_id=1906991387 node_paths=PackedStringArray("player_camera", "laptop_zoom_point", "cockpit_scene")]
+[node name="Cockpit_Laptop" parent="CameraYaw/CameraPitch/Cockpit_Scene/Sketchfab_model/VA_Scifi_Cockpit_7_FBX/Object_2/RootNode/CockpitBody/CentralConsole/Laptop_Position" parent_id_path=PackedInt32Array(1962816754, 847543666) index="0" unique_id=1906991387 node_paths=PackedStringArray("player_camera", "laptop_zoom_point", "cockpit_scene")]
 player_camera = NodePath("../../../../../../../../../Camera3D")
 laptop_zoom_point = NodePath("../../../../../../../../LaptopZoomPoint")
 cockpit_scene = NodePath("../../../../../../../..")
