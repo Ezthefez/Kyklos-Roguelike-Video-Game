@@ -25,7 +25,7 @@ Built over 8 weeks by a team of 3 developers as a university capstone project.
 - Smooth drift-based camera controls
 - Momentum-inspired movement system
 
-[GIF]
+![GIF](media/flight_video.gif)
 
 ### Multiple Projectile Types
 - Regular
@@ -35,21 +35,21 @@ Built over 8 weeks by a team of 3 developers as a university capstone project.
 
 Each projectile changes gameplay strategy and projectile physics.
 
-[GIF]
+![GIF](media/projectile_types.gif)
 
 ### Charge Shot Mechanics
 - Hold-to-charge firing system
 - Dynamic aim sway
 - Variable launch force based on charge timing
 
-[GIF]
+![GIF](media/charge_system.gif)
 
 ### Roguelike Progression
 - Persistent currency system
 - Upgrade shop between rounds
 - Scaling difficulty progression
 
-[IMAGE]
+![IMAGE](media/shop_menu.png)
 
 ### Interactive Cockpit
 - Animated canopy
