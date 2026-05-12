@@ -1,9 +1,9 @@
 # Kyklos Roguelike
 
-Short one-line description here.
+3D space roguelike based on the game Ringtaw (commonly referred to as just "marbles")
 
 ## Play the Game
-[Play on itch.io](YOUR_ITCH_LINK)
+[Play on itch.io](https://ezthefez.itch.io/kyklos)
 
 ## Screenshots
 (images here)
