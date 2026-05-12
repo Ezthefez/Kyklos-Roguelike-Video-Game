@@ -1,7 +1,7 @@
 # Kyklos
 ### A Physics-Based Roguelike in Space!
 
-[Gameplay GIF HERE](media/main_menu.gif)
+![Gameplay GIF HERE](media/main_menu.gif)
 
 ## Overview
 Kyklos is a 3D physics-based roguelike developed in Godot 4 where players orbit Kyklon clusters while launching different projectile types to collect Kyklons and survive increasingly difficult rounds.
