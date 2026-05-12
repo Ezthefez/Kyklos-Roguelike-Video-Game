@@ -95,17 +95,16 @@ Each projectile changes gameplay strategy and projectile physics.
 
 ## Development Timeline
 
-[GANTT CHART IMAGE]
-
 The project was developed across 8 weeks using sprint-based iteration.
 
 Major milestones included:
 1. Core orbital movement
-2. Projectile physics
-3. UI systems
-4. Roguelike progression
-5. Audio/visual polish
-6. Web/downloadable deployment
+2. Cluster generation
+3. Projectile physics
+4. UI systems
+5. Roguelike progression
+6. Audio/visual polish
+7. Web/downloadable deployment
 
 ---
 
@@ -129,20 +128,19 @@ This project reinforced the importance of:
 ## Future Work
 
 Potential future improvements:
-- Enemy AI ships
-- Procedural planets
-- Multiplayer support
+- In-depth procedural cluster generation
 - Additional projectile types
+- Additional shop items
 - Improved visual effects
-- Full optimization for web deployment
 
 ---
 
 ## Credits
 
 ### Team Members
-- Your Name — Gameplay Systems / Physics / UI
-- Teammate Name — etc.
+- Ezra Lovett — Gameplay Systems / Physics / UI
+- Augusto Penzo Jara — Gameplay Systems / Physics
+- Aaron Escalera - UI / Art
 
 ### Assets & Tools
 - Godot Engine
@@ -155,4 +153,4 @@ Potential future improvements:
 
 Playable build available on itch.io:
 
-[ITCH.IO LINK]
+[ITCH.IO LINK](https://ezthefez.itch.io/kyklos)
