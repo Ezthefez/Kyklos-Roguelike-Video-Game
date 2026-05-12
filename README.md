@@ -73,14 +73,11 @@ Each projectile changes gameplay strategy and projectile physics.
 - Modular projectile framework
 - Physics-based launch calculations
 - Scene-based game architecture
-- Dynamic camera interpolation
 - Audio state management
 
 ---
 
 ## Architecture
-
-[IMAGE OF NODE/ARCHITECTURE]
 
 ### Core Systems
 | System | Description |
