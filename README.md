@@ -11,7 +11,6 @@ The project combines:
 - Physics-based projectile combat
 - Roguelike progression
 - Dynamic camera systems
-- Interactive cockpit systems
 - Upgrade and economy mechanics
 
 Built over 8 weeks by a team of 3 developers as a university capstone project.
